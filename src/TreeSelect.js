@@ -5,28 +5,32 @@
  * Copyright 2014-2015, Uxcore Team, Alinw.
  * All rights reserved.
  */
+import RcTreeSelect from 'rc-tree-select';
+import assign from 'object-assign';
 
-class TreeSelect extends React.Component {
+let supportSVG = document.implementation.hasFeature(
+    "http://www.w3.org/TR/SVG11/feature#BasicStructure", "1.1");
+    
+function filterFn(input, child) {
+    return String(getPropValue(child, labelCompatible(this.props.treeNodeFilterProp))).indexOf(input) > -1;
+}
+
+class TreeSelect extends RcTreeSelect {
+    
+    static displayName = 'TreeSelect'
+    
+    static defaultProps = assign(RcTreeSelect.defaultProps, {
+        prefixCls: 'uxcore-tree-select',
+        dropdownClassName: supportSVG ? 'use-svg': 'no-svg',
+        transitionName: 'uxcore-tree-select-dropdown-slide-up',
+        choiceTransitionName: 'uxcore-tree-select-selection__choice-zoom'
+    })
+    
+    static propTypes = RcTreeSelect.propTypes
 
     constructor(props) {
         super(props);
     }
-
-    render() {
-        return (
-            <div>uxcore-tree-select component</div>
-        );
-    }
 }
-
-TreeSelect.defaultProps = {
-}
-
-
-// http://facebook.github.io/react/docs/reusable-components.html
-TreeSelect.propTypes = {
-}
-
-TreeSelect.displayName = "TreeSelect";
 
 module.exports = TreeSelect;
