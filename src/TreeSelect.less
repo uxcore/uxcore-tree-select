@@ -42,6 +42,11 @@
         &:active {
             border-color: @border-hover-color;
         }
+        &__placeholder {
+            i {
+                font-style: normal;
+            }
+        }
     }
     
     &-focused &-selection {
@@ -149,6 +154,9 @@
         top: 0;
         left: 3px;
         color: #aaa;
+        i {
+            font-style: normal;
+        }
     }
     
     &-search--inline {
@@ -524,7 +532,7 @@
     list-style: none;
     white-space: nowrap;
     outline: 0;
-    line-height: 18px;
+    line-height: 24px;
     ul {
       margin: 0;
       padding: 0 0 0 18px;
@@ -534,7 +542,7 @@
     }
     a {
       display: inline-block;
-      margin: 0;
+      padding: 2px 6px;
       cursor: pointer;
       height: 18px;
       text-decoration: none;
@@ -608,7 +616,7 @@
     }
   }
   &-node-selected {
-    background-color: hsv(round(hsvhue(@brand-primary)), round(hsvsaturation(@brand-primary) - 70%), round(hsvvalue(@brand-primary) + 5%));
+    background-color: hsv(round(hsvhue(@brand-primary)), round(hsvsaturation(@brand-primary) - 75%), round(hsvvalue(@brand-primary) + 5%));
   }
 }
 .use-svg {

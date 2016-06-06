@@ -23,7 +23,8 @@ class TreeSelect extends RcTreeSelect {
         prefixCls: 'uxcore-tree-select',
         dropdownClassName: supportSVG ? 'use-svg': 'no-svg',
         transitionName: 'uxcore-tree-select-dropdown-slide-up',
-        choiceTransitionName: 'uxcore-tree-select-selection__choice-zoom'
+        choiceTransitionName: 'uxcore-tree-select-selection__choice-zoom',
+        showSearch: false
     })
     
     static propTypes = RcTreeSelect.propTypes

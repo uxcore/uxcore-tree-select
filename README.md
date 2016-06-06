@@ -36,9 +36,9 @@ http://uxcore.github.io/
 |dropdownStyle | additional style applied to dropdown | Object | {} |
 |dropdownPopupAlign | specify alignment for dropdown | Object | - |
 |notFoundContent | specify content to show when no result matches. | String | 'Not Found' |
-|showSearch | whether show search input in single mode | bool | true |
+|showSearch | whether show search input in single mode | bool | false |
 |allowClear | whether allowClear | bool | false |
-|maxTagTextLength | max tag text length to show | number | - |
+|maxTagTextLe\ngth | max tag text length to show | number | - |
 |multiple | whether multiple select (true when enable treeCheckable) | bool | false |
 |disabled | whether disabled select | bool | false |
 |inputValue | if enable search, you can set default input's value, if set to null, auto clear input value when finish select/unselect operation | string/null | '' |

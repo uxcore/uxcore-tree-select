@@ -98,7 +98,7 @@ class Demo extends React.Component {
                 dropdownStyle={{maxHeight: 200, overflow: 'auto'}}
                 placeholder={<i>请下拉选择</i>}
                 searchPlaceholder="please search"
-                showSearch allowClear treeLine
+                allowClear treeLine
                 inputValue={this.state.inputValue}
                 value={this.state.value}
                 treeData={gData}
@@ -114,7 +114,6 @@ class Demo extends React.Component {
                 placeholder={<i>请下拉选择</i>}
                 searchPlaceholder="please search"
                 multiple
-                inputValue={this.state.inputValue}
                 value={this.state.multipleValue}
                 treeData={gData}
                 treeNodeFilterProp="title"
