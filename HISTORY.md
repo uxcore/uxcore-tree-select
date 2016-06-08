@@ -2,6 +2,9 @@
 
 ---
 
+## 0.1.2
+`UPDATE` change some styles
+
 ## 0.1.1
 `UPDATE` change some styles
 
