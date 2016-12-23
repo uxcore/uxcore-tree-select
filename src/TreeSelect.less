@@ -566,6 +566,10 @@
         background-attachment: scroll;
         background-image: url(@tree-assets-img);
       }
+      &.@{__select-tree-node-prefix-cls}-icon_loading {
+          margin-right: 2px;
+          background: url('https://t.alipayobjects.com/images/rmsweb/T1YxhiXgJbXXXXXXXX.gif') no-repeat scroll 0 0;
+      }
       &.@{__select-tree-node-prefix-cls}-switcher-noop {
         background-image: none;
       }
@@ -622,11 +626,11 @@
   .@{__select-tree-node-prefix-cls}-switcher {
     &.@{__select-tree-node-prefix-cls}-noline_open {
       background: url('https://img.alicdn.com/tps/TB1IvveJVXXXXbcXFXXXXXXXXXX-14-10.svg') 50% 50% no-repeat;
-      background-size: 50% 50%;
+      background-size: 50% auto;
     }
     &.@{__select-tree-node-prefix-cls}-noline_close {
       background: url('https://img.alicdn.com/tps/TB17BHzJVXXXXXEXXXXXXXXXXXX-10-14.svg') 50% 50% no-repeat;
-      background-size: 50% 50%;
+      background-size: auto 50%;
     }
   }
   .@{__select-tree-node-prefix-cls}-checkbox {
