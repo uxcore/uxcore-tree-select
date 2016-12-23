@@ -548,6 +548,12 @@
       line-height: 18px;
       vertical-align: middle;
       color: #666;
+      &:hover {
+        background-color: hsv(round(hsvhue(@brand-primary) + 2), round(hsvsaturation(@brand-primary) - 78%), round(hsvvalue(@brand-primary) + 5%));
+      }
+      &.@{__select-tree-node-prefix-cls}-node-selected {
+        color: @brand-primary;
+      }
     }
     span {
       &.@{__select-tree-node-prefix-cls}-switcher-noop,
@@ -613,13 +619,10 @@
     }
   }
   &-treenode-disabled {
-    >span,
-    >a {
+    > span,
+    > a {
       color: gray;
     }
-  }
-  &-node-selected {
-    background-color: hsv(round(hsvhue(@brand-primary)), round(hsvsaturation(@brand-primary) - 75%), round(hsvvalue(@brand-primary) + 5%));
   }
 }
 .use-svg {

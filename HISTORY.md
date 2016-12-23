@@ -2,6 +2,13 @@
 
 ---
 
+## 0.1.4
+`FIXED` add missing loading icon.
+
+
+## 0.1.3
+`CHANGED` change hover & selected styles
+
 ## 0.1.2
 `UPDATE` change some styles
 
