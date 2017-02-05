@@ -5,7 +5,7 @@
  * Copyright 2014-2015, Uxcore Team, Alinw.
  * All rights reserved.
  */
-import RcTreeSelect from 'rc-tree-select';
+import RcTreeSelect from './Select';
 import assign from 'object-assign';
 
 let supportSVG = document.implementation.hasFeature(
@@ -24,7 +24,8 @@ class TreeSelect extends RcTreeSelect {
         dropdownClassName: supportSVG ? 'use-svg': 'no-svg',
         transitionName: 'uxcore-tree-select-dropdown-slide-up',
         choiceTransitionName: 'uxcore-tree-select-selection__choice-zoom',
-        showSearch: false
+        showSearch: false,
+        dropdownMatchSelectWidth: false
     })
     
     static propTypes = RcTreeSelect.propTypes
