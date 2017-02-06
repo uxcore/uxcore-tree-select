@@ -5,16 +5,11 @@ export default class RightTreeNode extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      expand: !this.props.isAll
+      expand: !(props.isAll || (this.isSelectNode() && props.children))
     };
 
     this.expand = this.expand.bind(this);
-  }
-
-  expand() {
-    this.setState({
-      expand: !this.state.expand
-    });
+    this.removeSelected = this.removeSelected.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -25,13 +20,46 @@ export default class RightTreeNode extends React.Component {
     }
   }
 
+  expand() {
+    this.setState({
+      expand: !this.state.expand
+    });
+  }
+
+
+  removeSelected() {
+    const { fireChange, value, model, checkVls, vls } = this.props;
+
+    if (model === 'select') {
+      fireChange(vls.filter(item => item.value !== value));
+      // todo optimize--隐藏删除 
+    } else if (model === 'check') {
+      
+    }
+
+    // todo 回调
+
+  }
+
+  isSelectNode() {
+    const { model, value, checkVls, vls, pos } = this.props;
+
+    if (model === 'select') {
+      return vls.map(item => item.value).indexOf(value) > -1;
+    } else if (model === 'check') {
+      return checkVls.indexOf(pos) > -1;
+    }
+
+    return false;
+  }
+
   render() {
-    const { value, label, key, children, isAll, prefixCls, isLeft, level } = this.props;
+    const { value, treeNodeLabelProp, children, isAll, prefixCls, level, removeSelected } = this.props;
     const { expand } = this.state;
     // padding 无箭头 +36  有箭头+18
     const paddingLeftStyle = {};
     if (level > 1) {
-      paddingLeftStyle.paddingLeft = isLeft ? `${16 + level * 18}px` : `${16 + (level - 1) * 18}px`;
+      paddingLeftStyle.paddingLeft = !children ? `${16 + level * 18}px` : `${16 + (level - 1) * 18}px`;
     } 
     const arrowCls = {
       [`${prefixCls}-arrow-close`]: !expand,
@@ -40,16 +68,20 @@ export default class RightTreeNode extends React.Component {
     }
 
     return (
-      <div key={key}>
+      <div>
         <div className={`${prefixCls}-hoverNode`} style={paddingLeftStyle}>
           {
             children ? 
             <span onClick={this.expand} className={classnames(arrowCls)} />
             : null
           }
-          {value}
-          {isAll ? <span className={`${prefixCls}-allSelect`}>全选</span> : null}
-          <span className={`${prefixCls}-clear`}>删除</span>
+          {this.props[treeNodeLabelProp]}
+          {isAll || (this.isSelectNode() && children) ? <span className={`${prefixCls}-allSelect`}>全选</span> : null}
+          {
+            this.isSelectNode() ?
+              <span className={`${prefixCls}-clear`} onClick={this.removeSelected}>删除</span>
+              : null
+          }
         </div>
         {
           expand && children ? children : null

@@ -7,7 +7,7 @@
  */
 
 import classnames from 'classnames'; 
-import TreeSelect, { TreeNode, SHOW_PARENT } from '../src';
+import TreeSelect, { TreeNode, SHOW_PARENT, SHOW_ALL, SHOW_CHILD } from '../src';
 
 function generateData(x = 3, y = 2, z = 1, gData = []) {
   // x：每一级下的节点总数。y：每级节点里有y个节点、存在子节点。z：树的level层级数（0表示一级）
@@ -99,20 +99,38 @@ class Demo extends React.Component {
     render() {
         return (
         <div style={{margin: 20}}>
-
-            <h2>check select</h2>
-            <TreeSelect style={{width: 300}} 
-                dropdownPopupAlign={{ overflow: { adjustY: 0, adjustX: 0 } }}
+            <h2>single select</h2>
+            <TreeSelect style={{width: 300}}
                 placeholder={<i>请下拉选择</i>}
                 searchPlaceholder="please search"
-                treeLine maxTagTextLength={10}
-                inputValue={null}
+                allowClear
+                inputValue={this.state.inputValue}
                 value={this.state.value}
                 treeData={gData}
-                treeNodeFilterProp="title"
-                treeCheckable showCheckedStrategy={SHOW_PARENT}
+                showSearch
+                searchPlaceholder="test"
+                treeDefaultExpandAll
+                treeNodeFilterProp="label"
+                filterTreeNode={false}
+                onSearch={this.onSearch.bind(this)}
                 onChange={this.onChange.bind(this)}
+                onSelect={this.onSelect.bind(this)} 
+                onClick={this.onClick.bind(this)}
+                notFoundContent="not found"
+                />
+
+            <h2>multiple select</h2>
+            <TreeSelect style={{width: 300}} 
+                placeholder={<i>请下拉选择</i>}
+                searchPlaceholder="please search"
+                value={this.state.multipleValue}
+                treeData={gData}
+                multiple
+                treeNodeFilterProp="title"
+                showCheckedStrategy={SHOW_ALL}
+                onChange={this.onMultipleChange.bind(this)}
                 onSelect={this.onSelect.bind(this)} />
+
 
         </div>
         );

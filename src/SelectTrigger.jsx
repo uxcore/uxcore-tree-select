@@ -1,10 +1,11 @@
 import React, { PropTypes } from 'react';
 import ReactDOM from 'react-dom';
-import Tree, { TreeNode } from 'rc-tree';
+import { TreeNode } from 'rc-tree';
 import classnames from 'classnames';
 import Trigger from 'rc-trigger';
 import toArray from 'rc-util/lib/Children/toArray';
-import { loopAllChildren, flatToHierarchy, getValuePropValue, labelCompatible } from '../node_modules/rc-tree-select/lib/util';
+import { loopAllChildren, getValuePropValue } from '../node_modules/rc-tree-select/lib/util';
+import { flatToHierarchy } from './utils';
 import _SelectTrigger from '../node_modules/rc-tree-select/lib/SelectTrigger';
 import assign from 'object-assign';
 import RightTreeNode from './RightTreeNode';
@@ -41,7 +42,8 @@ export default class SelectTrigger extends _SelectTrigger {
     if (visible) {
       const dropdownDOMNode = this.getPopupDOMNode();
       if (dropdownDOMNode) {
-        dropdownDOMNode.style.width = dropdownMatchSelectWidth ? `${ReactDOM.findDOMNode(this).offsetWidth * 2}px` : '480px';
+        dropdownDOMNode.style.width = dropdownMatchSelectWidth ?
+          `${ReactDOM.findDOMNode(this).offsetWidth * 2}px` : '480px';
       }
     }
   }
@@ -62,14 +64,11 @@ export default class SelectTrigger extends _SelectTrigger {
     const { value } = this.props;
     const valueArr = value.map(item => item.value);
 
-    this._expandedSelectedKeys = []; // todo,不是全选则需要扩展
     // todo 在严格模式下算全选与不全选
 
     loopAllChildren(treeNodes, (child, index, pos) => {
-      // 过滤child.props.value或key中包含inputValue
       if (this.filterSelectedTreeNode(valueArr, child)) {
         filterPoss.push(pos);
-        this._expandedSelectedKeys.push(child.key);
       }
     });
 
@@ -90,27 +89,27 @@ export default class SelectTrigger extends _SelectTrigger {
     const filterNodesPositions = [];
     loopAllChildren(treeNodes, (child, index, pos) => {
       if (processedPoss.indexOf(pos) > -1) {
-        const _node = { node: child, pos, isAll: false };
+        const renderNode = { node: child, pos, isAll: false };
         // 如果有children就是全选的
         if (filterPoss.indexOf(pos) > -1 && child.props.children) {
-          _node.isAll = true;
+          renderNode.isAll = true;
         }
-        filterNodesPositions.push(_node);
+        filterNodesPositions.push(renderNode);
       }
     });
     console.log('filterNodesPositions', filterNodesPositions, processedPoss)
     // 阶层 讲平层转换为阶级数组
-    const hierarchyNodes = flatToHierarchy(filterNodesPositions);
+    const hierarchyNodes = flatToHierarchy(filterNodesPositions, true);
 console.log(hierarchyNodes, 'hierarchyNodes')
-    const recursive = children => {
-      return children.map(child => {
+    const recursive = children =>
+      children.map(child => {
         if (child.children) {
           return React.cloneElement(child.node, { isAll: child.isAll }, recursive(child.children));
         }
         // 单一节点 本身就包括children
         return React.cloneElement(child.node, { isAll: child.isAll });
       });
-    };
+
     return recursive(hierarchyNodes);
   }
 
@@ -119,40 +118,33 @@ console.log(hierarchyNodes, 'hierarchyNodes')
 
     const trProps = {
       prefixCls: `${props.prefixCls}-rightTreeNode`,
+      removeSelected: props.removeSelected,
+      showCheckedStrategy: props.showCheckedStrategy,
+      treeNodeLabelProp: props.treeNodeLabelProp,
+      model: props.treeCheckable ? 'check' : 'select',
+      isMultiple: props.multiple || props.tags || props.treeCheckable,
+      fireChange: props.fireChange,
+      vls: props.value || [],
+      checkVls: props._treeNodesStates && props._treeNodesStates.checkedKeys || [],  // eslint-disable-line
     };
 
-    // trProps.selectedKeys = keys;
-    // trProps.onSelect = props.onSelect;
-
-    // // expand keys
-    // if (!trProps.defaultExpandAll && !props.loadData) {
-    //   trProps.expandedKeys = keys;
-    // }
-    // trProps.autoExpandParent = true;
-    // trProps.onExpand = this.onExpand;
-    // if (this._expandedKeys && this._expandedKeys.length) {
-    //   trProps.expandedKeys = this._expandedKeys;
-    // }
-    // if (this.state.fireOnExpand) {
-    //   trProps.expandedKeys = this.state._expandedKeys;
-    //   trProps.autoExpandParent = false;
-    // }
-
-    // return (<Tree ref={(s) => { this.rightTree = s; }} {...trProps}>
-    //     {newTreeNodes}
-    // </Tree>);
-    const recursive = (children, level) => {
+    const recursive = (children, level) =>
       // Note: if use `React.Children.map`, the node's key will be modified.
-      return toArray(children).map(function handler(child) { // eslint-disable-line
+      toArray(children).map(function handler(child) { // eslint-disable-line
         if (child && child.props.children) {
           // null or String has no Prop
-          return (<RightTreeNode {...trProps} {...child.props} level={level} isLeft={false} key={child.key}>
-            {recursive(child.props.children, (level + 1)) }
+          return (<RightTreeNode
+            {...trProps} {...child.props} pos={child.key}
+            level={level} isLeft={false} key={child.key}
+          >
+            {recursive(child.props.children, (level + 1))}
           </RightTreeNode>);
         }
-        return <RightTreeNode {...trProps} {...child.props} level={level} isLeft key={child.key} ></RightTreeNode>;
+        return (<RightTreeNode
+          {...trProps} {...child.props} pos={child.key}
+          level={level} isLeft key={child.key}
+        />);
       });
-    };
 
     return (
       <div className={`${trProps.prefixCls}`}>
@@ -162,18 +154,31 @@ console.log(hierarchyNodes, 'hierarchyNodes')
   }
 
   renderRightDropdown(rightTreeNodes) {
-    const { rightDropdownAllClearBtn, rightDropdownTitle, rightDropdownTitleStyle } = this.props;
+    const {
+      rightDropdownAllClearBtn,
+      rightDropdownTitle,
+      rightDropdownTitleStyle,
+      value,
+    } = this.props;
+
     const dropdownRightPrefixCls = `${this.getDropdownPrefixCls()}-right`;
 
     let renderRightDropdownTitle = null;
 
     if (rightDropdownTitle) {
-      renderRightDropdownTitle = <p className={`${dropdownRightPrefixCls}-title`} style={rightDropdownTitleStyle}>
-        {rightDropdownTitle}
-      </p>
+      renderRightDropdownTitle = (
+        <p className={`${dropdownRightPrefixCls}-title`} style={rightDropdownTitleStyle}>
+          {rightDropdownTitle}
+        </p>
+      );
     }
-    const num = 1; // 后期需要从数据获取;
-    const noContent = <div className={`${dropdownRightPrefixCls}-noContent`}>请从左侧选择</div>
+    const num = value.length || 0; // 后期需要从数据获取;
+    const noContent = (<div
+      className={`${dropdownRightPrefixCls}-noContent`}
+      style={rightDropdownTitle ? { marginTop: '38%' } : {}}
+    >
+      请从左侧选择
+    </div>);
     const clear = (<span
       key="rightDropdownAllclear"
       className={`${dropdownRightPrefixCls}-allClear`}
@@ -182,7 +187,7 @@ console.log(hierarchyNodes, 'hierarchyNodes')
 
     return (
       <div className={`${dropdownRightPrefixCls}`}>
-        <div style={{padding: '16px'}}>
+        <div style={{ padding: '16px' }}>
           {renderRightDropdownTitle}
           <div>
             <span className={`${dropdownRightPrefixCls}-fontS`}>已选择（{num}）</span>
@@ -209,25 +214,25 @@ console.log(hierarchyNodes, 'hierarchyNodes')
       <span className={`${dropdownPrefixCls}-search`}>{props.inputElement}</span>
     );
 
-    const recursive = children => {
+    const recursive = children =>
       // Note: if use `React.Children.map`, the node's key will be modified.
-      return toArray(children).map(function handler(child) { // eslint-disable-line
+      toArray(children).map(function handler(child) { // eslint-disable-line
         if (child && child.props.children) {
           // null or String has no Prop
           return (<TreeNode {...child.props} key={child.key}>
-            {recursive(child.props.children) }
+            {recursive(child.props.children)}
           </TreeNode>);
         }
         return <TreeNode {...child.props} key={child.key} />;
       });
-    };
+
     // const s = Date.now();
     let treeNodes;
-    if (props._cachetreeData && this.treeNodes) {
+    if (props._cachetreeData && this.treeNodes) { // eslint-disable-line
       treeNodes = this.treeNodes;
     } else {
       // 递归塑造TreeNode组件
-      treeNodes = recursive(props.treeData || props.treeNodes); 
+      treeNodes = recursive(props.treeData || props.treeNodes);
       this.treeNodes = treeNodes;
     }
     // console.log(Date.now()-s);
@@ -250,7 +255,6 @@ console.log(hierarchyNodes, 'hierarchyNodes')
         halfCheckedKeys.push(child.key);
       }
     });
-console.log(keys, halfCheckedKeys, props.value);
 
     let notFoundContent;
     if (!treeNodes.length) {
@@ -276,7 +280,7 @@ console.log(keys, halfCheckedKeys, props.value);
       builtinPlacements={BUILT_IN_PLACEMENTS} // 标记位置, 与popupPlacement是一起的
       popupAlign={props.dropdownPopupAlign} // 标记位置 与上面的合并
       prefixCls={dropdownPrefixCls}
-      popupTransitionName={this.getDropdownTransitionName()} //弹窗动画
+      popupTransitionName={this.getDropdownTransitionName()} // 弹窗动画
       onPopupVisibleChange={props.onDropdownVisibleChange} // 弹窗出现或消失会触发
       popup={popupElement} // 显示的内容
       popupVisible={visible} // 弹窗的visible
@@ -285,5 +289,4 @@ console.log(keys, halfCheckedKeys, props.value);
       popupStyle={props.dropdownStyle}
     >{this.props.children}</Trigger>);
   }
-
 }

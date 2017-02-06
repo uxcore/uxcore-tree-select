@@ -17,7 +17,7 @@ import {
 
 
 export default class Select extends _TreeSelect {
-  static defaultProps = assign(_TreeSelect.defaultProps, {
+  static defaultProps = assign(_TreeSelect.defaultProps, { // eslint-disable-line
     rightDropdownAllClearBtn: true,
     rightDropdownTitle: 'test Title',
 
@@ -25,12 +25,22 @@ export default class Select extends _TreeSelect {
 
   constructor(props) {
     super(props);
+    this.clearInputValue = this.clearInputValue.bind(this);
+    this.onAllclean = this.onAllclean.bind(this);
   }
 
   onAllclean() {
     this.setState({
       value: []
     })
+  }
+
+  clearInputValue() {
+    if (this.props.inputValue === null) {
+      this.setState({
+        inputValue: '',
+      });
+    }
   }
 
   render() {
@@ -77,7 +87,10 @@ export default class Select extends _TreeSelect {
         onDropdownVisibleChange={this.onDropdownVisibleChange}
         getPopupContainer={props.getPopupContainer}
         onSelect={this.onSelect}
-        allClear={this.onAllclean.bind(this)}
+        allClear={this.onAllclean}
+        removeSelected={this.removeSelected}
+        fireChange={this.fireChange}
+        clearInputValue={this.clearInputValue}
         ref="trigger"
       >
         <span
