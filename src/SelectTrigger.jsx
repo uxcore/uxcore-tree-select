@@ -1,5 +1,11 @@
+/**
+ * Refactor the SelectTrigger Component for uxcore
+ * @author chenqiu  wb-cq231719@alibaba-inc.com
+ */
+
 import React, { PropTypes } from 'react';
 import ReactDOM from 'react-dom';
+import assign from 'object-assign';
 import { TreeNode } from 'rc-tree';
 import classnames from 'classnames';
 import Trigger from 'rc-trigger';
@@ -96,7 +102,7 @@ export default class SelectTrigger extends _SelectTrigger {
 
     // 阶层 讲平层转换为阶级数组
     const hierarchyNodes = flatToHierarchy(filterNodesPositions, true);
-console.log(hierarchyNodes, 'hierarchyNodes')
+    console.log(hierarchyNodes, 'hierarchyNodes');
     const recursive = children =>
       children.map(child => {
         if (child.children) {
@@ -111,10 +117,9 @@ console.log(hierarchyNodes, 'hierarchyNodes')
 
   renderRightTree(newTreeNodes) {
     const props = this.props;
-console.log('renderRightTree', newTreeNodes);
+
     const trProps = {
       prefixCls: `${props.prefixCls}-rightTreeNode`,
-      removeSelected: props.removeSelected,
       showCheckedStrategy: props.showCheckedStrategy,
       treeNodeLabelProp: props.treeNodeLabelProp,
       model: props.treeCheckable ? 'check' : 'select',
@@ -171,7 +176,6 @@ console.log('renderRightTree', newTreeNodes);
       );
     }
     const num = value.length || 0;
-console.log(value, 'value', num, 'num');
 
     const noContent = (<div
       className={`${dropdownRightPrefixCls}-noContent`}
@@ -290,3 +294,9 @@ console.log(value, 'value', num, 'num');
     >{this.props.children}</Trigger>);
   }
 }
+
+SelectTrigger.propTypes = assign({}, _SelectTrigger.propTypes, {
+  onFireChange: PropTypes.func,
+  onClearInputValue: PropTypes.func,
+  onRemoveChecked: PropTypes.func,
+});

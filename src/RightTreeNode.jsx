@@ -1,3 +1,8 @@
+/**
+ * RightTreeNode Component for Tree
+ * @author chenqiu  wb-cq231719@alibaba-inc.com
+ */
+
 import React, { PropTypes } from 'react';
 import classnames from 'classnames';
 import { filterCheckedKeysBaseKey } from './utils';
@@ -7,7 +12,7 @@ export default class RightTreeNode extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      expand: !(props.isAll || (this.isSelectNode() && props.children))
+      expand: !(props.isAll || (this.isSelectNode() && props.children)),
     };
 
     this.expand = this.expand.bind(this);
@@ -30,7 +35,8 @@ export default class RightTreeNode extends React.Component {
 
 
   removeSelected() {
-    const { onFireChange, onClearInputValue, onRemoveChecked, value, model, _treeNodesStates, vls } = this.props;
+    const { onFireChange, onClearInputValue, onRemoveChecked, value,
+      model, _treeNodesStates, vls } = this.props;
 
     if (model === 'select') {
       onFireChange(vls.filter(item => item.value !== value));
@@ -88,7 +94,7 @@ export default class RightTreeNode extends React.Component {
   }
 
   render() {
-    const { value, treeNodeLabelProp, children, isAll, prefixCls, level, removeSelected } = this.props;
+    const { treeNodeLabelProp, children, isAll, prefixCls, level } = this.props;
     const { expand } = this.state;
     // padding 无箭头 +36  有箭头+18
     const paddingLeftStyle = {};
@@ -132,5 +138,17 @@ RightTreeNode.defaultProps = {
 };
 
 RightTreeNode.propTypes = {
-
+  value: PropTypes.string,
+  treeNodeLabelProp: PropTypes.any,
+  children: PropTypes.any,
+  isAll: PropTypes.bool,
+  prefixCls: PropTypes.string,
+  level: PropTypes.number,
+  model: PropTypes.string,
+  onFireChange: PropTypes.func,
+  onClearInputValue: PropTypes.func,
+  onRemoveChecked: PropTypes.func,
+  _treeNodesStates: PropTypes.object,
+  vls: PropTypes.array,
+  pos: PropTypes.string,
 };

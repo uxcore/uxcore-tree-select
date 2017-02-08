@@ -1,6 +1,6 @@
 import { isInclude } from '../node_modules/rc-tree-select/lib/util';
 
-// 重构
+// Refactor
 export function flatToHierarchy(arr, flag = false) {
   if (!arr.length) {
     return arr;
@@ -34,7 +34,7 @@ export function flatToHierarchy(arr, flag = false) {
               return;
             }
             if (!ii.children) {
-              ii.children = [];
+              ii.children = []; // eslint-disable-line
             }
             ii.children.push(item);
           }

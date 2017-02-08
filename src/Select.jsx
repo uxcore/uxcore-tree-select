@@ -1,28 +1,22 @@
+/**
+ * Refactor the Select Component for uxcore
+ * @author chenqiu  wb-cq231719@alibaba-inc.com
+ */
+
 import React, { PropTypes } from 'react';
-import ReactDOM from 'react-dom';
 import classnames from 'classnames';
 import _TreeSelect from 'rc-tree-select';
 import SelectTrigger from './SelectTrigger';
 import assign from 'object-assign';
 import {
-  getPropValue, getValuePropValue, /* isCombobox,*/
-  isMultipleOrTags, isMultipleOrTagsOrCombobox,
-  isSingleMode, toArray,
-  UNSELECTABLE_ATTRIBUTE, UNSELECTABLE_STYLE,
-  preventDefaultEvent,
-  getTreeNodesStates, flatToHierarchy, filterParentPosition,
-  isInclude, labelCompatible, loopAllChildren, filterAllCheckedData,
-  processSimpleTreeData,
+  getValuePropValue, isMultipleOrTags, isMultipleOrTagsOrCombobox,
+  getTreeNodesStates, flatToHierarchy,
 } from '../node_modules/rc-tree-select/lib/util';
 
+function noop() {
+}
 
 export default class Select extends _TreeSelect {
-  static defaultProps = assign(_TreeSelect.defaultProps, { // eslint-disable-line
-    rightDropdownAllClearBtn: true,
-    rightDropdownTitle: 'test Title',
-
-  })
-
   constructor(props) {
     super(props);
     this.onClearInputValue = this.onClearInputValue.bind(this);
@@ -34,21 +28,15 @@ export default class Select extends _TreeSelect {
     const props = this.props;
 
     if (props.treeCheckable && !!!props.treeCheckStrictly) {
-      this._treeNodesStates = getTreeNodesStates(
+      this._treeNodesStates = getTreeNodesStates( // eslint-disable-line
         this.renderedTreeData || props.children,
         []
       );
     }
-    this._checkedNodes = [];
-    this._cacheTreeNodesStates = false; // todo 是 否需要
+    this._checkedNodes = []; // eslint-disable-line trigger in componentWillReceiveProps
+    this._cacheTreeNodesStates = false; // eslint-disable-line // todo   is need?
 
     this.fireChange([]);
-
-    this.setState({
-      value: []
-    }, () => {
-      console.log(this.state.value, 'value')
-    });
   }
 
   onClearInputValue() {
@@ -76,12 +64,12 @@ export default class Select extends _TreeSelect {
     const checkEvt = info.event === 'check';
       // 多选 unchecked
     if (checkEvt) {
-      value = this.getCheckedNodes(info, props).map(n => {
-        return {
+      value = this.getCheckedNodes(info, props).map(n =>
+        ({
           value: getValuePropValue(n),
           label: this.getLabelFromNode(n),
-        };
-      });
+        })
+      );
     }
 
     const extraInfo = {
@@ -92,12 +80,12 @@ export default class Select extends _TreeSelect {
       extraInfo.checked = info.checked;
       extraInfo.allCheckedNodes = props.treeCheckStrictly || this.state.inputValue ?
         info.checkedNodes : flatToHierarchy(info.checkedNodesPositions);
-      this._checkedNodes = info.checkedNodesPositions;
+      this._checkedNodes = info.checkedNodesPositions; // eslint-disable-line
       // this._treeNodesStates = _tree.checkKeys; // todo 更新_treeNodeState
-      this._treeNodesStates = getTreeNodesStates(
+      this._treeNodesStates = getTreeNodesStates( // eslint-disable-line
         this.renderedTreeData || props.children,
-        value.map(item => item.value)
-      ); 
+        value.map(itemV => itemV.value)
+      );
     }
 
     this.fireChange(value, extraInfo);
@@ -138,11 +126,12 @@ export default class Select extends _TreeSelect {
       onClick={this.onClearSelection}
     />);
     return (
-      <SelectTrigger {...props}
+      <SelectTrigger
+        {...props}
         treeNodes={props.children}
         treeData={this.renderedTreeData}
-        _cachetreeData={this._cachetreeData}
-        _treeNodesStates={this._treeNodesStates}
+        _cachetreeData={this._cachetreeData} // eslint-disable-line
+        _treeNodesStates={this._treeNodesStates} // eslint-disable-line
         halfCheckedValues={this.halfCheckedValues}
         multiple={multiple}
         disabled={disabled}
@@ -186,8 +175,8 @@ export default class Select extends _TreeSelect {
                 className={`${prefixCls}-arrow`}
                 style={{ outline: 'none' }}
               >
-              <b/>
-            </span>)}
+                <b />
+              </span>)}
             {multiple ?
               this.getSearchPlaceholderElement(!!this.state.inputValue || this.state.value.length) :
               null}
@@ -197,3 +186,18 @@ export default class Select extends _TreeSelect {
     );
   }
 }
+
+Select.defaultProps = assign({}, _TreeSelect.defaultProps, {
+  rightDropdownAllClearBtn: true,
+  rightDropdownTitle: '',
+  rightDropdownTitleStyle: {},
+  onDelete: noop,
+});
+
+Select.propTypes = assign({}, _TreeSelect.propTypes, {
+  rightDropdownAllClearBtn: PropTypes.bool,
+  rightDropdownTitle: PropTypes.string,
+  rightDropdownTitleStyle: PropTypes.object,
+  onDelete: PropTypes.func,
+});
+
