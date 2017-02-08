@@ -7,7 +7,6 @@ import toArray from 'rc-util/lib/Children/toArray';
 import { loopAllChildren, getValuePropValue } from '../node_modules/rc-tree-select/lib/util';
 import { flatToHierarchy } from './utils';
 import _SelectTrigger from '../node_modules/rc-tree-select/lib/SelectTrigger';
-import assign from 'object-assign';
 import RightTreeNode from './RightTreeNode';
 
 const BUILT_IN_PLACEMENTS = {
@@ -49,7 +48,7 @@ export default class SelectTrigger extends _SelectTrigger {
   }
 
   onRightDropdownAllclear() {
-    this.props.allClear();
+    this.props.onAllClear();
   }
 
   filterSelectedTreeNode(valueArr, child) {
@@ -63,9 +62,6 @@ export default class SelectTrigger extends _SelectTrigger {
     const filterPoss = [];
     const { value } = this.props;
     const valueArr = value.map(item => item.value);
-
-    // todo 在严格模式下算全选与不全选
-
     loopAllChildren(treeNodes, (child, index, pos) => {
       if (this.filterSelectedTreeNode(valueArr, child)) {
         filterPoss.push(pos);
@@ -97,7 +93,7 @@ export default class SelectTrigger extends _SelectTrigger {
         filterNodesPositions.push(renderNode);
       }
     });
-    console.log('filterNodesPositions', filterNodesPositions, processedPoss)
+
     // 阶层 讲平层转换为阶级数组
     const hierarchyNodes = flatToHierarchy(filterNodesPositions, true);
 console.log(hierarchyNodes, 'hierarchyNodes')
@@ -115,7 +111,7 @@ console.log(hierarchyNodes, 'hierarchyNodes')
 
   renderRightTree(newTreeNodes) {
     const props = this.props;
-
+console.log('renderRightTree', newTreeNodes);
     const trProps = {
       prefixCls: `${props.prefixCls}-rightTreeNode`,
       removeSelected: props.removeSelected,
@@ -123,9 +119,11 @@ console.log(hierarchyNodes, 'hierarchyNodes')
       treeNodeLabelProp: props.treeNodeLabelProp,
       model: props.treeCheckable ? 'check' : 'select',
       isMultiple: props.multiple || props.tags || props.treeCheckable,
-      fireChange: props.fireChange,
+      onFireChange: props.onFireChange,
+      onClearInputValue: props.onClearInputValue,
+      onRemoveChecked: props.onRemoveChecked,
       vls: props.value || [],
-      checkVls: props._treeNodesStates && props._treeNodesStates.checkedKeys || [],  // eslint-disable-line
+      _treeNodesStates: props._treeNodesStates,  // eslint-disable-line
     };
 
     const recursive = (children, level) =>
@@ -172,7 +170,9 @@ console.log(hierarchyNodes, 'hierarchyNodes')
         </p>
       );
     }
-    const num = value.length || 0; // 后期需要从数据获取;
+    const num = value.length || 0;
+console.log(value, 'value', num, 'num');
+
     const noContent = (<div
       className={`${dropdownRightPrefixCls}-noContent`}
       style={rightDropdownTitle ? { marginTop: '38%' } : {}}

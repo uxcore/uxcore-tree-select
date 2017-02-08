@@ -100,39 +100,24 @@ class Demo extends React.Component {
         return (
         <div style={{margin: 20}}>
             <h2>single select</h2>
-            <TreeSelect style={{width: 300}}
+
+ 
+            <h2>check select</h2>
+            <TreeSelect style={{width: 300}} 
+                dropdownPopupAlign={{ overflow: { adjustY: 0, adjustX: 0 } }}
                 placeholder={<i>请下拉选择</i>}
                 searchPlaceholder="please search"
-                allowClear
-                inputValue={this.state.inputValue}
+                treeLine maxTagTextLength={10}
+                multiple
+                inputValue={null}
                 value={this.state.value}
                 treeData={gData}
-                showSearch
-                searchPlaceholder="test"
-                treeDefaultExpandAll
-                treeNodeFilterProp="label"
-                filterTreeNode={false}
-                onSearch={this.onSearch.bind(this)}
-                onChange={this.onChange.bind(this)}
-                onSelect={this.onSelect.bind(this)} 
-                onClick={this.onClick.bind(this)}
-                notFoundContent="not found"
-                />
-
-            <h2>multiple select</h2>
-            <TreeSelect style={{width: 300}} 
-                placeholder={<i>请下拉选择</i>}
-                searchPlaceholder="please search"
-                value={this.state.multipleValue}
-                treeData={gData}
-                multiple
                 treeNodeFilterProp="title"
-                showCheckedStrategy={SHOW_ALL}
-                onChange={this.onMultipleChange.bind(this)}
+                treeCheckable showCheckedStrategy={SHOW_PARENT}
+                onChange={this.onChange.bind(this)}
                 onSelect={this.onSelect.bind(this)} />
 
-
-        </div>
+          </div>
         );
     }
 };

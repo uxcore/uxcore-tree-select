@@ -19,7 +19,7 @@ export function flatToHierarchy(arr, flag = false) {
   });
   // levelObj 收集每个层级的child
   const levelArr = Object.keys(levelObj).sort((a, b) => b - a);
-  console.log(levelObj)
+
   // const s = Date.now();
   // todo: there are performance issues!
   levelArr.reduce((pre, cur) => {
@@ -49,3 +49,16 @@ export function flatToHierarchy(arr, flag = false) {
   // console.log(Date.now() - s);
   return levelObj[levelArr[levelArr.length - 1]].concat(hierarchyNodes);
 }
+
+export function filterCheckedKeysBaseKey(arr, key) {
+  const nArr = key.split('-');
+
+  return arr.filter(item => {
+    const iArr = item.split('-');
+
+    return !(item === key ||
+      iArr.length > nArr.length && isInclude(nArr, iArr) ||
+      iArr.length < nArr.length && isInclude(iArr, nArr));
+  });
+}
+

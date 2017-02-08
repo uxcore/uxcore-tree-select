@@ -25,23 +25,89 @@ export default class Select extends _TreeSelect {
 
   constructor(props) {
     super(props);
-    this.clearInputValue = this.clearInputValue.bind(this);
-    this.onAllclean = this.onAllclean.bind(this);
+    this.onClearInputValue = this.onClearInputValue.bind(this);
+    this.onAllClear = this.onAllClear.bind(this);
+    this.onRemoveChecked = this.onRemoveChecked.bind(this);
   }
 
-  onAllclean() {
+  onAllClear() {
+    const props = this.props;
+
+    if (props.treeCheckable && !!!props.treeCheckStrictly) {
+      this._treeNodesStates = getTreeNodesStates(
+        this.renderedTreeData || props.children,
+        []
+      );
+    }
+    this._checkedNodes = [];
+    this._cacheTreeNodesStates = false; // todo 是 否需要
+
+    this.fireChange([]);
+
     this.setState({
       value: []
-    })
+    }, () => {
+      console.log(this.state.value, 'value')
+    });
   }
 
-  clearInputValue() {
+  onClearInputValue() {
     if (this.props.inputValue === null) {
       this.setState({
         inputValue: '',
       });
     }
   }
+
+  onRemoveChecked(selectedKeys, info) {
+    const item = info.node;
+    let value = this.state.value;
+    const props = this.props;
+    const selectedValue = getValuePropValue(item);
+    const selectedLabel = this.getLabelFromNode(item);
+    let event = selectedValue;
+    if (this.isLabelInValue()) {
+      event = {
+        value: event,
+        label: selectedLabel,
+      };
+    }
+    props.onSelect(event, item, info); // todo
+    const checkEvt = info.event === 'check';
+      // 多选 unchecked
+    if (checkEvt) {
+      value = this.getCheckedNodes(info, props).map(n => {
+        return {
+          value: getValuePropValue(n),
+          label: this.getLabelFromNode(n),
+        };
+      });
+    }
+
+    const extraInfo = {
+      triggerValue: selectedValue,
+      triggerNode: item,
+    };
+    if (checkEvt) {
+      extraInfo.checked = info.checked;
+      extraInfo.allCheckedNodes = props.treeCheckStrictly || this.state.inputValue ?
+        info.checkedNodes : flatToHierarchy(info.checkedNodesPositions);
+      this._checkedNodes = info.checkedNodesPositions;
+      // this._treeNodesStates = _tree.checkKeys; // todo 更新_treeNodeState
+      this._treeNodesStates = getTreeNodesStates(
+        this.renderedTreeData || props.children,
+        value.map(item => item.value)
+      ); 
+    }
+
+    this.fireChange(value, extraInfo);
+    if (props.inputValue === null) {
+      this.setState({
+        inputValue: '',
+      });
+    }
+  }
+
 
   render() {
     const props = this.props;
@@ -87,10 +153,10 @@ export default class Select extends _TreeSelect {
         onDropdownVisibleChange={this.onDropdownVisibleChange}
         getPopupContainer={props.getPopupContainer}
         onSelect={this.onSelect}
-        allClear={this.onAllclean}
-        removeSelected={this.removeSelected}
-        fireChange={this.fireChange}
-        clearInputValue={this.clearInputValue}
+        onAllClear={this.onAllClear}
+        onFireChange={this.fireChange}
+        onClearInputValue={this.onClearInputValue}
+        onRemoveChecked={this.onRemoveChecked}
         ref="trigger"
       >
         <span
