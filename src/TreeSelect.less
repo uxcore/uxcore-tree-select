@@ -338,15 +338,22 @@
     
     &-dropdown-search {
         display: block;
-        padding: 4px;
+        padding: 18px 18px 0px;
+        position: relative;
         .@{__select-tree-prefix-cls}-search__field__wrap {
             width: 100%;
         }
+        .@{__select-tree-prefix-cls}-search_icon {
+            position: absolute;
+            right: 4px;
+            top: 3px;
+        }
         .@{__select-tree-prefix-cls}-search__field__placeholder {
             top: 2px;
+            padding-left: 6px;
         }
         .@{__select-tree-prefix-cls}-search__field {
-            padding: 4px;
+            padding: 4px 4px 4px 7px;
             width: 100%;
             box-sizing: border-box;
             border: 1px solid #d9d9d9;
@@ -526,6 +533,7 @@
 .@{__select-tree-prefix-cls}-dropdown-right {
     border-left-color: transparent;
     background: #F5F5F5;
+    position: relative;
     &-fontS {
         color: #999;
     }
@@ -544,8 +552,9 @@
         height: 48px;
         width: 100%;
         text-align: center;
-        margin: 50% auto 0;
-        transform: translate(0px, -24px);
+        top: 50%;
+        transform: translateY(-50%);
+        position: absolute;
     }
     &-title {
         text-align: center;

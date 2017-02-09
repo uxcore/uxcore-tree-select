@@ -86,7 +86,7 @@ class Demo extends React.Component {
     // use onChange instead
     console.log(arguments);
   }
-  filterTreeNode(input, child) {
+  filterTreeNode(input, child) { // 开头符合过滤
     return String(child.props.title).indexOf(input) === 0;
   }
   render() {
@@ -96,6 +96,8 @@ class Demo extends React.Component {
         <TreeSelect
           style={{ width: 300 }}
           dropdownMatchSelectWidth
+          rightDropdownTitle={<em>1231</em>}
+          rightDropdownTitleStyle={{ color: 'red' }}
           placeholder={<i>请下拉选择</i>}
           searchPlaceholder="please search"
           allowClear treeLine
@@ -104,7 +106,6 @@ class Demo extends React.Component {
           value={this.state.value}
           treeData={gData}
           treeNodeFilterProp="label"
-          filterTreeNode={false}
           onSearch={this.onSearch.bind(this)}
           onChange={this.onChange.bind(this)}
           onSelect={this.onSelect.bind(this)}
@@ -118,6 +119,7 @@ class Demo extends React.Component {
           multiple
           value={this.state.multipleValue}
           treeData={gData}
+          isFilterInputValueFromRight={false}
           treeNodeFilterProp="title"
           onChange={this.onMultipleChange.bind(this)}
           onSelect={this.onSelect.bind(this)}
@@ -135,7 +137,7 @@ class Demo extends React.Component {
           value={this.state.value}
           treeData={gData}
           treeNodeFilterProp="title"
-          treeCheckable showCheckedStrategy={SHOW_PARENT}
+          treeCheckable showCheckedStrategy={'SHOW_CHILD'}
           onChange={this.onChange.bind(this)}
           onSelect={this.onSelect.bind(this)}
         />
@@ -143,7 +145,6 @@ class Demo extends React.Component {
         <h2>use treeDataSimpleMode</h2>
         <TreeSelect
           style={{ width: 300 }}
-          dropdownStyle={{ maxHeight: 200, overflow: 'auto' }}
           placeholder={<i>请下拉选择</i>}
           searchPlaceholder="please search"
           treeLine maxTagTextLength={10}
@@ -160,7 +161,6 @@ class Demo extends React.Component {
         <h2>use TreeNode Component (not recommend)</h2>
         <TreeSelect
           style={{ width: 200 }}
-          dropdownStyle={{ maxHeight: 200, overflow: 'auto' }}
           value={this.state.value || 'leaf1'}
           treeDefaultExpandAll treeCheckable
           treeNodeFilterProp="title"
@@ -169,26 +169,26 @@ class Demo extends React.Component {
         >
           <TreeNode value="parent 1" title="parent 1" key="0-1">
             <TreeNode value="parent 1-0" title="parent 1-0" key="0-1-0">
-              <TreeNode value="leaf1" title="my leaf" key="random" />
-              <TreeNode value="leaf2" title="your leaf" key="random1" disabled />
+              <TreeNode value="leaf1" title="my leaf" key="0-1-0-0" />
+              <TreeNode value="leaf2" title="your leaf" key="0-1-0-1" disabled />
             </TreeNode>
             <TreeNode value="parent 1-1" title="parent 1-1" key="0-1-1">
               <TreeNode
                 value="sss"
                 title={<span style={{ color: 'red' }}>sss</span>}
-                key="random3"
+                key="0-1-1-0"
               />
-              <TreeNode value="same value" title="same txtle" key="0-1-1-1">
-                <TreeNode value="same value" title="same titlexd" key="0-1-1-1-0" />
+              <TreeNode value="same value3" title="same txtle" key="0-1-1-1">
+                <TreeNode value="same value4" title="same titlexd" key="0-1-1-1-0" />
               </TreeNode>
             </TreeNode>
           </TreeNode>
-          <TreeNode value="same value" title="same title" key="0-2">
+          <TreeNode value="same value5" title="same title" key="0-2">
             <TreeNode value="2same value" title="2same title" key="0-2-0" />
           </TreeNode>
-          <TreeNode value="same value" title="same title" key="0-3" />
-          <TreeNode value="same value" title="same title" key="0-4" />
-          <TreeNode value="same value" title="same title" key="0-5" />
+          <TreeNode value="same value6" title="same title3" key="0-3" />
+          <TreeNode value="same value7" title="same title4" key="0-4" />
+          <TreeNode value="same value8" title="same titl6e" key="0-5" />
         </TreeSelect>
       </div>
     );

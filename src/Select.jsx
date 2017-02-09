@@ -96,6 +96,29 @@ export default class Select extends _TreeSelect {
     }
   }
 
+  getInputElement() {
+    const props = this.props;
+    return (<span className={`${props.prefixCls}-search__field__wrap`}>
+      <input
+        ref={this.saveInputRef}
+        onBlur={this.onInputBlur}
+        onChange={this.onInputChange}
+        onKeyDown={this.onInputKeyDown}
+        value={this.state.inputValue}
+        disabled={props.disabled}
+        className={`${props.prefixCls}-search__field`}
+        role="textbox"
+      />
+      {
+        isMultipleOrTags(props) ? null :
+          <i
+            className={classnames('kuma-icon kuma-icon-search',
+              `${props.prefixCls}-search_icon`)}
+          />
+      }
+      {isMultipleOrTags(props) ? null : this.getSearchPlaceholderElement(!!this.state.inputValue)}
+    </span>);
+  }
 
   render() {
     const props = this.props;
@@ -192,12 +215,14 @@ Select.defaultProps = assign({}, _TreeSelect.defaultProps, {
   rightDropdownTitle: '',
   rightDropdownTitleStyle: {},
   onDelete: noop,
+  isFilterInputValueFromRight: true,
 });
 
 Select.propTypes = assign({}, _TreeSelect.propTypes, {
   rightDropdownAllClearBtn: PropTypes.bool,
-  rightDropdownTitle: PropTypes.string,
+  rightDropdownTitle: PropTypes.any,
   rightDropdownTitleStyle: PropTypes.object,
   onDelete: PropTypes.func,
+  isFilterInputValueFromRight: PropTypes.bool,
 });
 

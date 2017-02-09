@@ -46,27 +46,26 @@ export default class RightTreeNode extends React.Component {
       const { checkedNodes, checkedKeys } = _treeNodesStates;
       let node;
       let key;
-      checkedNodes.forEach(item => {
-        const iBak = item.node ? item.node : item;
-        if (iBak.props.value === value) {
-          node = iBak;
-          key = iBak.key;
+      const checkedNodesBak = checkedNodes.map((item) => (item.node ? item.node : item));
+      checkedNodesBak.forEach(item => {
+        if (item.props.value === value) {
+          node = item;
+          key = item.key;
         }
       });
       const keys = filterCheckedKeysBaseKey(checkedKeys, key);
       const checkedNodesPositions = [];
-      checkedNodes.forEach(item => {
-        const iBak = item.node ? item.node : item;
-        if (keys.indexOf(iBak.key) > -1) {
+      checkedNodesBak.forEach(item => {
+        if (keys.indexOf(item.key) > -1) {
           checkedNodesPositions.push({
-            node: iBak,
-            pos: iBak.key,
+            node: item,
+            pos: item.key,
           });
         }
       });
       const checkedNodesToPara =
-        checkedNodes.filter(item => checkedNodesPositions.indexOf(item.key) > -1);
-
+        checkedNodesBak.filter(item =>
+          keys.indexOf(item.key) > -1);
       const info = {
         event: 'check',
         checked: false,

@@ -179,7 +179,6 @@ export default class SelectTrigger extends _SelectTrigger {
 
     const noContent = (<div
       className={`${dropdownRightPrefixCls}-noContent`}
-      style={rightDropdownTitle ? { marginTop: '38%' } : {}}
     >
       请从左侧选择
     </div>);
@@ -245,7 +244,9 @@ export default class SelectTrigger extends _SelectTrigger {
       treeNodes = this.processTreeNode(treeNodes);
     }
 
-    const rightTreeNodes = this.processSelectedTreeNode(treeNodes);
+    const rightTreeNodes = props.isFilterInputValueFromRight ?
+      this.processSelectedTreeNode(treeNodes) :
+      this.processSelectedTreeNode(this.treeNodes);
 
     const keys = [];
     const halfCheckedKeys = [];
