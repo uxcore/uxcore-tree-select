@@ -71,3 +71,14 @@ http://uxcore.github.io/
 |value | default as treeNodeFilterProp (be unique across the tree's all TreeNode) | String | '' |
 |title | tree/subTree's title | String/element | '---' |
 |isLeaf | whether it's leaf node | bool | false |
+
+### TreeSelect新增API
+
+| name    | description   | type    | default    |
+|---------|---------------|---------|------------|
+| rightDropdownAllClearBtn | 是否显示清除按钮 | bool | true |
+| rightDropdownTitle | 标题/说明 | string | '' |
+| rightDropdownTitleStyle | 标题/说明的样式 | object | {} |
+|isFilterInputValueFromRight | 是否受inputValue影响过滤右边下拉信息 | bool | true | 
+
+

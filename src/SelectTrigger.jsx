@@ -102,7 +102,7 @@ export default class SelectTrigger extends _SelectTrigger {
 
     // 阶层 讲平层转换为阶级数组
     const hierarchyNodes = flatToHierarchy(filterNodesPositions, true);
-    console.log(hierarchyNodes, 'hierarchyNodes');
+
     const recursive = children =>
       children.map(child => {
         if (child.children) {

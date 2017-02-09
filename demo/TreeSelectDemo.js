@@ -84,7 +84,7 @@ class Demo extends React.Component {
   }
   onSelect() {
     // use onChange instead
-    console.log(arguments);
+    console.log('onselect', arguments);
   }
   filterTreeNode(input, child) { // 开头符合过滤
     return String(child.props.title).indexOf(input) === 0;
@@ -137,7 +137,7 @@ class Demo extends React.Component {
           value={this.state.value}
           treeData={gData}
           treeNodeFilterProp="title"
-          treeCheckable showCheckedStrategy={'SHOW_CHILD'}
+          treeCheckable showCheckedStrategy={'SHOW_ALL'}
           onChange={this.onChange.bind(this)}
           onSelect={this.onSelect.bind(this)}
         />
