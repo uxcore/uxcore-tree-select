@@ -115,6 +115,35 @@ export default class SelectTrigger extends _SelectTrigger {
     return recursive(hierarchyNodes);
   }
 
+  updateTreeNodesStates(newTreeNodes) {
+    if (!!!this.props._treeNodesStates) { // eslint-disable-line
+      return {};
+    }
+    const treeNodesStatesBak = assign({}, this.props._treeNodesStates); // eslint-disable-line
+
+    if (treeNodesStatesBak.checkedNodesPositions) {
+      return treeNodesStatesBak;
+    }
+    const { checkedNodes } = treeNodesStatesBak;
+
+    const vals = checkedNodes.map(item => {
+      const bak = item.node ? item.node : item;
+      return bak.props.value;
+    });
+
+    const checkedNodesPositions = [];
+
+    loopAllChildren(newTreeNodes, (child, index, pos) => {
+      if (vals.indexOf(child.props.value) > -1) {
+        checkedNodesPositions.push({ node: child, pos });
+      }
+    });
+
+    treeNodesStatesBak.checkedNodesPositions = checkedNodesPositions;
+
+    return treeNodesStatesBak;
+  }
+
   renderRightTree(newTreeNodes) {
     const props = this.props;
 
@@ -128,7 +157,7 @@ export default class SelectTrigger extends _SelectTrigger {
       onClearInputValue: props.onClearInputValue,
       onRemoveChecked: props.onRemoveChecked,
       vls: props.value || [],
-      _treeNodesStates: props._treeNodesStates,  // eslint-disable-line
+      _treeNodesStates: this.updateTreeNodesStates(newTreeNodes),  // eslint-disable-line
     };
 
     const recursive = (children, level) =>

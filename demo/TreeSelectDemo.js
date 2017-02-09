@@ -47,11 +47,11 @@ class Demo extends React.Component {
       value: '0-0-0-value',
       multipleValue: [],
       simpleTreeData: [
-        { key: 1, pId: 0, label: 'test1' },
-        { key: '1-1', pId: 0, label: 'test1' },
-        { key: 11, pId: 1, label: 'test11' },
-        { key: 12, pId: 1, label: 'test12' },
-        { key: 111, pId: 11, label: 'test111' },
+        { key: 1, pId: 0, label: 'test1', value: '1' },
+        { key: 2, pId: 0, label: 'test2', value: '2' },
+        { key: 11, pId: 1, label: 'test11', value: '3' },
+        { key: 12, pId: 2, label: 'test12', value: '4' },
+        { key: 111, pId: 11, label: 'test111', value: 'a' },
       ],
       treeDataSimpleMode: {
         id: 'key',
@@ -119,7 +119,7 @@ class Demo extends React.Component {
           multiple
           value={this.state.multipleValue}
           treeData={gData}
-          isFilterInputValueFromRight={false}
+
           treeNodeFilterProp="title"
           onChange={this.onMultipleChange.bind(this)}
           onSelect={this.onSelect.bind(this)}
@@ -148,7 +148,6 @@ class Demo extends React.Component {
           placeholder={<i>请下拉选择</i>}
           searchPlaceholder="please search"
           treeLine maxTagTextLength={10}
-
           value={this.state.value}
           treeData={this.state.simpleTreeData}
           treeNodeFilterProp="title"

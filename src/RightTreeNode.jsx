@@ -42,36 +42,47 @@ export default class RightTreeNode extends React.Component {
       onFireChange(vls.filter(item => item.value !== value));
       onClearInputValue();
       // todo optimize--隐藏删除
-    } else if (model === 'check') {
-      const { checkedNodes, checkedKeys } = _treeNodesStates;
+    } else if (model === 'check') { // checkedPositions, checkedNodes
+      const { checkedNodesPositions } = _treeNodesStates;
       let node;
-      let key;
-      const checkedNodesBak = checkedNodes.map((item) => (item.node ? item.node : item));
-      checkedNodesBak.forEach(item => {
-        if (item.props.value === value) {
-          node = item;
-          key = item.key;
+      let pos;
+      
+      const checkedPositions = checkedNodesPositions.map(item => item.pos);
+      // } else {
+      //   checkedNodesPositions = [];
+      //   checkedPositions = _treeNodesStates.checkedPositions;
+      //   _treeNodesStates.checkedNodes.forEach((item, index) => {
+      //     const bak = item.node ? item.node : item;
+      //     checkedNodesPositions.push({
+      //       node: bak,
+      //       pos: checkedPositions[index],
+      //     });
+      //   });
+      // }
+
+      checkedNodesPositions.forEach(item => {
+        if (item.node.props.value === value) {
+          node = item.node;
+          pos = item.pos;
         }
       });
-      const keys = filterCheckedKeysBaseKey(checkedKeys, key);
-      const checkedNodesPositions = [];
-      checkedNodesBak.forEach(item => {
-        if (keys.indexOf(item.key) > -1) {
-          checkedNodesPositions.push({
-            node: item,
-            pos: item.key,
-          });
-        }
-      });
-      const checkedNodesToPara =
-        checkedNodesBak.filter(item =>
-          keys.indexOf(item.key) > -1);
+      const poses = filterCheckedKeysBaseKey(checkedPositions, pos);
+
+      const checkedNodes = checkedNodesPositions
+        .filter(item => poses.indexOf(item.pos) > -1)
+        .map(item => item.node);
+
       const info = {
         event: 'check',
         checked: false,
         node,
-        checkedNodesPositions,
-        checkedNodes: checkedNodesToPara,
+        checkedNodesPositions: checkedNodesPositions
+          .filter(item => poses.indexOf(item.pos) > -1)
+          .map(item => ({
+            node: item.node,
+            pos: item.pos,
+          })),
+        checkedNodes,
       };
       onRemoveChecked('', info);
     }
@@ -137,7 +148,7 @@ RightTreeNode.defaultProps = {
 };
 
 RightTreeNode.propTypes = {
-  value: PropTypes.string,
+  value: PropTypes.oneOfType([PropTypes.array, PropTypes.string, PropTypes.object]),
   treeNodeLabelProp: PropTypes.any,
   children: PropTypes.any,
   isAll: PropTypes.bool,
