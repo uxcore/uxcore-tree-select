@@ -104,7 +104,7 @@ export default class RightTreeNode extends React.Component {
   }
 
   render() {
-    const { treeNodeLabelProp, children, isAll, prefixCls, level } = this.props;
+    const { treeNodeLabelProp, children, isAll, prefixCls, level, maxTagTextLength } = this.props;
     const { expand } = this.state;
     // padding 无箭头 +36  有箭头+18
     const paddingLeftStyle = {};
@@ -118,6 +118,13 @@ export default class RightTreeNode extends React.Component {
       [`${prefixCls}-arrow-switch`]: true,
     };
 
+    let content = this.props[treeNodeLabelProp];
+
+    if (maxTagTextLength && typeof content === 'string' && content.length > maxTagTextLength) {
+      content = (<span title={this.props[treeNodeLabelProp]}>
+        {`${content.slice(0, maxTagTextLength)}...`}</span>);
+    }
+
     return (
       <div>
         <div className={`${prefixCls}-hoverNode`} style={paddingLeftStyle}>
@@ -126,7 +133,7 @@ export default class RightTreeNode extends React.Component {
               <span onClick={this.expand} className={classnames(arrowCls)} />
             : null
           }
-          {this.props[treeNodeLabelProp]}
+          {content}
           {isAll || (this.isSelectNode() && children) ?
             <span className={`${prefixCls}-allSelect`}>全选</span> : null}
           {
@@ -161,4 +168,5 @@ RightTreeNode.propTypes = {
   _treeNodesStates: PropTypes.object,
   vls: PropTypes.array,
   pos: PropTypes.string,
+  maxTagTextLength: PropTypes.number,
 };

@@ -158,6 +158,7 @@ export default class SelectTrigger extends _SelectTrigger {
       onRemoveChecked: props.onRemoveChecked,
       vls: props.value || [],
       _treeNodesStates: this.updateTreeNodesStates(newTreeNodes),  // eslint-disable-line
+      maxTagTextLength: props.maxTagTextLength,
     };
 
     const recursive = (children, level) =>

@@ -214,7 +214,6 @@ Select.defaultProps = assign({}, _TreeSelect.defaultProps, {
   rightDropdownAllClearBtn: true,
   rightDropdownTitle: '',
   rightDropdownTitleStyle: {},
-  onDelete: noop,
   isFilterInputValueFromRight: true,
 });
 
@@ -222,7 +221,6 @@ Select.propTypes = assign({}, _TreeSelect.propTypes, {
   rightDropdownAllClearBtn: PropTypes.bool,
   rightDropdownTitle: PropTypes.any,
   rightDropdownTitleStyle: PropTypes.object,
-  onDelete: PropTypes.func,
   isFilterInputValueFromRight: PropTypes.bool,
 });
 

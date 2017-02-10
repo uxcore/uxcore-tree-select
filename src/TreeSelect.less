@@ -532,6 +532,8 @@
 
 .@{__select-tree-prefix-cls}-dropdown-right {
     border-left-color: transparent;
+    overflow-y: hidden;
+    padding-bottom: 3px;
     background: #F5F5F5;
     position: relative;
     &-fontS {
@@ -567,8 +569,12 @@
     font-family: PingFangSC-Regular;
     font-size: 12px;
     color: #333333;
+    height: 250px;
+    overflow: auto;
     &-clear {
-        float: right;
+        position: absolute;
+        right: 15px;
+        top: 1px;
         cursor: pointer;
         color: @brand-primary;
         transition: opacity .3s, transform .3s;
@@ -592,6 +598,8 @@
         height: 28px;
         line-height: 28px;
         padding: 0 16px;
+        white-space: nowrap;
+        position: relative;
     }
     &-allSelect {
         font-family: PingFangSC-Regular;

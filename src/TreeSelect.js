@@ -29,6 +29,7 @@ TreeSelect.defaultProps = assign(RcTreeSelect.defaultProps, {
   choiceTransitionName: 'uxcore-tree-select-selection__choice-zoom',
   showSearch: false,
   dropdownMatchSelectWidth: false,
+  maxTagTextLength: 10,
 });
 
 TreeSelect.propTypes = RcTreeSelect.propTypes;
