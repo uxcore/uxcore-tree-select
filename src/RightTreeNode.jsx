@@ -46,7 +46,7 @@ export default class RightTreeNode extends React.Component {
       const { checkedNodesPositions } = _treeNodesStates;
       let node;
       let pos;
-      
+
       const checkedPositions = checkedNodesPositions.map(item => item.pos);
       // } else {
       //   checkedNodesPositions = [];

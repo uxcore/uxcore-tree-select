@@ -215,16 +215,16 @@ export default class SelectTrigger extends _SelectTrigger {
       key="rightDropdownAllclear"
       className={`${dropdownRightPrefixCls}-allClear`}
       onClick={this.onRightDropdownAllclear}
-    >清除</span>);
+    >清空</span>);
 
     return (
       <div className={`${dropdownRightPrefixCls}`}>
         <div style={{ padding: '16px' }}>
-          {renderRightDropdownTitle}
           <div>
             <span className={`${dropdownRightPrefixCls}-fontS`}>已选择（{num}）</span>
             {rightDropdownAllClearBtn && num ? clear : null}
           </div>
+          {renderRightDropdownTitle}
         </div>
         {
           num === 0 ? noContent : this.renderRightTree(rightTreeNodes)
