@@ -36,7 +36,7 @@ function generateData(x = 3, y = 2, z = 1, gData = []) {
 }
 
 let gData = generateData();
-
+console.log(gData);
 class Demo extends React.Component {
 
   constructor(props) {
@@ -100,7 +100,7 @@ class Demo extends React.Component {
           rightDropdownTitleStyle={{ color: 'red' }}
           placeholder={<i>请下拉选择</i>}
           searchPlaceholder="please search"
-          allowClear treeLine
+          allowClear
           showSearch
           inputValue={this.state.inputValue}
           value={this.state.value}
@@ -119,7 +119,6 @@ class Demo extends React.Component {
           multiple
           value={this.state.multipleValue}
           treeData={gData}
-
           treeNodeFilterProp="title"
           onChange={this.onMultipleChange.bind(this)}
           onSelect={this.onSelect.bind(this)}
@@ -131,7 +130,7 @@ class Demo extends React.Component {
           dropdownPopupAlign={{ overflow: { adjustY: 0, adjustX: 0 } }}
           placeholder={<i>请下拉选择</i>}
           searchPlaceholder="please search"
-          treeLine maxTagTextLength={10}
+          maxTagTextLength={10}
           showSearch
           inputValue={null}
           value={this.state.value}
@@ -147,7 +146,7 @@ class Demo extends React.Component {
           style={{ width: 300 }}
           placeholder={<i>请下拉选择</i>}
           searchPlaceholder="please search"
-          treeLine maxTagTextLength={10}
+          maxTagTextLength={10}
           value={this.state.value}
           treeData={this.state.simpleTreeData}
           treeNodeFilterProp="title"
@@ -169,9 +168,9 @@ class Demo extends React.Component {
           <TreeNode value="parent 1" title="parent 1" key="0-1">
             <TreeNode value="parent 1-0" title="parent 1-0" key="0-1-0">
               <TreeNode value="leaf1" title="my leaf" key="0-1-0-0" />
-              <TreeNode value="leaf2" title="your leaf" key="0-1-0-1" disabled />
+              <TreeNode value="leaf2" title="your leasdsassf" key="0-1-0-1" disabled />
             </TreeNode>
-            <TreeNode value="parent 1-1" title="parent 1-1" key="0-1-1">
+            <TreeNode value="parent 1-1" title="parent 1-sadsadsasdasa1" key="0-1-1">
               <TreeNode
                 value="sss"
                 title={<span style={{ color: 'red' }}>sss</span>}
@@ -182,11 +181,11 @@ class Demo extends React.Component {
               </TreeNode>
             </TreeNode>
           </TreeNode>
-          <TreeNode value="same value5" title="same title" key="0-2">
-            <TreeNode value="2same value" title="2same title" key="0-2-0" />
+          <TreeNode value="same value5" title="same titasdasdasdsdasdasdsadale" key="0-2">
+            <TreeNode value="2same value" title="2same tisdsadsadsadsadsadasdasdastle" key="0-2-0" />
           </TreeNode>
-          <TreeNode value="same value6" title="same title3" key="0-3" />
-          <TreeNode value="same value7" title="same title4" key="0-4" />
+          <TreeNode value="same value6" title="same titleasdsadsdsa3" key="0-3" />
+          <TreeNode value="same value7" title="same titlsdasdsadasse4" key="0-4" />
           <TreeNode value="same value8" title="same titl6e" key="0-5" />
         </TreeSelect>
       </div>

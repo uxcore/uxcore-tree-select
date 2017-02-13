@@ -25,7 +25,7 @@ TreeSelect.displayName = 'TreeSelect';
 TreeSelect.defaultProps = assign(RcTreeSelect.defaultProps, {
   prefixCls: 'uxcore-tree-select',
   dropdownClassName: supportSVG ? 'use-svg' : 'no-svg',
-  transitionName: 'uxcore-tree-select-dropdown-slide-up',
+  transitionName: 'slideUp',
   choiceTransitionName: 'uxcore-tree-select-selection__choice-zoom',
   showSearch: false,
   dropdownMatchSelectWidth: false,
