@@ -6,13 +6,13 @@
 import React, { PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import assign from 'object-assign';
-import { TreeNode } from 'rc-tree';
+import Tree, { TreeNode } from 'rc-tree';
 import classnames from 'classnames';
 import Trigger from 'rc-trigger';
 import toArray from 'rc-util/lib/Children/toArray';
-import { loopAllChildren, getValuePropValue } from '../node_modules/rc-tree-select/lib/util';
+import { loopAllChildren, getValuePropValue } from 'rc-tree-select/lib/util';
 import { flatToHierarchy } from './utils';
-import _SelectTrigger from '../node_modules/rc-tree-select/lib/SelectTrigger';
+import _SelectTrigger from 'rc-tree-select/lib/SelectTrigger';
 import RightTreeNode from './RightTreeNode';
 
 const BUILT_IN_PLACEMENTS = {
@@ -234,6 +234,73 @@ export default class SelectTrigger extends _SelectTrigger {
     );
   }
 
+  /*
+   * 挪用原组件 this.renderTree
+   * select模式下cls，防止在treeCheckable模式下点击高亮
+   */
+  renderTreeTransform(keys, halfCheckedKeys, newTreeNodes, multiple) {
+    const props = this.props;
+
+    const trProps = {
+      multiple,
+      prefixCls: `${props.prefixCls}-tree`,
+      showIcon: props.treeIcon,
+      showLine: props.treeLine,
+      defaultExpandAll: props.treeDefaultExpandAll,
+      filterTreeNode: this.highlightTreeNode,
+    };
+
+    if (props.treeCheckable) {
+      trProps.selectable = false;
+      trProps.checkable = props.treeCheckable;
+      trProps.onCheck = props.onSelect;
+      trProps.checkStrictly = props.treeCheckStrictly;
+      if (props.inputValue) {
+        // enable checkStrictly when search tree.
+        trProps.checkStrictly = true;
+      } else {
+        trProps._treeNodesStates = props._treeNodesStates; // eslint-disable-line
+      }
+      if (trProps.treeCheckStrictly && halfCheckedKeys.length) {
+        trProps.checkedKeys = { checked: keys, halfChecked: halfCheckedKeys };
+      } else {
+        trProps.checkedKeys = keys;
+      }
+    } else {
+      trProps.selectedKeys = keys;
+      trProps.onSelect = props.onSelect;
+    }
+
+    // expand keys
+    if (!trProps.defaultExpandAll && !props.loadData) {
+      trProps.expandedKeys = keys;
+    }
+    trProps.autoExpandParent = true;
+    trProps.onExpand = this.onExpand;
+    if (this._expandedKeys && this._expandedKeys.length) { // eslint-disable-line
+      trProps.expandedKeys = this._expandedKeys; // eslint-disable-line
+    }
+    if (this.state.fireOnExpand) {
+      trProps.expandedKeys = this.state._expandedKeys; // eslint-disable-line
+      trProps.autoExpandParent = false;
+    }
+
+    // async loadData
+    if (props.loadData) {
+      trProps.loadData = props.loadData;
+    }
+
+    const isCheckCls = {
+      [`${this.getDropdownPrefixCls()}-isSelect`]: !!!props.treeCheckable,
+    };
+
+    return (<div className={classnames(isCheckCls)}>
+      <Tree ref={this.savePopupElement} {...trProps}>
+        {newTreeNodes}
+      </Tree>
+    </div>);
+  }
+
   render() {
     const props = this.props;
     const multiple = props.multiple;
@@ -303,7 +370,7 @@ export default class SelectTrigger extends _SelectTrigger {
     const popupElement = (<div className={`${props.prefixCls}-setHight`}>
       <div className={`${dropdownPrefixCls}-left`}>
         {search}
-        {notFoundContent || this.renderTree(keys, halfCheckedKeys, treeNodes, multiple)}
+        {notFoundContent || this.renderTreeTransform(keys, halfCheckedKeys, treeNodes, multiple)}
       </div>
       {this.renderRightDropdown(rightTreeNodes)}
     </div>);

@@ -11,11 +11,6 @@ import assign from 'object-assign';
 const supportSVG = document.implementation.hasFeature(
   'http://www.w3.org/TR/SVG11/feature#BasicStructure', '1.1');
 
-// function filterFn(input, child) {
-//   return String(getPropValue(child,
-//     labelCompatible(this.props.treeNodeFilterProp))).indexOf(input) > -1;
-// }
-
 class TreeSelect extends RcTreeSelect {
 
 }

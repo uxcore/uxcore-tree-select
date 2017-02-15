@@ -42,23 +42,12 @@ export default class RightTreeNode extends React.Component {
       onFireChange(vls.filter(item => item.value !== value));
       onClearInputValue();
       // todo optimize--隐藏删除
-    } else if (model === 'check') { // checkedPositions, checkedNodes
+    } else if (model === 'check') {
       const { checkedNodesPositions } = _treeNodesStates;
       let node;
       let pos;
 
       const checkedPositions = checkedNodesPositions.map(item => item.pos);
-      // } else {
-      //   checkedNodesPositions = [];
-      //   checkedPositions = _treeNodesStates.checkedPositions;
-      //   _treeNodesStates.checkedNodes.forEach((item, index) => {
-      //     const bak = item.node ? item.node : item;
-      //     checkedNodesPositions.push({
-      //       node: bak,
-      //       pos: checkedPositions[index],
-      //     });
-      //   });
-      // }
 
       checkedNodesPositions.forEach(item => {
         if (item.node.props.value === value) {
@@ -86,8 +75,6 @@ export default class RightTreeNode extends React.Component {
       };
       onRemoveChecked('', info);
     }
-
-    // todo 回调
   }
 
   isSelectNode() {

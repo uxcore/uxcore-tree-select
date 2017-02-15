@@ -1,4 +1,4 @@
-import { isInclude } from '../node_modules/rc-tree-select/lib/util';
+import { isInclude } from 'rc-tree-select/lib/util';
 
 // Refactor
 export function flatToHierarchy(arr, flag = false) {

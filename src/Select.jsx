@@ -11,10 +11,7 @@ import assign from 'object-assign';
 import {
   getValuePropValue, isMultipleOrTags, isMultipleOrTagsOrCombobox,
   getTreeNodesStates, flatToHierarchy,
-} from '../node_modules/rc-tree-select/lib/util';
-
-function noop() {
-}
+} from 'rc-tree-select/lib/util';
 
 export default class Select extends _TreeSelect {
   constructor(props) {
@@ -33,8 +30,10 @@ export default class Select extends _TreeSelect {
         []
       );
     }
-    this._checkedNodes = []; // eslint-disable-line trigger in componentWillReceiveProps
-    this._cacheTreeNodesStates = false; // eslint-disable-line // todo   is need?
+    // trigger in componentWillReceiveProps
+    // this._cacheTreeNodesStates is needed?
+    this._checkedNodes = []; // eslint-disable-line
+    this._cacheTreeNodesStates = false; // eslint-disable-line
 
     this.fireChange([]);
   }

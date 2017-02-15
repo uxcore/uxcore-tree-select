@@ -177,7 +177,11 @@ class Demo extends React.Component {
                 key="0-1-1-0"
               />
               <TreeNode value="same value3" title="same txtle" key="0-1-1-1">
-                <TreeNode value="same value4" title="2sametisdsadsadsadsadsadasdasdastle" key="0-1-1-1-0" />
+                <TreeNode
+                  value="same value4"
+                  title="2sisdsadsadsadsadasdasdastle"
+                  key="0-1-1-1-0"
+                />
               </TreeNode>
             </TreeNode>
           </TreeNode>

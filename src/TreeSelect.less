@@ -329,7 +329,7 @@
         &-hidden {
             display: none;
         }
-        span.uxcore-tree-select-tree-title {
+        span.@{__select-tree-prefix-cls}-tree-title {
             display: inline-block;
             vertical-align: middle;
             width: 92px;
@@ -337,6 +337,10 @@
             text-overflow: ellipsis;
             white-space: nowrap;
 
+        }
+        .@{__select-tree-prefix-cls}-not-found {
+            display: inline-block;
+            margin: 10px 0 0 20px;
         }
     }
 
@@ -648,6 +652,13 @@
 @tree-assets-img: 'https://aliwork.alicdn.com/tps/TB1k_tsKpXXXXcQXFXXXXXXXXXX-130-87.png';
 
 @__select-tree-node-prefix-cls: uxcore-tree-select-tree;
+.@{__select-tree-prefix-cls}-dropdown-isSelect {
+    .@{__select-tree-node-prefix-cls} {
+        li a.@{__select-tree-node-prefix-cls}-node-selected {
+            color: @brand-primary;
+        }
+    }
+}
 .@{__select-tree-node-prefix-cls} {
   margin: 0;
   padding: 14px 18px;
@@ -675,9 +686,6 @@
       color: #666;
       &:hover {
         background-color: hsv(round(hsvhue(@brand-primary) + 2), round(hsvsaturation(@brand-primary) - 78%), round(hsvvalue(@brand-primary) + 5%));
-      }
-      &.@{__select-tree-node-prefix-cls}-node-selected {
-        color: @brand-primary;
       }
     }
     span {
