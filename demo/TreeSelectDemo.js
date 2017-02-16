@@ -96,8 +96,8 @@ class Demo extends React.Component {
         <TreeSelect
           style={{ width: 300 }}
           dropdownMatchSelectWidth
-          rightDropdownTitle={<em>1231</em>}
-          rightDropdownTitleStyle={{ color: 'red' }}
+          resultsPanelTitle={<em>1231</em>}
+          resultsPanelTitleStyle={{ color: 'red' }}
           placeholder={<i>请下拉选择</i>}
           searchPlaceholder="please search"
           allowClear
@@ -122,6 +122,8 @@ class Demo extends React.Component {
           treeNodeFilterProp="title"
           onChange={this.onMultipleChange.bind(this)}
           onSelect={this.onSelect.bind(this)}
+          isFilterInputValueFromRight={false}
+          resultsPanelAllClearBtn={false}
         />
 
         <h2>check select</h2>
