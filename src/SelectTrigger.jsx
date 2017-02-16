@@ -341,7 +341,7 @@ export default class SelectTrigger extends _SelectTrigger {
       treeNodes = this.processTreeNode(treeNodes);
     }
 
-    const rightTreeNodes = props.isFilterInputValueFromRight ?
+    const rightTreeNodes = props.filterResultsPanel ?
       this.processSelectedTreeNode(treeNodes) :
       this.processSelectedTreeNode(this.treeNodes);
 

@@ -213,13 +213,13 @@ Select.defaultProps = assign({}, _TreeSelect.defaultProps, {
   resultsPanelAllClearBtn: true,
   resultsPanelTitle: '',
   resultsPanelTitleStyle: {},
-  isFilterInputValueFromRight: true,
+  filterResultsPanel: true,
 });
 
 Select.propTypes = assign({}, _TreeSelect.propTypes, {
   resultsPanelAllClearBtn: PropTypes.bool,
   resultsPanelTitle: PropTypes.any,
   resultsPanelTitleStyle: PropTypes.object,
-  isFilterInputValueFromRight: PropTypes.bool,
+  filterResultsPanel: PropTypes.bool,
 });
 

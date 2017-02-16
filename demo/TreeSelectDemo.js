@@ -122,7 +122,7 @@ class Demo extends React.Component {
           treeNodeFilterProp="title"
           onChange={this.onMultipleChange.bind(this)}
           onSelect={this.onSelect.bind(this)}
-          isFilterInputValueFromRight={false}
+          filterResultsPanel={false}
           resultsPanelAllClearBtn={false}
         />
 
