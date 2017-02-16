@@ -2,7 +2,12 @@
 
 ---
 
+## 0.2.0
+
+`CHANGED` add new prop `resultsPanelAllClearBtn` , `resultsPanelTitle`, `resultsPanelTitleStyle` & `filterResultsPanel` 
+
 ## 0.1.4
+
 `FIXED` add missing loading icon.
 
 

@@ -60,10 +60,11 @@ http://uxcore.github.io/
 |treeData | treeNodes data Array, if set it then you need not to construct children TreeNode. (value should be unique across the whole array) | array<{value,label,children, [disabled]}> | [] |
 |treeDataSimpleMode | enable simple mode of treeData.(treeData should be like this: [{"id":1, "pId":0, "label":"test1"},...], `pId` is parent node's id) | bool/object{id:'id', pId:'pId', rootPId:null} | false |
 |loadData | load data asynchronously | function(node) | - |
-| resultsPanelAllClearBtn | 在下拉框右半部分中是否显示清除按钮 | bool | true |
-| resultsPanelTitle | 在下拉框右半部分中显示标题/说明 | string | '' |
-| resultsPanelTitleStyle | 下拉框右半部分中的标题/说明的样式 | object | {} |
-|filterResultsPanel | 下拉框右半部分中的结果是否受inputValue影响，如果为true，则右边树形结果也会根据inputValue过滤 | bool | true | 
+| resultsPanelAllClearBtn | 在下拉框右半部分中是否显示清除按钮 | bool | true | 0.2.0 |
+| resultsPanelTitle | 在下拉框右半部分中显示标题/说明 | string | '' | 0.2.0 |
+| resultsPanelTitleStyle | 下拉框右半部分中的标题/说明的样式 | object | {} | 0.2.0 |
+|filterResultsPanel | 下拉框右半部分中的结果是否受inputValue影响，如果为true，则右边树形结果也会根据inputValue过滤 | bool | true | 0.2.0 |
+
 ### TreeNode props
 > note: you'd better to use `treeData` instead of using TreeNode.
 
@@ -76,15 +77,6 @@ http://uxcore.github.io/
 |isLeaf | whether it's leaf node | bool | false |
 
 
-### 0.1.5版本新增API
-
-
-| name    | description   | type    | default    |
-|---------|---------------|---------|------------|
-| resultsPanelAllClearBtn | 在下拉框右半部分中是否显示清除按钮 | bool | true |
-| resultsPanelTitle | 在下拉框右半部分中显示标题/说明 | string | '' |
-| resultsPanelTitleStyle | 下拉框右半部分中的标题/说明的样式 | object | {} |
-|filterResultsPanel | 下拉框右半部分中的结果是否受inputValue影响，如果为true，则右边树形结果也会根据inputValue过滤 | bool | true | 
 
 
 
