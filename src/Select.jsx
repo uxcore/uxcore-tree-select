@@ -210,16 +210,16 @@ export default class Select extends _TreeSelect {
 }
 
 Select.defaultProps = assign({}, _TreeSelect.defaultProps, {
-  rightDropdownAllClearBtn: true,
-  rightDropdownTitle: '',
-  rightDropdownTitleStyle: {},
-  isFilterInputValueFromRight: true,
+  resultsPanelAllClearBtn: true,
+  resultsPanelTitle: '',
+  resultsPanelTitleStyle: {},
+  filterResultsPanel: true,
 });
 
 Select.propTypes = assign({}, _TreeSelect.propTypes, {
-  rightDropdownAllClearBtn: PropTypes.bool,
-  rightDropdownTitle: PropTypes.any,
-  rightDropdownTitleStyle: PropTypes.object,
-  isFilterInputValueFromRight: PropTypes.bool,
+  resultsPanelAllClearBtn: PropTypes.bool,
+  resultsPanelTitle: PropTypes.any,
+  resultsPanelTitleStyle: PropTypes.object,
+  filterResultsPanel: PropTypes.bool,
 });
 

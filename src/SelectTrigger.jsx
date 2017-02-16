@@ -38,7 +38,7 @@ export default class SelectTrigger extends _SelectTrigger {
   constructor(props) {
     super(props);
 
-    this.onRightDropdownAllclear = this.onRightDropdownAllclear.bind(this);
+    this.onResultsPanelAllClear = this.onResultsPanelAllClear.bind(this);
   }
 
   componentDidUpdate() {
@@ -53,7 +53,7 @@ export default class SelectTrigger extends _SelectTrigger {
     }
   }
 
-  onRightDropdownAllclear() {
+  onResultsPanelAllClear() {
     this.props.onAllClear();
   }
 
@@ -188,42 +188,42 @@ export default class SelectTrigger extends _SelectTrigger {
 
   renderRightDropdown(rightTreeNodes) {
     const {
-      rightDropdownAllClearBtn,
-      rightDropdownTitle,
-      rightDropdownTitleStyle,
+      resultsPanelAllClearBtn,
+      resultsPanelTitle,
+      resultsPanelTitleStyle,
       value,
     } = this.props;
 
-    const dropdownRightPrefixCls = `${this.getDropdownPrefixCls()}-right`;
+    const resultsPanelPrefixCls = `${this.getDropdownPrefixCls()}-right`;
 
     let renderRightDropdownTitle = null;
 
-    if (rightDropdownTitle) {
+    if (resultsPanelTitle) {
       renderRightDropdownTitle = (
-        <p className={`${dropdownRightPrefixCls}-title`} style={rightDropdownTitleStyle}>
-          {rightDropdownTitle}
+        <p className={`${resultsPanelPrefixCls}-title`} style={resultsPanelTitleStyle}>
+          {resultsPanelTitle}
         </p>
       );
     }
     const num = value.length || 0;
 
     const noContent = (<div
-      className={`${dropdownRightPrefixCls}-noContent`}
+      className={`${resultsPanelPrefixCls}-noContent`}
     >
       请从左侧选择
     </div>);
     const clear = (<span
       key="rightDropdownAllclear"
-      className={`${dropdownRightPrefixCls}-allClear`}
-      onClick={this.onRightDropdownAllclear}
+      className={`${resultsPanelPrefixCls}-allClear`}
+      onClick={this.onResultsPanelAllClear}
     >清空</span>);
 
     return (
-      <div className={`${dropdownRightPrefixCls}`}>
+      <div className={`${resultsPanelPrefixCls}`}>
         <div style={{ padding: '16px' }}>
           <div>
-            <span className={`${dropdownRightPrefixCls}-fontS`}>已选择（{num}）</span>
-            {rightDropdownAllClearBtn && num ? clear : null}
+            <span className={`${resultsPanelPrefixCls}-fontS`}>已选择（{num}）</span>
+            {resultsPanelAllClearBtn && num ? clear : null}
           </div>
           {renderRightDropdownTitle}
         </div>
@@ -341,7 +341,7 @@ export default class SelectTrigger extends _SelectTrigger {
       treeNodes = this.processTreeNode(treeNodes);
     }
 
-    const rightTreeNodes = props.isFilterInputValueFromRight ?
+    const rightTreeNodes = props.filterResultsPanel ?
       this.processSelectedTreeNode(treeNodes) :
       this.processSelectedTreeNode(this.treeNodes);
 
