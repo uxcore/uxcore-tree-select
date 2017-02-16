@@ -24,8 +24,8 @@ http://uxcore.github.io/
 
 ### TreeSelect props
 
-| name     | description    | type     | default      |
-|----------|----------------|----------|--------------|
+| name     | description    | type     | default      |   since Ver. |
+|----------|----------------|----------|--------------|--------------|
 |className | additional css class of root dom node | String | '' |
 |prefixCls | prefix class | String | 'uxcore-tree-select' |
 |animation | dropdown animation name. only support slide-up now | String | '' |
