@@ -11,8 +11,9 @@ import classnames from 'classnames';
 import Trigger from 'rc-trigger';
 import toArray from 'rc-util/lib/Children/toArray';
 import { loopAllChildren, getValuePropValue } from 'rc-tree-select/lib/util';
-import { flatToHierarchy } from './utils';
 import _SelectTrigger from 'rc-tree-select/lib/SelectTrigger';
+
+import { flatToHierarchy } from './utils';
 import RightTreeNode from './RightTreeNode';
 
 const BUILT_IN_PLACEMENTS = {

@@ -2,6 +2,10 @@
 
 ---
 
+## 0.2.1
+
+`FIXED` fix missing dependencies
+
 ## 0.2.0
 
 `CHANGED` add new prop `resultsPanelAllClearBtn` , `resultsPanelTitle`, `resultsPanelTitleStyle` & `filterResultsPanel` 

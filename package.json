@@ -1,6 +1,6 @@
 {
  "name": "uxcore-tree-select",
- "version": "0.2.0",
+ "version": "0.2.1",
  "description": "uxcore-tree-select component for uxcore.",
  "repository": "https://github.com/uxcore/uxcore-tree-select.git",
  "author": "biangang.bg",
@@ -46,7 +46,10 @@
  "dependencies": {
   "classnames": "^2.1.2",
   "object-assign": "~4.1.0",
-  "rc-tree-select": "^1.7.2"
+  "rc-tree": "^1.4.3",
+  "rc-tree-select": "^1.7.2",
+  "rc-trigger": "^1.8.1",
+  "rc-util": "^4.0.2"
  },
  "contributors": [],
  "license": "MIT"

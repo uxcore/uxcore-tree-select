@@ -6,12 +6,12 @@
 import React, { PropTypes } from 'react';
 import classnames from 'classnames';
 import _TreeSelect from 'rc-tree-select';
-import SelectTrigger from './SelectTrigger';
 import assign from 'object-assign';
 import {
   getValuePropValue, isMultipleOrTags, isMultipleOrTagsOrCombobox,
   getTreeNodesStates, flatToHierarchy,
 } from 'rc-tree-select/lib/util';
+import SelectTrigger from './SelectTrigger';
 
 export default class Select extends _TreeSelect {
   constructor(props) {
