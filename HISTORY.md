@@ -2,6 +2,10 @@
 
 ---
 
+## 0.2.2
+
+`FIXED` i18n
+
 ## 0.2.1
 
 `FIXED` fix missing dependencies
