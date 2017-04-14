@@ -138,7 +138,7 @@ export default class RightTreeNode extends React.Component {
 }
 
 RightTreeNode.defaultProps = {
-
+  locale: 'zh-cn',
 };
 
 RightTreeNode.propTypes = {
@@ -156,4 +156,5 @@ RightTreeNode.propTypes = {
   vls: PropTypes.array,
   pos: PropTypes.string,
   maxTagTextLength: PropTypes.number,
+  locale: PropTypes.oneOf(['zh-cn', 'en-us']),
 };
