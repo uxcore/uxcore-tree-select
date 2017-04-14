@@ -214,6 +214,7 @@ Select.defaultProps = assign({}, _TreeSelect.defaultProps, {
   resultsPanelTitle: '',
   resultsPanelTitleStyle: {},
   filterResultsPanel: true,
+  locale: 'zh-cn',
 });
 
 Select.propTypes = assign({}, _TreeSelect.propTypes, {
@@ -221,5 +222,6 @@ Select.propTypes = assign({}, _TreeSelect.propTypes, {
   resultsPanelTitle: PropTypes.any,
   resultsPanelTitleStyle: PropTypes.object,
   filterResultsPanel: PropTypes.bool,
+  locale: PropTypes.oneOf(['zh-cn', 'en-us']),
 });
 

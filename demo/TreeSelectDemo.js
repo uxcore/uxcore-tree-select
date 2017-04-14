@@ -114,7 +114,7 @@ class Demo extends React.Component {
         <h2>multiple select</h2>
         <TreeSelect
           style={{ width: 300 }}
-          placeholder={<i>请下拉选择</i>}
+          placeholder={'Please Search'}
           searchPlaceholder="please search"
           multiple
           value={this.state.multipleValue}
@@ -124,13 +124,13 @@ class Demo extends React.Component {
           onSelect={this.onSelect.bind(this)}
           filterResultsPanel={false}
           resultsPanelAllClearBtn={false}
+          locale="en-us"
         />
 
         <h2>check select</h2>
         <TreeSelect
           style={{ width: 300 }}
           dropdownPopupAlign={{ overflow: { adjustY: 0, adjustX: 0 } }}
-          placeholder={<i>请下拉选择</i>}
           searchPlaceholder="please search"
           maxTagTextLength={10}
           showSearch

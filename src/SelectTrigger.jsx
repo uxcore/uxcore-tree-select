@@ -12,7 +12,7 @@ import Trigger from 'rc-trigger';
 import toArray from 'rc-util/lib/Children/toArray';
 import { loopAllChildren, getValuePropValue } from 'rc-tree-select/lib/util';
 import _SelectTrigger from 'rc-tree-select/lib/SelectTrigger';
-
+import i18n from './i18n';
 import { flatToHierarchy } from './utils';
 import RightTreeNode from './RightTreeNode';
 
@@ -160,6 +160,7 @@ export default class SelectTrigger extends _SelectTrigger {
       vls: props.value || [],
       _treeNodesStates: this.updateTreeNodesStates(newTreeNodes),  // eslint-disable-line
       maxTagTextLength: props.maxTagTextLength,
+      locale: props.locale,
     };
 
     const recursive = (children, level) =>
@@ -193,6 +194,7 @@ export default class SelectTrigger extends _SelectTrigger {
       resultsPanelTitle,
       resultsPanelTitleStyle,
       value,
+      locale,
     } = this.props;
 
     const resultsPanelPrefixCls = `${this.getDropdownPrefixCls()}-right`;
@@ -211,19 +213,19 @@ export default class SelectTrigger extends _SelectTrigger {
     const noContent = (<div
       className={`${resultsPanelPrefixCls}-noContent`}
     >
-      请从左侧选择
+      {i18n[locale].pleaseSelectFromLeft}
     </div>);
     const clear = (<span
       key="rightDropdownAllclear"
       className={`${resultsPanelPrefixCls}-allClear`}
       onClick={this.onResultsPanelAllClear}
-    >清空</span>);
+    >{i18n[locale].clear}</span>);
 
     return (
       <div className={`${resultsPanelPrefixCls}`}>
         <div style={{ padding: '16px' }}>
           <div>
-            <span className={`${resultsPanelPrefixCls}-fontS`}>已选择（{num}）</span>
+            <span className={`${resultsPanelPrefixCls}-fontS`}>{i18n[locale].alreadyChoosed}（{num}）</span>
             {resultsPanelAllClearBtn && num ? clear : null}
           </div>
           {renderRightDropdownTitle}
