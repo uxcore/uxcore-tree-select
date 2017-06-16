@@ -2,6 +2,10 @@
 
 ---
 
+## 0.2.3
+
+* `FIXED` server render bug
+
 ## 0.2.2
 
 `FIXED` i18n
