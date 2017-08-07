@@ -1,6 +1,6 @@
 {
  "name": "uxcore-tree-select",
- "version": "0.2.3",
+ "version": "0.2.4",
  "description": "uxcore-tree-select component for uxcore.",
  "repository": "https://github.com/uxcore/uxcore-tree-select.git",
  "author": "biangang.bg",
@@ -40,13 +40,13 @@
   "react": "0.14.x",
   "react-addons-test-utils": "0.14.x",
   "react-dom": "0.14.x",
-  "uxcore-kuma": "2.x",
+  "uxcore-kuma": "*",
   "uxcore-tools": "0.2.x"
  },
  "dependencies": {
   "classnames": "^2.1.2",
   "object-assign": "~4.1.0",
-  "rc-tree": "^1.4.3",
+  "rc-tree": "~1.6.0",
   "rc-tree-select": "^1.7.2",
   "rc-trigger": "^1.8.1",
   "rc-util": "^4.0.2"

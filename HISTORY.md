@@ -2,6 +2,10 @@
 
 ---
 
+## 0.2.4
+
+* `FIXED` lock tree version, fix switcher arrow style
+
 ## 0.2.3
 
 * `FIXED` server render bug
