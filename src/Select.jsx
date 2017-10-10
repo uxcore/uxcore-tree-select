@@ -3,7 +3,8 @@
  * @author chenqiu  wb-cq231719@alibaba-inc.com
  */
 
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import _TreeSelect from 'rc-tree-select';
 import assign from 'object-assign';

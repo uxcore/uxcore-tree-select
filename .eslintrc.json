@@ -7,8 +7,7 @@
     "browser": true
   },
   "rules": {
-
-    "import/no-extraneous-dependencies": ["error", {"devDependencies": false}],
+    "import/no-extraneous-dependencies": "off",
     "react/jsx-no-bind": "off"
   }
 }

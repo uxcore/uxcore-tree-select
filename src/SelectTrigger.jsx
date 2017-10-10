@@ -3,7 +3,8 @@
  * @author chenqiu  wb-cq231719@alibaba-inc.com
  */
 
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 import assign from 'object-assign';
 import Tree, { TreeNode } from 'rc-tree';
