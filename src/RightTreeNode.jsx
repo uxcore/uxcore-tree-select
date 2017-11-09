@@ -3,7 +3,8 @@
  * @author chenqiu  wb-cq231719@alibaba-inc.com
  */
 
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { filterCheckedKeysBaseKey } from './utils';
 
@@ -138,7 +139,7 @@ export default class RightTreeNode extends React.Component {
 }
 
 RightTreeNode.defaultProps = {
-
+  locale: 'zh-cn',
 };
 
 RightTreeNode.propTypes = {
@@ -156,4 +157,5 @@ RightTreeNode.propTypes = {
   vls: PropTypes.array,
   pos: PropTypes.string,
   maxTagTextLength: PropTypes.number,
+  locale: PropTypes.oneOf(['zh-cn', 'en-us']),
 };

@@ -3,15 +3,16 @@
  * @author chenqiu  wb-cq231719@alibaba-inc.com
  */
 
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import _TreeSelect from 'rc-tree-select';
-import SelectTrigger from './SelectTrigger';
 import assign from 'object-assign';
 import {
   getValuePropValue, isMultipleOrTags, isMultipleOrTagsOrCombobox,
   getTreeNodesStates, flatToHierarchy,
 } from 'rc-tree-select/lib/util';
+import SelectTrigger from './SelectTrigger';
 
 export default class Select extends _TreeSelect {
   constructor(props) {
@@ -223,6 +224,7 @@ Select.defaultProps = assign({}, _TreeSelect.defaultProps, {
   resultsPanelTitle: '',
   resultsPanelTitleStyle: {},
   filterResultsPanel: true,
+  locale: 'zh-cn',
 });
 
 Select.propTypes = assign({}, _TreeSelect.propTypes, {
@@ -230,5 +232,6 @@ Select.propTypes = assign({}, _TreeSelect.propTypes, {
   resultsPanelTitle: PropTypes.any,
   resultsPanelTitleStyle: PropTypes.object,
   filterResultsPanel: PropTypes.bool,
+  locale: PropTypes.oneOf(['zh-cn', 'en-us']),
 });
 

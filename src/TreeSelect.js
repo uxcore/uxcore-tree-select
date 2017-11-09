@@ -8,12 +8,12 @@
 import RcTreeSelect from './Select';
 import assign from 'object-assign';
 
-const supportSVG = document.implementation.hasFeature(
-  'http://www.w3.org/TR/SVG11/feature#BasicStructure', '1.1');
-
-class TreeSelect extends RcTreeSelect {
-
+let supportSVG = false;
+if (typeof document !== 'undefined') {
+  supportSVG = document.implementation.hasFeature('http://www.w3.org/TR/SVG11/feature#BasicStructure', '1.1');
 }
+
+class TreeSelect extends RcTreeSelect {}
 
 TreeSelect.displayName = 'TreeSelect';
 
@@ -25,6 +25,7 @@ TreeSelect.defaultProps = assign(RcTreeSelect.defaultProps, {
   showSearch: false,
   dropdownMatchSelectWidth: false,
   maxTagTextLength: 10,
+  locale: 'zh-cn',
 });
 
 TreeSelect.propTypes = RcTreeSelect.propTypes;
