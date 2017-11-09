@@ -19,6 +19,7 @@ export default class Select extends _TreeSelect {
     this.onClearInputValue = this.onClearInputValue.bind(this);
     this.onAllClear = this.onAllClear.bind(this);
     this.onRemoveChecked = this.onRemoveChecked.bind(this);
+    this.fireChange = this.fireChange.bind(this);
   }
 
   onAllClear() {
@@ -96,27 +97,35 @@ export default class Select extends _TreeSelect {
   }
 
   getInputElement() {
-    const props = this.props;
-    return (<span className={`${props.prefixCls}-search__field__wrap`}>
-      <input
-        ref={this.saveInputRef}
-        onBlur={this.onInputBlur}
-        onChange={this.onInputChange}
-        onKeyDown={this.onInputKeyDown}
-        value={this.state.inputValue}
-        disabled={props.disabled}
-        className={`${props.prefixCls}-search__field`}
-        role="textbox"
-      />
-      {
-        isMultipleOrTags(props) ? null :
+    const { inputValue } = this.state;
+    const { prefixCls, disabled } = this.props;
+    return (
+      <span className={`${prefixCls}-search__field__wrap`}>
+        <input
+          ref={this.saveInputRef}
+          onChange={this.onInputChange}
+          onKeyDown={this.onInputKeyDown}
+          value={inputValue}
+          disabled={disabled}
+          className={`${prefixCls}-search__field`}
+          role="textbox"
+        />
+        {
+        isMultipleOrTags(this.props) ? null :
           <i
             className={classnames('kuma-icon kuma-icon-search',
-              `${props.prefixCls}-search_icon`)}
+              `${this.props.prefixCls}-search_icon`)}
           />
-      }
-      {isMultipleOrTags(props) ? null : this.getSearchPlaceholderElement(!!this.state.inputValue)}
-    </span>);
+        }
+        <span
+          ref={this.saveInputMirrorRef}
+          className={`${prefixCls}-search__field__mirror`}
+        >
+          {inputValue}&nbsp;
+        </span>
+        {isMultipleOrTags(this.props) ? null : this.getSearchPlaceholderElement(!!inputValue)}
+      </span>
+    );
   }
 
   render() {
@@ -189,7 +198,7 @@ export default class Select extends _TreeSelect {
             {...extraSelectionProps}
           >
           {ctrlNode}
-          {allowClear && !multiple && this.state.value.length &&
+          {allowClear && this.state.value.length &&
           this.state.value[0].value ? clear : null}
             {multiple || !props.showArrow ? null :
               (<span
