@@ -2,6 +2,10 @@
 
 ---
 
+## 0.3.1
+
+* `FIXED` rc-tree-select@1.11.0 is a breaking change for the component
+
 ## 0.3.0
 
 * `UPDATE` React 15
