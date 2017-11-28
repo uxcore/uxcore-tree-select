@@ -7,6 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { filterCheckedKeysBaseKey } from './utils';
+import i18n from './i18n';
 
 
 export default class RightTreeNode extends React.Component {
@@ -92,7 +93,8 @@ export default class RightTreeNode extends React.Component {
   }
 
   render() {
-    const { treeNodeLabelProp, children, isAll, prefixCls, level, maxTagTextLength } = this.props;
+    const { treeNodeLabelProp, children, isAll, prefixCls, level,
+      maxTagTextLength, locale } = this.props;
     const { expand } = this.state;
     // padding 无箭头 +36  有箭头+18
     const paddingLeftStyle = {};
@@ -106,7 +108,7 @@ export default class RightTreeNode extends React.Component {
       [`${prefixCls}-arrow-switch`]: true,
     };
 
-    let content = this.props[treeNodeLabelProp];
+    let content = <span>{this.props[treeNodeLabelProp]}</span>;
 
     if (maxTagTextLength && typeof content === 'string' && content.length > maxTagTextLength) {
       content = (<span title={this.props[treeNodeLabelProp]}>
@@ -123,10 +125,12 @@ export default class RightTreeNode extends React.Component {
           }
           {content}
           {isAll || (this.isSelectNode() && children) ?
-            <span className={`${prefixCls}-allSelect`}>全选</span> : null}
+            <span className={`${prefixCls}-allSelect`}>{i18n[locale].all}</span> : null}
           {
             this.isSelectNode() ?
-              <span className={`${prefixCls}-clear`} onClick={this.removeSelected}>删除</span>
+              <span className={`${prefixCls}-clear`} onClick={this.removeSelected}>
+                {i18n[locale].delete}
+              </span>
               : null
           }
         </div>

@@ -7,6 +7,9 @@
  */
 import RcTreeSelect from './Select';
 import assign from 'object-assign';
+import TreeNode from 'rc-tree-select/lib/TreeNode';
+import strategies from 'rc-tree-select/lib/strategies';
+
 
 let supportSVG = false;
 if (typeof document !== 'undefined') {
@@ -15,6 +18,8 @@ if (typeof document !== 'undefined') {
 
 class TreeSelect extends RcTreeSelect {}
 
+TreeSelect.TreeNode = TreeNode;
+assign(TreeSelect, strategies);
 TreeSelect.displayName = 'TreeSelect';
 
 TreeSelect.defaultProps = assign(RcTreeSelect.defaultProps, {
@@ -29,5 +34,6 @@ TreeSelect.defaultProps = assign(RcTreeSelect.defaultProps, {
 });
 
 TreeSelect.propTypes = RcTreeSelect.propTypes;
+
 
 module.exports = TreeSelect;

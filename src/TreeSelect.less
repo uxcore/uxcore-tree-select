@@ -663,7 +663,7 @@
 @__select-tree-node-prefix-cls: uxcore-tree-select-tree;
 .@{__select-tree-prefix-cls}-dropdown-isSelect {
     .@{__select-tree-node-prefix-cls} {
-        li a.@{__select-tree-node-prefix-cls}-node-selected {
+        li .@{__select-tree-node-prefix-cls}-node-selected {
             color: @brand-primary;
         }
     }
@@ -764,11 +764,20 @@
     > span,
     > a {
       color: gray;
+      font-weight: bold;
     }
   }
 }
 .use-svg {
   .@{__select-tree-node-prefix-cls}-switcher {
+    &.@{__select-tree-node-prefix-cls}-switcher_open {
+        background: url('https://img.alicdn.com/tps/TB1IvveJVXXXXbcXFXXXXXXXXXX-14-10.svg') 50% 50% no-repeat;
+        background-size: 50% auto;
+      }
+      &.@{__select-tree-node-prefix-cls}-switcher_close {
+        background: url('https://img.alicdn.com/tps/TB17BHzJVXXXXXEXXXXXXXXXXXX-10-14.svg') 50% 50% no-repeat;
+        background-size: auto 50%;
+      }  
     &.@{__select-tree-node-prefix-cls}-noline_open {
       background: url('https://img.alicdn.com/tps/TB1IvveJVXXXXbcXFXXXXXXXXXX-14-10.svg') 50% 50% no-repeat;
       background-size: 50% auto;

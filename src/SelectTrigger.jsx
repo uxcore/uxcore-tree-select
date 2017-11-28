@@ -1,21 +1,23 @@
-/**
- * Refactor the SelectTrigger Component for uxcore
- * @author chenqiu  wb-cq231719@alibaba-inc.com
- */
+// customized rc-tree-select  https://github.com/react-component/tree-select/blob/master/src/SelectTrigger.jsx
 
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
-import assign from 'object-assign';
-import Tree, { TreeNode } from 'rc-tree';
 import classnames from 'classnames';
 import Trigger from 'rc-trigger';
+import Tree, { TreeNode } from 'rc-tree';
+import {
+  loopAllChildren,
+  getValuePropValue,
+  labelCompatible,
+  saveRef,
+} from 'rc-tree-select/lib/util';
 import toArray from 'rc-util/lib/Children/toArray';
-import { loopAllChildren, getValuePropValue } from 'rc-tree-select/lib/util';
-import _SelectTrigger from 'rc-tree-select/lib/SelectTrigger';
 import i18n from './i18n';
 import { flatToHierarchy } from './utils';
 import RightTreeNode from './RightTreeNode';
+import assign from 'object-assign';
+
 
 const BUILT_IN_PLACEMENTS = {
   bottomLeft: {
@@ -36,25 +38,113 @@ const BUILT_IN_PLACEMENTS = {
   },
 };
 
-export default class SelectTrigger extends _SelectTrigger {
-  constructor(props) {
-    super(props);
+class SelectTrigger extends Component {
+  static propTypes = {
+    dropdownMatchSelectWidth: PropTypes.bool,
+    dropdownPopupAlign: PropTypes.object,
+    visible: PropTypes.bool,
+    filterTreeNode: PropTypes.any,
+    treeNodes: PropTypes.any,
+    inputValue: PropTypes.string,
+    prefixCls: PropTypes.string,
+    popupClassName: PropTypes.string,
+    children: PropTypes.any,
+    onFireChange: PropTypes.func,
+    onClearInputValue: PropTypes.func,
+    onRemoveChecked: PropTypes.func,
+  };
 
-    this.onResultsPanelAllClear = this.onResultsPanelAllClear.bind(this);
+  state = {
+    _expandedKeys: [],
+    fireOnExpand: false,
+    dropdownWidth: null,
+  };
+
+  componentDidMount() {
+    this.setDropdownWidth();
   }
 
-  componentDidUpdate() {
-    const { dropdownMatchSelectWidth, visible } = this.props;
-
-    if (visible) {
-      const dropdownDOMNode = this.getPopupDOMNode();
-      if (dropdownDOMNode) {
-        dropdownDOMNode.style.width = dropdownMatchSelectWidth ?
-          `${ReactDOM.findDOMNode(this).offsetWidth * 2}px` : '480px';
-      }
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.inputValue && nextProps.inputValue !== this.props.inputValue) {
+      // set autoExpandParent to true
+      this.setState({
+        _expandedKeys: [],
+        fireOnExpand: false,
+      });
     }
   }
 
+  componentDidUpdate() {
+    this.setDropdownWidth();
+  }
+
+  onResultsPanelAllClear = () => {
+    this.props.onAllClear();
+  }
+
+  onExpand = (expandedKeys) => {
+    // rerender
+    this.setState({
+      _expandedKeys: expandedKeys,
+      fireOnExpand: true,
+    }, () => {
+      // Fix https://github.com/ant-design/ant-design/issues/5689
+      if (this.trigger && this.trigger.forcePopupAlign) {
+        this.trigger.forcePopupAlign();
+      }
+    });
+  }
+
+  setDropdownWidth() {
+    const width = ReactDOM.findDOMNode(this).offsetWidth;
+    if (width !== this.state.dropdownWidth) {
+      this.setState({ dropdownWidth: width });
+    }
+  }
+
+  getPopupEleRefs() {
+    return this.popupEle;
+  }
+
+  getPopupDOMNode() {
+    return this.trigger.getPopupDomNode();
+  }
+
+  getDropdownTransitionName() {
+    const props = this.props;
+    let transitionName = props.transitionName;
+    if (!transitionName && props.animation) {
+      transitionName = `${this.getDropdownPrefixCls()}-${props.animation}`;
+    }
+    return transitionName;
+  }
+
+  getDropdownPrefixCls() {
+    return `${this.props.prefixCls}-dropdown`;
+  }
+
+  highlightTreeNode = (treeNode) => {
+    const props = this.props;
+    const filterVal = treeNode.props[labelCompatible(props.treeNodeFilterProp)];
+    if (typeof filterVal === 'string') {
+      return props.inputValue && filterVal.indexOf(props.inputValue) > -1;
+    }
+    return false;
+  }
+
+  filterTreeNode = (input, child) => {
+    if (!input) {
+      return true;
+    }
+    const filterTreeNode = this.props.filterTreeNode;
+    if (!filterTreeNode) {
+      return true;
+    }
+    if (child.props.disabled) {
+      return false;
+    }
+    return filterTreeNode.call(this, input, child);
+  }
   onResultsPanelAllClear() {
     this.props.onAllClear();
   }
@@ -144,6 +234,47 @@ export default class SelectTrigger extends _SelectTrigger {
     treeNodesStatesBak.checkedNodesPositions = checkedNodesPositions;
 
     return treeNodesStatesBak;
+  }
+  processTreeNode(treeNodes) {
+    const filterPoss = [];
+    this._expandedKeys = [];
+    loopAllChildren(treeNodes, (child, index, pos) => {
+      if (this.filterTreeNode(this.props.inputValue, child)) {
+        filterPoss.push(pos);
+        this._expandedKeys.push(child.key);
+      }
+    });
+
+    // Include the filtered nodes's ancestral nodes.
+    const processedPoss = [];
+    filterPoss.forEach(pos => {
+      const arr = pos.split('-');
+      arr.reduce((pre, cur) => {
+        const res = `${pre}-${cur}`;
+        if (processedPoss.indexOf(res) < 0) {
+          processedPoss.push(res);
+        }
+        return res;
+      });
+    });
+    const filterNodesPositions = [];
+    loopAllChildren(treeNodes, (child, index, pos) => {
+      if (processedPoss.indexOf(pos) > -1) {
+        filterNodesPositions.push({ node: child, pos });
+      }
+    });
+
+    const hierarchyNodes = flatToHierarchy(filterNodesPositions);
+
+    const recursive = children => {
+      return children.map(child => {
+        if (child.children) {
+          return React.cloneElement(child.node, {}, recursive(child.children));
+        }
+        return child.node;
+      });
+    };
+    return recursive(hierarchyNodes);
   }
 
   renderRightTree(newTreeNodes) {
@@ -239,7 +370,7 @@ export default class SelectTrigger extends _SelectTrigger {
   }
 
   /*
-   * 挪用原组件 this.renderTree
+   * 挪用原组件 this.renderTree, renderTree废弃
    * select模式下cls，防止在treeCheckable模式下点击高亮
    */
   renderTreeTransform(keys, halfCheckedKeys, newTreeNodes, multiple) {
@@ -251,6 +382,7 @@ export default class SelectTrigger extends _SelectTrigger {
       showIcon: props.treeIcon,
       showLine: props.treeLine,
       defaultExpandAll: props.treeDefaultExpandAll,
+      defaultExpandedKeys: props.treeDefaultExpandedKeys,      
       filterTreeNode: this.highlightTreeNode,
     };
 
@@ -276,7 +408,7 @@ export default class SelectTrigger extends _SelectTrigger {
     }
 
     // expand keys
-    if (!trProps.defaultExpandAll && !props.loadData) {
+    if (!trProps.defaultExpandAll && !trProps.defaultExpandedKeys && !props.loadData) {      
       trProps.expandedKeys = keys;
     }
     trProps.autoExpandParent = true;
@@ -299,7 +431,7 @@ export default class SelectTrigger extends _SelectTrigger {
     };
 
     return (<div className={classnames(isCheckCls)}>
-      <Tree ref={this.savePopupElement} {...trProps}>
+      <Tree ref={saveRef(this, 'popupEle')} {...trProps}>
         {newTreeNodes}
       </Tree>
     </div>);
@@ -318,24 +450,28 @@ export default class SelectTrigger extends _SelectTrigger {
       <span className={`${dropdownPrefixCls}-search`}>{props.inputElement}</span>
     );
 
-    const recursive = children =>
+    const recursive = children => {
       // Note: if use `React.Children.map`, the node's key will be modified.
-      toArray(children).map(function handler(child) { // eslint-disable-line
+      return toArray(children).map(function handler(child) { // eslint-disable-line
+        if (!child) {
+          return null;
+        }
         if (child && child.props.children) {
           // null or String has no Prop
-          return (<TreeNode {...child.props} key={child.key}>
-            {recursive(child.props.children)}
-          </TreeNode>);
+          return (
+            <TreeNode {...child.props} key={child.key}>
+              {recursive(child.props.children) }
+            </TreeNode>
+          );
         }
         return <TreeNode {...child.props} key={child.key} />;
       });
-
+    };
     // const s = Date.now();
     let treeNodes;
-    if (props._cachetreeData && this.treeNodes) { // eslint-disable-line
+    if (props._cachetreeData && this.treeNodes) {
       treeNodes = this.treeNodes;
     } else {
-      // 递归塑造TreeNode组件
       treeNodes = recursive(props.treeData || props.treeNodes);
       this.treeNodes = treeNodes;
     }
@@ -346,12 +482,11 @@ export default class SelectTrigger extends _SelectTrigger {
     }
 
     const rightTreeNodes = props.filterResultsPanel ?
-      this.processSelectedTreeNode(treeNodes) :
-      this.processSelectedTreeNode(this.treeNodes);
+    this.processSelectedTreeNode(treeNodes) :
+    this.processSelectedTreeNode(this.treeNodes);
 
     const keys = [];
     const halfCheckedKeys = [];
-    // 计算keys
     loopAllChildren(treeNodes, (child) => {
       if (props.value.some(item => item.value === getValuePropValue(child))) {
         keys.push(child.key);
@@ -365,8 +500,11 @@ export default class SelectTrigger extends _SelectTrigger {
     let notFoundContent;
     if (!treeNodes.length) {
       if (props.notFoundContent) {
-        notFoundContent = (<span className={`${props.prefixCls}-not-found`}>
-          {props.notFoundContent}</span>);
+        notFoundContent = (
+          <span className={`${props.prefixCls}-not-found`}>
+            {props.notFoundContent}
+          </span>
+        );
       } else if (!search) {
         visible = false;
       }
@@ -379,26 +517,32 @@ export default class SelectTrigger extends _SelectTrigger {
       {this.renderRightDropdown(rightTreeNodes)}
     </div>);
 
-    return (<Trigger
-      action={props.disabled ? [] : ['click']} // 设定为点击触发
-      ref="trigger"
-      popupPlacement="bottomLeft"
-      builtinPlacements={BUILT_IN_PLACEMENTS} // 标记位置, 与popupPlacement是一起的
-      popupAlign={props.dropdownPopupAlign} // 标记位置 与上面的合并
-      prefixCls={dropdownPrefixCls}
-      popupTransitionName={this.getDropdownTransitionName()} // 弹窗动画
-      onPopupVisibleChange={props.onDropdownVisibleChange} // 弹窗出现或消失会触发
-      popup={popupElement} // 显示的内容
-      popupVisible={visible} // 弹窗的visible
-      getPopupContainer={props.getPopupContainer}
-      popupClassName={classnames(popupClassName)}
-      popupStyle={props.dropdownStyle}
-    >{this.props.children}</Trigger>);
+    const popupStyle = { ...props.dropdownStyle };
+    const widthProp = props.dropdownMatchSelectWidth ? 'width' : 'minWidth';
+    if (this.state.dropdownWidth) {
+      popupStyle[widthProp] = `${this.state.dropdownWidth * 2}px`;
+    }
+
+    return (
+      <Trigger
+        action={props.disabled ? [] : ['click']}
+        ref={saveRef(this, 'trigger')}
+        popupPlacement="bottomLeft"
+        builtinPlacements={BUILT_IN_PLACEMENTS}
+        popupAlign={props.dropdownPopupAlign}
+        prefixCls={dropdownPrefixCls}
+        popupTransitionName={this.getDropdownTransitionName()}
+        onPopupVisibleChange={props.onDropdownVisibleChange}
+        popup={popupElement}
+        popupVisible={visible}
+        getPopupContainer={props.getPopupContainer}
+        popupClassName={classnames(popupClassName)}
+        popupStyle={popupStyle}
+      >
+        {this.props.children}
+      </Trigger>
+    );
   }
 }
 
-SelectTrigger.propTypes = assign({}, _SelectTrigger.propTypes, {
-  onFireChange: PropTypes.func,
-  onClearInputValue: PropTypes.func,
-  onRemoveChecked: PropTypes.func,
-});
+export default SelectTrigger;

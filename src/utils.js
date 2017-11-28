@@ -1,4 +1,4 @@
-import { isInclude } from 'rc-tree-select/lib/util';
+import { isPositionPrefix, isInclude } from 'rc-tree-select/lib/util';
 
 // Refactor
 export function flatToHierarchy(arr, flag = false) {
@@ -27,7 +27,7 @@ export function flatToHierarchy(arr, flag = false) {
       levelObj[pre].forEach((item) => {
         let haveParent = false;
         levelObj[cur].forEach((ii) => {
-          if (isInclude(ii.pos.split('-'), item.pos.split('-'))) {
+          if (isPositionPrefix(ii.pos, item.pos)) {
             haveParent = true;
             // select multiple模式下的筛选
             if (flag && ii.isAll) {
