@@ -92,42 +92,61 @@ export default class RightTreeNode extends React.Component {
     return false;
   }
 
+  getMaxWidth(isSelectNode, paddingLeftStyle) {
+    const { locale, children, isAll, dropdownWidth } = this.props;
+    // padding:32, delete:26, isALL: 38, arrow: 18
+    let padWidth = 20;
+    if (isAll || (isSelectNode && children)) {
+      padWidth += locale === 'en-us' ? 25 : 36;
+    }
+    if (isSelectNode) {
+      padWidth += locale === 'en-us' ? 38 : 26;
+    }
+    if (children) {
+      padWidth += 18;
+    }
+
+    return (dropdownWidth - padWidth - paddingLeftStyle);
+  }
+
   render() {
-    const { treeNodeLabelProp, children, isAll, prefixCls, level,
-      maxTagTextLength, locale } = this.props;
+    const { treeNodeLabelProp, children, isAll, prefixCls, level, locale } = this.props;
     const { expand } = this.state;
     // padding 无箭头 +36  有箭头+18
-    const paddingLeftStyle = {};
+    let paddingLeft = 0;
     if (level > 1) {
-      paddingLeftStyle.paddingLeft =
-        !children ? `${16 + level * 18}px` : `${16 + (level - 1) * 18}px`;
+      paddingLeft = !children ? (16 + level * 18) : (16 + (level - 1) * 18);
     }
     const arrowCls = {
       [`${prefixCls}-arrow-close`]: !expand,
       [`${prefixCls}-arrow-open`]: expand,
       [`${prefixCls}-arrow-switch`]: true,
     };
+    const isSelectNode = this.isSelectNode();
 
-    let content = <span>{this.props[treeNodeLabelProp]}</span>;
+    const maxWidth = this.getMaxWidth(isSelectNode, paddingLeft);
 
-    if (maxTagTextLength && typeof content === 'string' && content.length > maxTagTextLength) {
-      content = (<span title={this.props[treeNodeLabelProp]}>
-        {`${content.slice(0, maxTagTextLength)}...`}</span>);
-    }
+    const content = (<span
+      style={{ maxWidth: `${maxWidth}px` }}
+      className={`${prefixCls}-label`}
+      title={this.props[treeNodeLabelProp]}
+    >
+      {this.props[treeNodeLabelProp]}
+    </span>);
 
     return (
       <div>
-        <div className={`${prefixCls}-hoverNode`} style={paddingLeftStyle}>
+        <div className={`${prefixCls}-hoverNode`} style={{ paddingLeft: `${paddingLeft}px` }}>
           {
             children ?
               <span onClick={this.expand} className={classnames(arrowCls)} />
             : null
           }
           {content}
-          {isAll || (this.isSelectNode() && children) ?
+          {isAll || (isSelectNode && children) ?
             <span className={`${prefixCls}-allSelect`}>{i18n[locale].all}</span> : null}
           {
-            this.isSelectNode() ?
+            isSelectNode ?
               <span className={`${prefixCls}-clear`} onClick={this.removeSelected}>
                 {i18n[locale].delete}
               </span>
@@ -160,6 +179,6 @@ RightTreeNode.propTypes = {
   _treeNodesStates: PropTypes.object,
   vls: PropTypes.array,
   pos: PropTypes.string,
-  maxTagTextLength: PropTypes.number,
   locale: PropTypes.oneOf(['zh-cn', 'en-us']),
+  dropdownWidth: PropTypes.number,
 };

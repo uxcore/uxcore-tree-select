@@ -291,8 +291,8 @@ class SelectTrigger extends Component {
       onRemoveChecked: props.onRemoveChecked,
       vls: props.value || [],
       _treeNodesStates: this.updateTreeNodesStates(newTreeNodes),  // eslint-disable-line
-      maxTagTextLength: props.maxTagTextLength,
       locale: props.locale,
+      dropdownWidth: this.state.dropdownWidth
     };
 
     const recursive = (children, level) =>
