@@ -109,6 +109,12 @@ export default class Select extends _TreeSelect {
         className={`${props.prefixCls}-search__field`}
         role="textbox"
       />
+      <span
+        ref={(c) => { this.inputMirrorInstance = c; }}
+        className={`${props.prefixCls}-search__field__mirror`}
+      >
+        {this.state.inputValue}&nbsp;
+      </span>
       {
         isMultipleOrTags(props) ? null :
           <i
