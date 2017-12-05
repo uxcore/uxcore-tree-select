@@ -1,6 +1,9 @@
 # HISTORY
 
 ---
+## 0.3.2
+
+* `FIXED` inputMirrorInstance is undefined [reference](https://github.com/uxcore/uxcore-tree-select/issues/7)
 
 ## 0.3.1
 
