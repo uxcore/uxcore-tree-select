@@ -668,14 +668,11 @@
 @tree-assets-img: 'https://aliwork.alicdn.com/tps/TB1k_tsKpXXXXcQXFXXXXXXXXXX-130-87.png';
 
 @__select-tree-node-prefix-cls: uxcore-tree-select-tree;
-.@{__select-tree-prefix-cls}-dropdown-isSelect {
-    .@{__select-tree-node-prefix-cls} {
-        li .@{__select-tree-node-prefix-cls}-node-selected {
-            color: @brand-primary;
-        }
-    }
-}
+
 .@{__select-tree-node-prefix-cls} {
+	.@{__select-tree-node-prefix-cls}-node-selected {
+			color: @brand-primary;
+	}
   margin: 0;
   padding: 14px 18px;
   li {

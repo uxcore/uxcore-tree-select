@@ -116,6 +116,9 @@ export default class RightTreeNode extends React.Component {
     let paddingLeft = 0;
     if (level > 1) {
       paddingLeft = !children ? (16 + level * 18) : (16 + (level - 1) * 18);
+    } else if (level === 1 && !children) {
+      // fix style for the first level label which has no Children
+      paddingLeft = 5;
     }
     const arrowCls = {
       [`${prefixCls}-arrow-close`]: !expand,

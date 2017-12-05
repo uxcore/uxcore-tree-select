@@ -235,6 +235,7 @@ class SelectTrigger extends Component {
 
     return treeNodesStatesBak;
   }
+
   processTreeNode(treeNodes) {
     const filterPoss = [];
     this._expandedKeys = [];
@@ -369,11 +370,7 @@ class SelectTrigger extends Component {
     );
   }
 
-  /*
-   * 挪用原组件 this.renderTree, renderTree废弃
-   * select模式下cls，防止在treeCheckable模式下点击高亮
-   */
-  renderTreeTransform(keys, halfCheckedKeys, newTreeNodes, multiple) {
+  renderTree(keys, halfCheckedKeys, newTreeNodes, multiple) {
     const props = this.props;
 
     const trProps = {
@@ -382,7 +379,7 @@ class SelectTrigger extends Component {
       showIcon: props.treeIcon,
       showLine: props.treeLine,
       defaultExpandAll: props.treeDefaultExpandAll,
-      defaultExpandedKeys: props.treeDefaultExpandedKeys,      
+      defaultExpandedKeys: props.treeDefaultExpandedKeys,
       filterTreeNode: this.highlightTreeNode,
     };
 
@@ -395,7 +392,7 @@ class SelectTrigger extends Component {
         // enable checkStrictly when search tree.
         trProps.checkStrictly = true;
       } else {
-        trProps._treeNodesStates = props._treeNodesStates; // eslint-disable-line
+        trProps._treeNodesStates = props._treeNodesStates;
       }
       if (trProps.treeCheckStrictly && halfCheckedKeys.length) {
         trProps.checkedKeys = { checked: keys, halfChecked: halfCheckedKeys };
@@ -408,16 +405,16 @@ class SelectTrigger extends Component {
     }
 
     // expand keys
-    if (!trProps.defaultExpandAll && !trProps.defaultExpandedKeys && !props.loadData) {      
+    if (!trProps.defaultExpandAll && !trProps.defaultExpandedKeys && !props.loadData) {
       trProps.expandedKeys = keys;
     }
     trProps.autoExpandParent = true;
     trProps.onExpand = this.onExpand;
-    if (this._expandedKeys && this._expandedKeys.length) { // eslint-disable-line
-      trProps.expandedKeys = this._expandedKeys; // eslint-disable-line
+    if (this._expandedKeys && this._expandedKeys.length) {
+      trProps.expandedKeys = this._expandedKeys;
     }
     if (this.state.fireOnExpand) {
-      trProps.expandedKeys = this.state._expandedKeys; // eslint-disable-line
+      trProps.expandedKeys = this.state._expandedKeys;
       trProps.autoExpandParent = false;
     }
 
@@ -426,15 +423,11 @@ class SelectTrigger extends Component {
       trProps.loadData = props.loadData;
     }
 
-    const isCheckCls = {
-      [`${this.getDropdownPrefixCls()}-isSelect`]: !!!props.treeCheckable,
-    };
-
-    return (<div className={classnames(isCheckCls)}>
+    return (
       <Tree ref={saveRef(this, 'popupEle')} {...trProps}>
         {newTreeNodes}
       </Tree>
-    </div>);
+    );
   }
 
   render() {
@@ -512,7 +505,7 @@ class SelectTrigger extends Component {
     const popupElement = (<div className={`${props.prefixCls}-setHight`}>
       <div className={`${dropdownPrefixCls}-left`}>
         {search}
-        {notFoundContent || this.renderTreeTransform(keys, halfCheckedKeys, treeNodes, multiple)}
+        {notFoundContent || this.renderTree(keys, halfCheckedKeys, treeNodes, multiple)}
       </div>
       {this.renderRightDropdown(rightTreeNodes)}
     </div>);

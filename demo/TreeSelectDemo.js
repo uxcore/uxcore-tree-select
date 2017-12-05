@@ -36,7 +36,7 @@ function generateData(x = 3, y = 2, z = 1, gData = []) {
 }
 
 let gData = generateData();
-console.log(gData);
+
 class Demo extends React.Component {
 
   constructor(props) {
