@@ -16,7 +16,6 @@ import toArray from 'rc-util/lib/Children/toArray';
 import i18n from './i18n';
 import { flatToHierarchy } from './utils';
 import RightTreeNode from './RightTreeNode';
-import assign from 'object-assign';
 
 
 const BUILT_IN_PLACEMENTS = {
@@ -49,9 +48,13 @@ class SelectTrigger extends Component {
     prefixCls: PropTypes.string,
     popupClassName: PropTypes.string,
     children: PropTypes.any,
-    onFireChange: PropTypes.func,
-    onClearInputValue: PropTypes.func,
-    onRemoveChecked: PropTypes.func,
+    removeSelected: PropTypes.func,
+    value: PropTypes.array,
+    locale: PropTypes.string,
+    onAllClear: PropTypes.func,
+    resultsPanelAllClearBtn: PropTypes.bool,
+    resultsPanelTitle: PropTypes.any,
+    resultsPanelTitleStyle: PropTypes.object,
   };
 
   state = {
@@ -145,9 +148,6 @@ class SelectTrigger extends Component {
     }
     return filterTreeNode.call(this, input, child);
   }
-  onResultsPanelAllClear() {
-    this.props.onAllClear();
-  }
 
   filterSelectedTreeNode(valueArr, child) {
     if (valueArr.indexOf(child.props.value) > -1) {
@@ -207,35 +207,6 @@ class SelectTrigger extends Component {
     return recursive(hierarchyNodes);
   }
 
-  updateTreeNodesStates(newTreeNodes) {
-    if (!!!this.props._treeNodesStates) { // eslint-disable-line
-      return {};
-    }
-    const treeNodesStatesBak = assign({}, this.props._treeNodesStates); // eslint-disable-line
-
-    if (treeNodesStatesBak.checkedNodesPositions) {
-      return treeNodesStatesBak;
-    }
-    const { checkedNodes } = treeNodesStatesBak;
-
-    const vals = checkedNodes.map(item => {
-      const bak = item.node ? item.node : item;
-      return bak.props.value;
-    });
-
-    const checkedNodesPositions = [];
-
-    loopAllChildren(newTreeNodes, (child, index, pos) => {
-      if (vals.indexOf(child.props.value) > -1) {
-        checkedNodesPositions.push({ node: child, pos });
-      }
-    });
-
-    treeNodesStatesBak.checkedNodesPositions = checkedNodesPositions;
-
-    return treeNodesStatesBak;
-  }
-
   processTreeNode(treeNodes) {
     const filterPoss = [];
     this._expandedKeys = [];
@@ -278,22 +249,18 @@ class SelectTrigger extends Component {
     return recursive(hierarchyNodes);
   }
 
-  renderRightTree(newTreeNodes) {
+  renderRightTree(newTreeNodes, keys) {
     const props = this.props;
 
     const trProps = {
       prefixCls: `${props.prefixCls}-rightTreeNode`,
-      showCheckedStrategy: props.showCheckedStrategy,
       treeNodeLabelProp: props.treeNodeLabelProp,
-      model: props.treeCheckable ? 'check' : 'select',
       isMultiple: props.multiple || props.tags || props.treeCheckable,
-      onFireChange: props.onFireChange,
-      onClearInputValue: props.onClearInputValue,
-      onRemoveChecked: props.onRemoveChecked,
-      vls: props.value || [],
-      _treeNodesStates: this.updateTreeNodesStates(newTreeNodes),  // eslint-disable-line
+      removeSelected: props.removeSelected,
       locale: props.locale,
-      dropdownWidth: this.state.dropdownWidth
+      onSelect: this.onSelect,
+      keys,
+      dropdownWidth: this.state.dropdownWidth,
     };
 
     const recursive = (children, level) =>
@@ -321,7 +288,7 @@ class SelectTrigger extends Component {
     );
   }
 
-  renderRightDropdown(rightTreeNodes) {
+  renderRightDropdown(rightTreeNodes, keys) {
     const {
       resultsPanelAllClearBtn,
       resultsPanelTitle,
@@ -358,13 +325,15 @@ class SelectTrigger extends Component {
       <div className={`${resultsPanelPrefixCls}`}>
         <div style={{ padding: '16px' }}>
           <div>
-            <span className={`${resultsPanelPrefixCls}-fontS`}>{i18n[locale].alreadyChoosed}（{num}）</span>
+            <span className={`${resultsPanelPrefixCls}-fontS`}>
+              {i18n[locale].alreadyChoosed}（{num}）
+            </span>
             {resultsPanelAllClearBtn && num ? clear : null}
           </div>
           {renderRightDropdownTitle}
         </div>
         {
-          num === 0 ? noContent : this.renderRightTree(rightTreeNodes)
+          num === 0 ? noContent : this.renderRightTree(rightTreeNodes, keys)
         }
       </div>
     );
@@ -453,7 +422,7 @@ class SelectTrigger extends Component {
           // null or String has no Prop
           return (
             <TreeNode {...child.props} key={child.key}>
-              {recursive(child.props.children) }
+              {recursive(child.props.children)}
             </TreeNode>
           );
         }
@@ -507,7 +476,7 @@ class SelectTrigger extends Component {
         {search}
         {notFoundContent || this.renderTree(keys, halfCheckedKeys, treeNodes, multiple)}
       </div>
-      {this.renderRightDropdown(rightTreeNodes)}
+      {this.renderRightDropdown(rightTreeNodes, keys)}
     </div>);
 
     const popupStyle = { ...props.dropdownStyle };

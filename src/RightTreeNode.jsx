@@ -6,9 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { filterCheckedKeysBaseKey } from './utils';
 import i18n from './i18n';
-
 
 export default class RightTreeNode extends React.Component {
   constructor(props) {
@@ -16,9 +14,6 @@ export default class RightTreeNode extends React.Component {
     this.state = {
       expand: !(props.isAll || (this.isSelectNode() && props.children)),
     };
-
-    this.expand = this.expand.bind(this);
-    this.removeSelected = this.removeSelected.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -27,69 +22,6 @@ export default class RightTreeNode extends React.Component {
         expand: !nextProps.isAll,
       });
     }
-  }
-
-  expand() {
-    this.setState({
-      expand: !this.state.expand,
-    });
-  }
-
-
-  removeSelected() {
-    const { onFireChange, onClearInputValue, onRemoveChecked, value,
-      model, _treeNodesStates, vls } = this.props;
-
-    if (model === 'select') {
-      onFireChange(vls.filter(item => item.value !== value));
-      onClearInputValue();
-      // todo optimize--隐藏删除
-    } else if (model === 'check') {
-      const { checkedNodesPositions } = _treeNodesStates;
-      let node;
-      let pos;
-
-      const checkedPositions = checkedNodesPositions.map(item => item.pos);
-
-      checkedNodesPositions.forEach(item => {
-        if (item.node.props.value === value) {
-          node = item.node;
-          pos = item.pos;
-        }
-      });
-      const poses = filterCheckedKeysBaseKey(checkedPositions, pos);
-
-      const checkedNodes = checkedNodesPositions
-        .filter(item => poses.indexOf(item.pos) > -1)
-        .map(item => item.node);
-
-      const info = {
-        event: 'check',
-        checked: false,
-        node,
-        checkedNodesPositions: checkedNodesPositions
-          .filter(item => poses.indexOf(item.pos) > -1)
-          .map(item => ({
-            node: item.node,
-            pos: item.pos,
-          })),
-        checkedNodes,
-      };
-      onRemoveChecked('', info);
-    }
-  }
-
-  isSelectNode() {
-    const { model, value, _treeNodesStates, vls, pos } = this.props;
-
-    if (model === 'select') {
-      return vls.map(item => item.value).indexOf(value) > -1;
-    } else if (model === 'check') {
-      const checkVls = _treeNodesStates && _treeNodesStates.checkedKeys || [];
-      return checkVls.indexOf(pos) > -1;
-    }
-
-    return false;
   }
 
   getMaxWidth(isSelectNode, paddingLeftStyle) {
@@ -109,13 +41,31 @@ export default class RightTreeNode extends React.Component {
     return (dropdownWidth - padWidth - paddingLeftStyle);
   }
 
+  removeSelected = () => {
+    const { removeSelected, value } = this.props;
+
+    removeSelected(value);
+  }
+
+  isSelectNode() {
+    const { pos, keys } = this.props;
+
+    return keys.indexOf(pos) > -1;
+  }
+
+  expand = () => {
+    this.setState({
+      expand: !this.state.expand,
+    });
+  }
+
   render() {
     const { treeNodeLabelProp, children, isAll, prefixCls, level, locale } = this.props;
     const { expand } = this.state;
     // padding 无箭头 +36  有箭头+18
     let paddingLeft = 0;
     if (level > 1) {
-      paddingLeft = !children ? (16 + level * 18) : (16 + (level - 1) * 18);
+      paddingLeft = !children ? (16 + (level - 1) * 18) : (16 + (level - 2) * 18);
     } else if (level === 1 && !children) {
       // fix style for the first level label which has no Children
       paddingLeft = 5;
@@ -166,6 +116,7 @@ export default class RightTreeNode extends React.Component {
 
 RightTreeNode.defaultProps = {
   locale: 'zh-cn',
+  keys: [],
 };
 
 RightTreeNode.propTypes = {
@@ -175,13 +126,9 @@ RightTreeNode.propTypes = {
   isAll: PropTypes.bool,
   prefixCls: PropTypes.string,
   level: PropTypes.number,
-  model: PropTypes.string,
-  onFireChange: PropTypes.func,
-  onClearInputValue: PropTypes.func,
-  onRemoveChecked: PropTypes.func,
-  _treeNodesStates: PropTypes.object,
-  vls: PropTypes.array,
+  removeSelected: PropTypes.func,
   pos: PropTypes.string,
   locale: PropTypes.oneOf(['zh-cn', 'en-us']),
   dropdownWidth: PropTypes.number,
+  keys: PropTypes.array,
 };

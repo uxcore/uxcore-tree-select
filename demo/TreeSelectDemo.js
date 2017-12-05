@@ -96,8 +96,8 @@ class Demo extends React.Component {
         <TreeSelect
           style={{ width: 300 }}
           dropdownMatchSelectWidth
-          resultsPanelTitle={<em>1231</em>}
-          resultsPanelTitleStyle={{ color: 'red' }}
+          resultsPanelTitle={<span>测试标题</span>}
+          resultsPanelTitleStyle={{ fontWeight: 'bold' }}
           placeholder={<i>请下拉选择</i>}
           searchPlaceholder="please search"
           allowClear

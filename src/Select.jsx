@@ -18,7 +18,7 @@ import {
   processSimpleTreeData, saveRef,
 } from 'rc-tree-select/lib/util';
 import SelectTrigger from './SelectTrigger';
-import _TreeNode from 'rc-tree-select/lib/TreeNode';
+import TreeNode2 from 'rc-tree-select/lib/TreeNode';
 import { SHOW_ALL, SHOW_PARENT, SHOW_CHILD } from 'rc-tree-select/lib/strategies';
 import { SelectPropTypes } from 'rc-tree-select/lib//PropTypes';
 
@@ -38,7 +38,6 @@ function loopTreeData(data, level = 0) {
       value,
       disabled,
       key,
-      hasOwnProperty,
       selectable,
       children,
       isLeaf,
@@ -55,9 +54,9 @@ function loopTreeData(data, level = 0) {
     };
     let ret;
     if (children && children.length) {
-      ret = (<_TreeNode {...props}>{loopTreeData(children, pos)}</_TreeNode>);
+      ret = (<TreeNode2 {...props}>{loopTreeData(children, pos)}</TreeNode2>);
     } else {
-      ret = (<_TreeNode {...props} isLeaf={isLeaf}/>);
+      ret = (<TreeNode2 {...props} isLeaf={isLeaf} />);
     }
     return ret;
   });
@@ -88,7 +87,7 @@ class Select extends Component {
     showArrow: true,
     dropdownMatchSelectWidth: true,
     dropdownStyle: {},
-    onDropdownVisibleChange: () => { return true; },
+    onDropdownVisibleChange() { return true; },
     notFoundContent: 'Not Found',
     showCheckedStrategy: SHOW_CHILD,
     // skipHandleInitValue: false, // Deprecated (use treeCheckStrictly)
@@ -235,63 +234,6 @@ class Select extends Component {
     this._cacheTreeNodesStates = false; // eslint-disable-line
 
     this.fireChange([]);
-  }
-
-  onClearInputValue = () => {
-    if (this.props.inputValue === null) {
-      this.setState({
-        inputValue: '',
-      });
-    }
-  }
-
-  onRemoveChecked = (selectedKeys, info) => {
-    const item = info.node;
-    let value = this.state.value;
-    const props = this.props;
-    const selectedValue = getValuePropValue(item);
-    const selectedLabel = this.getLabelFromNode(item);
-    let event = selectedValue;
-    if (this.isLabelInValue()) {
-      event = {
-        value: event,
-        label: selectedLabel,
-      };
-    }
-    props.onSelect(event, item, info); // todo
-    const checkEvt = info.event === 'check';
-      // 多选 unchecked
-    if (checkEvt) {
-      value = this.getCheckedNodes(info, props).map(n =>
-        ({
-          value: getValuePropValue(n),
-          label: this.getLabelFromNode(n),
-        })
-      );
-    }
-
-    const extraInfo = {
-      triggerValue: selectedValue,
-      triggerNode: item,
-    };
-    if (checkEvt) {
-      extraInfo.checked = info.checked;
-      extraInfo.allCheckedNodes = props.treeCheckStrictly || this.state.inputValue ?
-        info.checkedNodes : flatToHierarchy(info.checkedNodesPositions);
-      this._checkedNodes = info.checkedNodesPositions; // eslint-disable-line
-      // this._treeNodesStates = _tree.checkKeys; // todo 更新_treeNodeState
-      this._treeNodesStates = getTreeNodesStates( // eslint-disable-line
-        this.renderedTreeData || props.children,
-        value.map(itemV => itemV.value)
-      );
-    }
-
-    this.fireChange(value, extraInfo);
-    if (props.inputValue === null) {
-      this.setState({
-        inputValue: '',
-      });
-    }
   }
 
   onInputChange = (event) => {
@@ -641,7 +583,7 @@ class Select extends Component {
     }
     const checkedNodesPositions = info.checkedNodesPositions;
     if (props.showCheckedStrategy === SHOW_ALL) {
-      checkedNodes = checkedNodes;
+      checkedNodes = checkedNodes; // eslint-disable-line
     } else if (props.showCheckedStrategy === SHOW_PARENT) {
       const posArr = filterParentPosition(checkedNodesPositions.map(itemObj => itemObj.pos));
       checkedNodes = checkedNodesPositions.filter(itemObj => posArr.indexOf(itemObj.pos) !== -1)
@@ -719,7 +661,7 @@ class Select extends Component {
           };
           return;
         }
-        v.label = v.label || this.getLabelFromProps(props, v.value);
+        v.label = v.label || this.getLabelFromProps(props, v.value); // eslint-disable-line
       });
     } else {
       value = value.map(v => {
@@ -739,7 +681,7 @@ class Select extends Component {
     }
   }
 
-  removeSelected(selectedVal) {
+  removeSelected = (selectedVal) => {
     const props = this.props;
     if (props.disabled) {
       return;
@@ -826,7 +768,7 @@ class Select extends Component {
           });
         } else {
           let index;
-          const includeVal = _vls.some((i, ind) => {
+          const includeVal = _vls.some((i, ind) => { // eslint-disable-line
             if (i.value === ex.triggerValue) {
               index = ind;
               return true;
@@ -954,7 +896,7 @@ class Select extends Component {
     return (<ul className={className}>{selectedValueNodes}</ul>);
   }
 
-  renderTreeData(props) {
+  renderTreeData(props) { // eslint-disable-line
     const validProps = props || this.props;
     if (validProps.treeData) {
       if (props && props.treeData === this.props.treeData && this.renderedTreeData) {
@@ -1010,7 +952,8 @@ class Select extends Component {
       onClick={this.onClearSelection}
     />);
     return (
-      <SelectTrigger {...props}
+      <SelectTrigger
+        {...props}
         treeNodes={props.children}
         treeData={this.renderedTreeData}
         _cachetreeData={this._cachetreeData}
@@ -1028,9 +971,7 @@ class Select extends Component {
         ref={saveRef(this, 'trigger')}
         // customized
         onAllClear={this.onAllClear}
-        onFireChange={this.fireChange}
-        onClearInputValue={this.onClearInputValue}
-        onRemoveChecked={this.onRemoveChecked}
+        removeSelected={this.removeSelected}
       >
         <span
           style={props.style}
@@ -1059,8 +1000,8 @@ class Select extends Component {
                 className={`${prefixCls}-arrow`}
                 style={{ outline: 'none' }}
               >
-              <b/>
-            </span>)}
+                <b />
+              </span>)}
             {multiple ?
               this.getSearchPlaceholderElement(!!this.state.inputValue || this.state.value.length) :
               null}
