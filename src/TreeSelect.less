@@ -158,6 +158,14 @@
             font-style: normal;
         }
     }
+
+    &-search__field__mirror {
+        position: absolute;
+        top: 0;
+        left: -9999px;
+        white-space: pre;
+        pointer-events: none;
+    }
     
     &-search--inline {
         width: 100%;
@@ -360,6 +368,7 @@
             position: absolute;
             right: 4px;
             top: 3px;
+            font-size: 13px;
         }
         .@{__select-tree-prefix-cls}-search__field__placeholder {
             top: 2px;
@@ -622,6 +631,13 @@
         white-space: nowrap;
         position: relative;
     }
+    &-label {
+        white-space: nowrap;
+        display: inline-block;
+        vertical-align: middle;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
     &-allSelect {
         font-family: PingFangSC-Regular;
         color: #999999;
@@ -660,14 +676,11 @@
 @tree-assets-img: 'https://aliwork.alicdn.com/tps/TB1k_tsKpXXXXcQXFXXXXXXXXXX-130-87.png';
 
 @__select-tree-node-prefix-cls: uxcore-tree-select-tree;
-.@{__select-tree-prefix-cls}-dropdown-isSelect {
-    .@{__select-tree-node-prefix-cls} {
-        li a.@{__select-tree-node-prefix-cls}-node-selected {
-            color: @brand-primary;
-        }
-    }
-}
+
 .@{__select-tree-node-prefix-cls} {
+	.@{__select-tree-node-prefix-cls}-node-selected {
+			color: @brand-primary;
+	}
   margin: 0;
   padding: 14px 18px;
   li {
@@ -763,11 +776,20 @@
     > span,
     > a {
       color: gray;
+      font-weight: bold;
     }
   }
 }
 .use-svg {
   .@{__select-tree-node-prefix-cls}-switcher {
+    &.@{__select-tree-node-prefix-cls}-switcher_open {
+        background: url('https://img.alicdn.com/tps/TB1IvveJVXXXXbcXFXXXXXXXXXX-14-10.svg') 50% 50% no-repeat;
+        background-size: 50% auto;
+      }
+      &.@{__select-tree-node-prefix-cls}-switcher_close {
+        background: url('https://img.alicdn.com/tps/TB17BHzJVXXXXXEXXXXXXXXXXXX-10-14.svg') 50% 50% no-repeat;
+        background-size: auto 50%;
+      }  
     &.@{__select-tree-node-prefix-cls}-noline_open {
       background: url('https://img.alicdn.com/tps/TB1IvveJVXXXXbcXFXXXXXXXXXX-14-10.svg') 50% 50% no-repeat;
       background-size: 50% auto;

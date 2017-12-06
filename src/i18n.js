@@ -5,6 +5,8 @@ module.exports = {
     alreadyChoosed: '已选择',
     pleaseSelectFromLeft: '请从左侧选择',
     clear: '清空',
+    delete: '删除',
+    all: '全选',
   },
   'en-us': {
     placeholder: 'Please select',
@@ -12,5 +14,7 @@ module.exports = {
     alreadyChoosed: 'Choosed',
     pleaseSelectFromLeft: 'Please select from left',
     clear: 'clear',
+    delete: 'Delete',
+    all: 'All',
   },
 };
