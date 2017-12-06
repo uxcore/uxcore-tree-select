@@ -1,6 +1,10 @@
 # HISTORY
 
 ---
+## 0.4.0
+
+* `UPDATE` rc-tree-select@1.12.0, change extend-style to usage-style.
+
 ## 0.3.2
 
 * `FIXED` inputMirrorInstance is undefined [reference](https://github.com/uxcore/uxcore-tree-select/issues/7)
