@@ -25,13 +25,13 @@ export default class RightTreeNode extends React.Component {
   }
 
   getMaxWidth(isSelectNode, paddingLeftStyle) {
-    const { locale, children, isAll, dropdownWidth } = this.props;
+    const { locale, children, isAll, dropdownWidth, disabled } = this.props;
     // padding:32, delete:26, isALL: 38, arrow: 18
     let padWidth = 20;
     if (isAll || (isSelectNode && children)) {
       padWidth += locale === 'en-us' ? 25 : 36;
     }
-    if (isSelectNode) {
+    if (isSelectNode && !disabled) {
       padWidth += locale === 'en-us' ? 38 : 26;
     }
     if (children) {
@@ -60,7 +60,7 @@ export default class RightTreeNode extends React.Component {
   }
 
   render() {
-    const { treeNodeLabelProp, children, isAll, prefixCls, level, locale } = this.props;
+    const { treeNodeLabelProp, children, isAll, prefixCls, level, locale, disabled } = this.props;
     const { expand } = this.state;
     // padding 无箭头 +36  有箭头+18
     let paddingLeft = 0;
@@ -99,7 +99,7 @@ export default class RightTreeNode extends React.Component {
           {isAll || (isSelectNode && children) ?
             <span className={`${prefixCls}-allSelect`}>{i18n[locale].all}</span> : null}
           {
-            isSelectNode ?
+            (isSelectNode && !disabled) ?
               <span className={`${prefixCls}-clear`} onClick={this.removeSelected}>
                 {i18n[locale].delete}
               </span>
@@ -131,4 +131,5 @@ RightTreeNode.propTypes = {
   locale: PropTypes.oneOf(['zh-cn', 'en-us']),
   dropdownWidth: PropTypes.number,
   keys: PropTypes.array,
+  disabled: PropTypes.bool,
 };
