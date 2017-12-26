@@ -35,8 +35,8 @@
   ],
   "devDependencies": {
     "console-polyfill": "^0.2.2",
-    "enzyme": "^3.0.0",
-    "enzyme-adapter-react-15": "^1.0.0",
+    "enzyme": "^3.2.0",
+    "enzyme-adapter-react-15": "^1.0.5",
     "es5-shim": "^4.5.8",
     "expect.js": "~0.3.1",
     "kuma-base": "1.x",
