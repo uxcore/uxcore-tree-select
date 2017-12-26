@@ -97,8 +97,3 @@ http://uxcore.github.io/
 |value | default as treeNodeFilterProp (be unique across the tree's all TreeNode) | String | '' |
 |title | tree/subTree's title | String/element | '---' |
 |isLeaf | whether it's leaf node | bool | false |
-
-
-
-
-
