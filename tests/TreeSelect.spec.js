@@ -4,7 +4,7 @@ import Enzyme from 'enzyme';
 import TreeSelect from '../src';
 import Adapter from 'enzyme-adapter-react-15';
 
-const { mount } = Enzyme;
+const { mount, render } = Enzyme;
 
 Enzyme.configure({ adapter: new Adapter() });
 
@@ -19,18 +19,18 @@ const options = [{
       label: '西湖',
     }],
   }],
-}, {
-  value: 'jiangsu',
-  label: '江苏',
-  children: [{
-    value: 'nanjing',
-    label: '南京',
+  }, {
+    value: 'jiangsu',
+    label: '江苏',
     children: [{
-      value: 'zhonghuamen',
-      label: '中华门',
+      value: 'nanjing',
+      label: '南京',
+      children: [{
+        value: 'zhonghuamen',
+        label: '中华门',
+      }],
     }],
-  }],
-}];
+  }];
 
 describe('<TreeSelect />', () => {
   it('should render single select', () => {
@@ -46,4 +46,45 @@ describe('<TreeSelect />', () => {
     const dropdownWrapper = mount(wrapper.find('Trigger').prop('popup'));
     expect(dropdownWrapper.length).to.be(1);
   });
+
+  it('sets default value', () => {
+    const treeData = [
+      { key: '0', value: '0', label: 'label0' },
+    ];
+    const wrapper = mount(
+      <TreeSelect defaultValue="0" treeData={treeData} />
+    );
+    expect(
+      wrapper.find('.uxcore-tree-select-selection__rendered > span').text()
+    ).equal('label0');
+  });
+
+  it('can be controlled by value', () => {
+    const treeData = [
+      { key: '0', value: '0', label: 'label0' },
+      { key: '1', value: '1', label: 'label1' },
+    ];
+    const wrapper = mount(
+      <TreeSelect value="0" treeData={treeData} />
+    );
+    let choice = wrapper.find('.uxcore-tree-select-selection__rendered > span');
+    expect(choice.text()).to.equal('label0');
+    wrapper.setProps({ value: '1' });
+    choice = wrapper.find('.uxcore-tree-select-selection__rendered > span');
+    expect(choice.text()).to.equal('label1');
+  });
 });
+
+// describe('click status', () => {
+//   const treeData = [
+//     { key: 'a', value: 'a', label: 'labela' },
+//     { key: 'b', value: 'b', label: 'labelb' },
+//   ];
+
+//   it('render dropdown', () => {
+//     const wrapper = mount(<TreeSelect  placeholder="请选择" showSearch treeData={treeData} /> );
+//     wrapper.find('.uxcore-tree-select').simulate('click');
+//     wrapper.find('.uxcore-tree-select-search__field').simulate('change','a');
+//     expect(wrapper.find('.filter-node').text()).to.equal('labela');
+//   });
+// });
