@@ -20,19 +20,19 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">81.44% </span>
+        <span class="strong">79.28% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>452/555</span>
+        <span class='fraction'>440/555</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">69.92% </span>
+        <span class="strong">68.67% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>279/399</span>
+        <span class='fraction'>274/399</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">82.29% </span>
+        <span class="strong">80.21% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>79/96</span>
+        <span class='fraction'>77/96</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">81.71% </span>
@@ -41,7 +41,7 @@
       </div>
     </div>
   </div>
-  <div class='status-line high'></div>
+  <div class='status-line medium'></div>
 <pre><table class="coverage">
 <tr><td class="line-count quiet">1
 2
@@ -1204,7 +1204,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4360×</span>
+<span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1250,7 +1250,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">9×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">5×</span>
+<span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">497×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -2213,7 +2213,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">35×</span>
-<span class="cline-any cline-yes">5×</span>
+<span class="cline-any cline-yes">4×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">35×</span>
@@ -2359,7 +2359,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 &nbsp;
-var _extends = Object.assign || function (target) { for (var i = 1; i &lt; arguments.length; i++) { var source = arguments[i]; for (var key in source) { <span class="missing-if-branch" title="else path not taken" >E</span>if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+var _extends = Object.assign || <span class="fstat-no" title="function not covered" ><span class="branch-1 cbranch-no" title="branch not covered" >function (target) {</span> <span class="cstat-no" title="statement not covered" >for (var i = 1; i &lt; arguments.length; i++) { <span class="cstat-no" title="statement not covered" >var source = arguments[i]; <span class="cstat-no" title="statement not covered" ></span>for (var key in source) { <span class="cstat-no" title="statement not covered" >if (Object.prototype.hasOwnProperty.call(source, key)) { <span class="cstat-no" title="statement not covered" >target[key] = source[key]; </span>} </span>} </span>} <span class="cstat-no" title="statement not covered" ></span>return target; </span>};</span>
 &nbsp;
 var _react = require('react');
 &nbsp;
@@ -2405,7 +2405,7 @@ var _PropTypes = require('rc-tree-select/lib//PropTypes');
 &nbsp;
 function _interopRequireDefault(obj) { return obj &amp;&amp; obj.__esModule ? <span class="branch-0 cbranch-no" title="branch not covered" >obj </span>: { 'default': obj }; }
 &nbsp;
-function _defaults(obj, defaults) { var keys = Object.getOwnPropertyNames(defaults); for (var i = 0; i &lt; keys.length; i++) { var key = keys[i]; var value = Object.getOwnPropertyDescriptor(defaults, key); <span class="missing-if-branch" title="if path not taken" >I</span>if (value &amp;&amp; value.configurable &amp;&amp; <span class="branch-2 cbranch-no" title="branch not covered" >obj[key] === undefined)</span> { <span class="cstat-no" title="statement not covered" >Object.defineProperty(obj, key, value); </span>} } return obj; }
+<span class="fstat-no" title="function not covered" >function _defaults(obj, defaults) {</span> <span class="cstat-no" title="statement not covered" >var keys = Object.getOwnPropertyNames(defaults); <span class="cstat-no" title="statement not covered" ></span>for (var i = 0; i &lt; keys.length; i++) { <span class="cstat-no" title="statement not covered" >var key = keys[i]; <span class="cstat-no" title="statement not covered" ></span>var value = Object.getOwnPropertyDescriptor(defaults, key); <span class="cstat-no" title="statement not covered" ></span>if (value &amp;&amp; value.configurable &amp;&amp; obj[key] === undefined) { <span class="cstat-no" title="statement not covered" >Object.defineProperty(obj, key, value); </span>} </span>} <span class="cstat-no" title="statement not covered" ></span>return obj; </span>}
 &nbsp;
 function _defineProperty(obj, key, value) { <span class="missing-if-branch" title="if path not taken" >I</span>if (key in obj) { <span class="cstat-no" title="statement not covered" >Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); </span>} else { obj[key] = value; } return obj; }
 &nbsp;
@@ -2415,7 +2415,7 @@ function _classCallCheck(instance, Constructor) { <span class="missing-if-branch
 &nbsp;
 function _possibleConstructorReturn(self, call) { <span class="missing-if-branch" title="if path not taken" >I</span>if (!self) { <span class="cstat-no" title="statement not covered" >throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); </span>} return call &amp;&amp; (<span class="branch-1 cbranch-no" title="branch not covered" >typeof call === "object" </span>|| <span class="branch-2 cbranch-no" title="branch not covered" >typeof call === "function")</span> ? <span class="branch-0 cbranch-no" title="branch not covered" >call </span>: self; }
 &nbsp;
-function _inherits(subClass, superClass) { <span class="missing-if-branch" title="if path not taken" >I</span>if (typeof superClass !== "function" &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >superClass !== null)</span> { <span class="cstat-no" title="statement not covered" >throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); </span>} subClass.prototype = Object.create(superClass &amp;&amp; superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); <span class="missing-if-branch" title="else path not taken" >E</span>if (superClass) Object.setPrototypeOf ? <span class="branch-0 cbranch-no" title="branch not covered" >Object.setPrototypeOf(subClass, superClass) </span>: _defaults(subClass, superClass); }
+function _inherits(subClass, superClass) { <span class="missing-if-branch" title="if path not taken" >I</span>if (typeof superClass !== "function" &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >superClass !== null)</span> { <span class="cstat-no" title="statement not covered" >throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); </span>} subClass.prototype = Object.create(superClass &amp;&amp; superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); <span class="missing-if-branch" title="else path not taken" >E</span>if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : <span class="branch-1 cbranch-no" title="branch not covered" >_defaults(subClass, superClass);</span> }
 &nbsp;
 function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { <span class="missing-if-branch" title="else path not taken" >E</span>if (keys.indexOf(i) &gt;= 0) continue; <span class="cstat-no" title="statement not covered" >if (!Object.prototype.hasOwnProperty.call(obj, i)) <span class="cstat-no" title="statement not covered" >continue; <span class="cstat-no" title="statement not covered" ></span></span>target[i] = obj[i]; </span>} return target; } // customized rc-tree-select  https://github.com/react-component/tree-select/blob/master/src/Select.jsx
 &nbsp;
@@ -3514,7 +3514,7 @@ module.exports = exports['default'];
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Fri Jan 12 2018 01:11:03 GMT+0800 (CST)
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Fri Jan 12 2018 10:40:52 GMT+0800 (CST)
 </div>
 </div>
 <script src="../prettify.js"></script>
