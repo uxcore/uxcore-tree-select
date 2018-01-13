@@ -991,9 +991,9 @@ class Select extends Component {
             aria-expanded={state.open}
             {...extraSelectionProps}
           >
-          {ctrlNode}
-          {allowClear && this.state.value.length &&
-          this.state.value[0].value ? clear : null}
+            {ctrlNode}
+            {allowClear && this.state.value.length &&
+            this.state.value[0].value ? clear : null}
             {multiple || !props.showArrow ? null :
               (<span
                 key="arrow"

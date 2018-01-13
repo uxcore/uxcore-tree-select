@@ -117,6 +117,7 @@ class Demo extends React.Component {
           placeholder={'Please Search'}
           searchPlaceholder="please search"
           multiple
+          defaultValue={['0-0-0-label']}
           value={this.state.multipleValue}
           treeData={gData}
           treeNodeFilterProp="title"
@@ -138,7 +139,8 @@ class Demo extends React.Component {
           value={this.state.value}
           treeData={gData}
           treeNodeFilterProp="title"
-          treeCheckable showCheckedStrategy={'SHOW_ALL'}
+          treeCheckable
+          showCheckedStrategy={'SHOW_ALL'}
           onChange={this.onChange.bind(this)}
           onSelect={this.onSelect.bind(this)}
         />

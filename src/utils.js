@@ -50,15 +50,3 @@ export function flatToHierarchy(arr, flag = false) {
   return levelObj[levelArr[levelArr.length - 1]].concat(hierarchyNodes);
 }
 
-export function filterCheckedKeysBaseKey(arr, key) {
-  const nArr = key.split('-');
-
-  return arr.filter(item => {
-    const iArr = item.split('-');
-
-    return !(item === key ||
-      iArr.length > nArr.length && isInclude(nArr, iArr) ||
-      iArr.length < nArr.length && isInclude(iArr, nArr));
-  });
-}
-
