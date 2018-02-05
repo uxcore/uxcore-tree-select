@@ -325,8 +325,9 @@ class SelectTrigger extends Component {
       <div className={`${resultsPanelPrefixCls}`}>
         <div style={{ padding: '16px' }}>
           <div>
-            <span className={`${resultsPanelPrefixCls}-fontS`}>
-              {i18n[locale].alreadyChoosed}（{num}）
+            <span className={`${resultsPanelPrefixCls}-selected`}>
+              <span className={`${resultsPanelPrefixCls}-selected-title`}>{i18n[locale].alreadyChoosed}</span>
+              <span className={`${resultsPanelPrefixCls}-selected-number`}>（{num}）</span>
             </span>
             {resultsPanelAllClearBtn && num ? clear : null}
           </div>
