@@ -42,7 +42,7 @@ describe('Tree Right', () => {
       />
     );
     const trigger = mount(wrapper.find('Trigger').props().popup);
-    expect(trigger.find('.uxcore-tree-select-dropdown-right-fontS').text()).to.equal('已选择（2）');
+    expect(trigger.find('.uxcore-tree-select-dropdown-right-selected-number').text()).to.equal('（2）');
   });
 
   it('allow to expend', () => {
