@@ -13,8 +13,33 @@
     animation-fill-mode: both;
     transform-origin: 0 0;
 }
+.arrowClose() {
+    position: relative;
+    content: '';
+    display: block;
+    top: 5px;
+    left: 8px;
+    width: 0px;
+    height: 0px;
+    border-color: transparent transparent transparent rgba(31, 56, 88, 0.4);
+    border-style: solid;
+    border-width: 4px 0 4px 4px;
+}
+.arrowOpen() {
+    position: relative;
+    content: '';
+    display: block;
+    top: 7px;
+    left: 6px;
+    width: 0px;
+    height: 0px;
+    border-color: rgba(31, 56, 88, 0.4) transparent transparent transparent;
+    border-style: solid;
+    border-width: 4px 4px 0 4px;
+}
 
 .@{__select-tree-prefix-cls} {
+    font-family: PingFangSC-Regular;    
     box-sizing: border-box;
     position: relative;
     display: inline-block;
@@ -153,7 +178,7 @@
         position: absolute;
         top: 0;
         left: 3px;
-        color: #aaa;
+        color: rgba(31, 56, 88, 0.4);
         i {
             font-style: normal;
         }
@@ -326,6 +351,7 @@
     }
     
     &-dropdown {
+        font-family: PingFangSC-Regular;            
         z-index: 1070;
         box-shadow: 0 0px 4px #d9d9d9;
         left: -9999px;
@@ -371,7 +397,7 @@
             font-size: 13px;
         }
         .@{__select-tree-prefix-cls}-search__field__placeholder {
-            top: 2px;
+            top: 4px;
             padding-left: 6px;
         }
         .@{__select-tree-prefix-cls}-search__field {
@@ -564,23 +590,26 @@
     border-left-color: transparent;
     overflow-y: hidden;
     padding-bottom: 3px;
-    background: #F5F5F5;
     position: relative;
-    &-fontS {
-        color: #999;
+    &-selected {
+        &-title {
+            color: rgba(31, 56, 88, 0.6);
+        }
+        &-number {
+            color: rgba(0, 0, 0, 0.8);
+        }
     }
     &-allClear {
         float: right;
         cursor: pointer;
-        color: @brand-primary;
+        color: #3C99D8;
     }
     &-noContent {
-        color: #999;
-        font-family: PingFangSC-Regular;
+        color: rgba(31,56,88,0.4);
         font-size: 12px;
         line-height: 48px;
-        background: #FAFAFA;
-        border: 1px dashed #CCCCCC;
+        background: rgba(31,56,88,0.04);
+        border: 1px dashed rgba(31,56,88,0.20);
         height: 48px;
         width: 75%;
         text-align: center;
@@ -596,9 +625,8 @@
 }
 
 .@{__select-tree-prefix-cls}-rightTreeNode {
-    font-family: PingFangSC-Regular;
     font-size: 12px;
-    color: #333333;
+    color: rgba(0, 0, 0, 0.6);
     height: 250px;
     overflow: auto;
     &-clear {
@@ -606,7 +634,7 @@
         right: 15px;
         top: 1px;
         cursor: pointer;
-        color: @brand-primary;
+        color: #3C99D8;
         transition: opacity .3s, transform .3s;
         transform: scale(0);
         -ms-transform: scale(0);
@@ -614,8 +642,7 @@
 
     &-hoverNode {
         &:hover{
-            background: #EBEBEB;
-            color: @brand-primary;
+            background: rgba(31,56,88,0.04);
             .@{__select-tree-prefix-cls}-rightTreeNode-clear {
                 opacity: 1;
                 transform: scale(1);
@@ -639,8 +666,7 @@
         text-overflow: ellipsis;
     }
     &-allSelect {
-        font-family: PingFangSC-Regular;
-        color: #999999;
+        color: rgba(31,56,88,0.6);
         margin-left: 12px;
     }
     &-arrow-switch {
@@ -652,12 +678,14 @@
         cursor: pointer;
     }
     .@{__select-tree-prefix-cls}-rightTreeNode-arrow-close {
-        background: url('https://img.alicdn.com/tps/TB17BHzJVXXXXXEXXXXXXXXXXXX-10-14.svg') 50% 50% no-repeat;
-        background-size: auto 50%;
+        &:after {
+            .arrowClose();
+        }
     }
     .@{__select-tree-prefix-cls}-rightTreeNode-arrow-open {
-        background: url('https://img.alicdn.com/tps/TB1IvveJVXXXXbcXFXXXXXXXXXX-14-10.svg') 50% 50% no-repeat;
-        background-size: 50% auto;
+        &:after {
+            .arrowOpen();
+        }
     }
 
 }
@@ -783,12 +811,16 @@
 .use-svg {
   .@{__select-tree-node-prefix-cls}-switcher {
     &.@{__select-tree-node-prefix-cls}-switcher_open {
-        background: url('https://img.alicdn.com/tps/TB1IvveJVXXXXbcXFXXXXXXXXXX-14-10.svg') 50% 50% no-repeat;
-        background-size: 50% auto;
+        background: none;
+        &:after {
+            .arrowOpen();
+        }
       }
       &.@{__select-tree-node-prefix-cls}-switcher_close {
-        background: url('https://img.alicdn.com/tps/TB17BHzJVXXXXXEXXXXXXXXXXXX-10-14.svg') 50% 50% no-repeat;
-        background-size: auto 50%;
+        background: none;
+        &:after {
+            .arrowClose();
+        }
       }  
     &.@{__select-tree-node-prefix-cls}-noline_open {
       background: url('https://img.alicdn.com/tps/TB1IvveJVXXXXbcXFXXXXXXXXXX-14-10.svg') 50% 50% no-repeat;
