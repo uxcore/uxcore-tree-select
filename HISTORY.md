@@ -1,6 +1,10 @@
 # HISTORY
 
 ---
+## 0.4.1
+
+* `FIX` clear inputValue when nextProps.value is empty.
+
 ## 0.4.0
 
 * `UPDATE` rc-tree-select@1.12.0, change extend-style to usage-style.

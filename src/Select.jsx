@@ -169,15 +169,14 @@ class Select extends Component {
       this.setState({
         value,
       });
-      // if (nextProps.combobox) {
-      //   this.setState({
-      //     inputValue: value.length ? String(value[0].key) : '',
-      //   });
-      // }
     }
     if (nextProps.inputValue !== this.props.inputValue) {
       this.setState({
         inputValue: nextProps.inputValue,
+      });
+    } else if (!nextProps.value || nextProps.value.length === 0) {
+      this.setState({
+        inputValue: '',
       });
     }
     if ('open' in nextProps) {

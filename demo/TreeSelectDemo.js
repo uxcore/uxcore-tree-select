@@ -102,7 +102,6 @@ class Demo extends React.Component {
           searchPlaceholder="please search"
           allowClear
           showSearch
-          inputValue={this.state.inputValue}
           value={this.state.value}
           treeData={gData}
           treeNodeFilterProp="label"
@@ -110,6 +109,7 @@ class Demo extends React.Component {
           onChange={this.onChange.bind(this)}
           onSelect={this.onSelect.bind(this)}
         />
+        
 
         <h2>multiple select</h2>
         <TreeSelect
@@ -127,6 +127,11 @@ class Demo extends React.Component {
           resultsPanelAllClearBtn={false}
           locale="en-us"
         />
+        <button onClick={() => {
+          this.setState({
+            multipleValue: []
+          });
+        }}>重设value</button>
 
         <h2>check select</h2>
         <TreeSelect
