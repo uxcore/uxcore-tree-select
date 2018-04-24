@@ -1,6 +1,11 @@
 # HISTORY
 
 ---
+
+## 0.4.2
+
+* `FIXED` fix `rc-tree-select` version to `1.12.10`
+
 ## 0.4.1
 
 * `FIX` clear inputValue when nextProps.value is empty.
