@@ -1,4 +1,4 @@
-import { isPositionPrefix, isInclude } from 'rc-tree-select/lib/util';
+import { isPositionPrefix, isInclude, isMultiple } from 'rc-tree-select/lib/util';
 
 // Refactor
 export function flatToHierarchy(arr, flag = false) {
@@ -49,4 +49,17 @@ export function flatToHierarchy(arr, flag = false) {
   // console.log(Date.now() - s);
   return levelObj[levelArr[levelArr.length - 1]].concat(hierarchyNodes);
 }
+
+export function isMultipleOrTags(props) {
+  return !!(isMultiple(props) || props.tags);
+}
+
+export function isMultipleOrTagsOrCombobox(props) {
+  return (isMultiple(props) || props.tags || props.combobox);
+}
+
+export function isSingleMode(props) {
+  return !(isMultiple(props) || props.tags || props.combobox);
+}
+
 

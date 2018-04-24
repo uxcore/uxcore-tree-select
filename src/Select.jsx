@@ -9,8 +9,8 @@ import assign from 'object-assign';
 import Animate from 'rc-animate';
 import {
   getPropValue, getValuePropValue, /* isCombobox,*/
-  isMultipleOrTags, isMultipleOrTagsOrCombobox,
-  isSingleMode, toArray,
+  // isMultipleOrTags, isMultipleOrTagsOrCombobox,
+  /* isSingleMode, */ toArray,
   UNSELECTABLE_ATTRIBUTE, UNSELECTABLE_STYLE,
   preventDefaultEvent,
   getTreeNodesStates, flatToHierarchy, filterParentPosition,
@@ -21,6 +21,7 @@ import SelectTrigger from './SelectTrigger';
 import TreeNode2 from 'rc-tree-select/lib/TreeNode';
 import { SHOW_ALL, SHOW_PARENT, SHOW_CHILD } from 'rc-tree-select/lib/strategies';
 import { SelectPropTypes } from 'rc-tree-select/lib//PropTypes';
+import { isMultipleOrTags, isMultipleOrTagsOrCombobox, isSingleMode} from './utils';
 
 function noop() {
 }
