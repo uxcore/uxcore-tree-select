@@ -2,6 +2,10 @@
 
 ---
 
+## 0.4.3
+
+* `FIXED` add `rc-tree-select` missing utils functions.
+
 ## 0.4.2
 
 * `FIXED` fix `rc-tree-select` version to `1.12.10`
