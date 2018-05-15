@@ -2,6 +2,11 @@
 
 ---
 
+## 0.4.4
+
+* `FIX`: use variable for box-shadow
+* `FIX`: remove the overflow-scroll bar of a dropdown wrapper
+
 ## 0.4.3
 
 * `FIXED` add `rc-tree-select` missing utils functions.
