@@ -282,7 +282,10 @@ class SelectTrigger extends Component {
       });
 
     return (
-      <div className={`${trProps.prefixCls}`}>
+      <div
+        className={`${trProps.prefixCls}`}
+        style={{ height: `${props.dropdownStyle.maxHeight ? props.dropdownStyle.maxHeight - 62 : 250}px` }}
+      >
         {recursive(newTreeNodes, 1)}
       </div>
     );
@@ -472,7 +475,9 @@ class SelectTrigger extends Component {
         visible = false;
       }
     }
-    const popupElement = (<div className={`${props.prefixCls}-setHight`}>
+    const popupElement = (<div
+      style={{ height: `${props.dropdownStyle.maxHeight || 312}px` }}
+    >
       <div className={`${dropdownPrefixCls}-left`}>
         {search}
         {notFoundContent || this.renderTree(keys, halfCheckedKeys, treeNodes, multiple)}
