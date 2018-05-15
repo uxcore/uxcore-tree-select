@@ -353,7 +353,7 @@
     &-dropdown {
         font-family: PingFangSC-Regular;            
         z-index: 1070;
-        box-shadow: 0 0px 4px #d9d9d9;
+        box-shadow: @box-shadow-1;
         left: -9999px;
         top: -9999px;
         position: absolute;
@@ -572,7 +572,7 @@
 .@{__select-tree-prefix-cls}-dropdown-right {
     background-color: white;
     border: 1px solid #dcdcdc;
-    border-radius: @input-border-radius;
+    border-radius: @input-border-radius 0 0 @input-border-radius;
     box-sizing: border-box;
     display: inline-block;
     vertical-align: middle;
@@ -587,6 +587,7 @@
     overflow-y: hidden;
     padding-bottom: 3px;
     position: relative;
+    border-radius:  0 @input-border-radius @input-border-radius 0;
     &-selected {
         &-title {
             color: rgba(31, 56, 88, 0.6);
