@@ -20,14 +20,14 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">79.28% </span>
+        <span class="strong">79.39% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>440/555</span>
+        <span class='fraction'>443/558</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">68.67% </span>
+        <span class="strong">68.98% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>274/399</span>
+        <span class='fraction'>278/403</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">80.21% </span>
@@ -35,9 +35,9 @@
         <span class='fraction'>77/96</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">81.71% </span>
+        <span class="strong">81.82% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>420/514</span>
+        <span class='fraction'>423/517</span>
       </div>
     </div>
   </div>
@@ -1198,11 +1198,14 @@
 1153
 1154
 1155
-1156</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+1156
+1157</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1379,13 +1382,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4×</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -2403,6 +2405,8 @@ var _strategies = require('rc-tree-select/lib/strategies');
 &nbsp;
 var _PropTypes = require('rc-tree-select/lib//PropTypes');
 &nbsp;
+var _utils = require('./utils');
+&nbsp;
 function _interopRequireDefault(obj) { return obj &amp;&amp; obj.__esModule ? <span class="branch-0 cbranch-no" title="branch not covered" >obj </span>: { 'default': obj }; }
 &nbsp;
 <span class="fstat-no" title="function not covered" >function _defaults(obj, defaults) {</span> <span class="cstat-no" title="statement not covered" >var keys = Object.getOwnPropertyNames(defaults); <span class="cstat-no" title="statement not covered" ></span>for (var i = 0; i &lt; keys.length; i++) { <span class="cstat-no" title="statement not covered" >var key = keys[i]; <span class="cstat-no" title="statement not covered" ></span>var value = Object.getOwnPropertyDescriptor(defaults, key); <span class="cstat-no" title="statement not covered" ></span>if (value &amp;&amp; value.configurable &amp;&amp; obj[key] === undefined) { <span class="cstat-no" title="statement not covered" >Object.defineProperty(obj, key, value); </span>} </span>} <span class="cstat-no" title="statement not covered" ></span>return obj; </span>}
@@ -2500,7 +2504,7 @@ var Select = function (_Component) {
         autoFocus = _props2.autoFocus,
         disabled = _props2.disabled;
 &nbsp;
-    if ((0, _util.isMultipleOrTags)(this.props)) {
+    if ((0, _utils.isMultipleOrTags)(this.props)) {
       var inputNode = this.getInputDOMNode();
       if (inputNode.value) {
         inputNode.style.width = '';
@@ -2533,15 +2537,14 @@ var Select = function (_Component) {
       this.setState({
         value: value
       });
-      // if (nextProps.combobox) {
-      //   this.setState({
-      //     inputValue: value.length ? String(value[0].key) : '',
-      //   });
-      // }
     }
     <span class="missing-if-branch" title="if path not taken" >I</span>if (nextProps.inputValue !== this.props.inputValue) {
 <span class="cstat-no" title="statement not covered" >      this.setState({</span>
         inputValue: nextProps.inputValue
+      });
+    } else if (!nextProps.value || nextProps.value.length === 0) {
+      this.setState({
+        inputValue: ''
       });
     }
     if ('open' in nextProps) {
@@ -2561,7 +2564,7 @@ var Select = function (_Component) {
   Select.prototype.componentDidUpdate = function componentDidUpdate() {
     var state = this.state;
     var props = this.props;
-    if (state.open &amp;&amp; (0, _util.isMultipleOrTags)(props)) {
+    if (state.open &amp;&amp; (0, _utils.isMultipleOrTags)(props)) {
       var inputNode = this.getInputDOMNode();
       if (inputNode.value) {
         inputNode.style.width = '';
@@ -2617,7 +2620,7 @@ var Select = function (_Component) {
   Select.prototype.getSearchPlaceholderElement = function getSearchPlaceholderElement(hidden) {
     var props = this.props;
     var placeholder = void 0;
-    if ((0, _util.isMultipleOrTagsOrCombobox)(props)) {
+    if ((0, _utils.isMultipleOrTagsOrCombobox)(props)) {
       placeholder = props.placeholder || props.searchPlaceholder;
     } else {
       placeholder = props.searchPlaceholder;
@@ -2663,7 +2666,7 @@ var Select = function (_Component) {
         inputValue,
         '\xA0'
       ),
-      (0, _util.isMultipleOrTags)(this.props) ? null : this.getSearchPlaceholderElement(!!inputValue)
+      (0, _utils.isMultipleOrTags)(this.props) ? null : this.getSearchPlaceholderElement(!!inputValue)
     );
   };
 &nbsp;
@@ -2819,7 +2822,7 @@ var Select = function (_Component) {
       open: open
     }, function () {
       if (needFocus || open) {
-        <span class="missing-if-branch" title="else path not taken" >E</span>if (open || <span class="branch-1 cbranch-no" title="branch not covered" >(0, _util.isMultipleOrTagsOrCombobox)(props))</span> {
+        <span class="missing-if-branch" title="else path not taken" >E</span>if (open || <span class="branch-1 cbranch-no" title="branch not covered" >(0, _utils.isMultipleOrTagsOrCombobox)(props))</span> {
           var input = _this4.getInputDOMNode();
           if (input &amp;&amp; document.activeElement !== input) {
             input.focus();
@@ -2873,7 +2876,7 @@ var Select = function (_Component) {
 &nbsp;
   Select.prototype.openIfHasChildren = <span class="fstat-no" title="function not covered" >function openIfHasChildren() {</span>
 <span class="cstat-no" title="statement not covered" >    var props = this.props;</span>
-<span class="cstat-no" title="statement not covered" >    if (_react2['default'].Children.count(props.children) || (0, _util.isSingleMode)(props)) {</span>
+<span class="cstat-no" title="statement not covered" >    if (_react2['default'].Children.count(props.children) || (0, _utils.isSingleMode)(props)) {</span>
 <span class="cstat-no" title="statement not covered" >      this.setOpenState(true);</span>
     }
   };
@@ -2894,7 +2897,7 @@ var Select = function (_Component) {
   };
 &nbsp;
   Select.prototype.focus = function focus() {
-    if ((0, _util.isSingleMode)(this.props)) {
+    if ((0, _utils.isSingleMode)(this.props)) {
       this.selection.focus();
     } else {
       this.getInputDOMNode().focus();
@@ -2902,7 +2905,7 @@ var Select = function (_Component) {
   };
 &nbsp;
   Select.prototype.blur = function blur() {
-    if ((0, _util.isSingleMode)(this.props)) {
+    if ((0, _utils.isSingleMode)(this.props)) {
       this.selection.blur();
     } else {
       this.getInputDOMNode().blur();
@@ -2920,7 +2923,7 @@ var Select = function (_Component) {
         maxTagTextLength = props.maxTagTextLength;
     // single and not combobox, input is inside dropdown
 &nbsp;
-    if ((0, _util.isSingleMode)(props)) {
+    if ((0, _utils.isSingleMode)(props)) {
       var innerNode = _react2['default'].createElement(
         'span',
         {
@@ -2948,7 +2951,7 @@ var Select = function (_Component) {
     }
 &nbsp;
     var selectedValueNodes = [];
-    <span class="missing-if-branch" title="else path not taken" >E</span>if ((0, _util.isMultipleOrTags)(props)) {
+    <span class="missing-if-branch" title="else path not taken" >E</span>if ((0, _utils.isMultipleOrTags)(props)) {
       selectedValueNodes = value.map(function (singleValue) {
         var content = singleValue.label;
         var title = content;
@@ -2986,7 +2989,7 @@ var Select = function (_Component) {
       this.getInputElement()
     ));
     var className = prefixCls + '-selection__rendered';
-    <span class="missing-if-branch" title="else path not taken" >E</span>if ((0, _util.isMultipleOrTags)(props) &amp;&amp; choiceTransitionName) {
+    <span class="missing-if-branch" title="else path not taken" >E</span>if ((0, _utils.isMultipleOrTags)(props) &amp;&amp; choiceTransitionName) {
       return _react2['default'].createElement(
         _rcAnimate2['default'],
         {
@@ -3036,7 +3039,7 @@ var Select = function (_Component) {
     var _rootCls;
 &nbsp;
     var props = this.props;
-    var multiple = (0, _util.isMultipleOrTags)(props);
+    var multiple = (0, _utils.isMultipleOrTags)(props);
     var state = this.state;
     var className = props.className,
         disabled = props.disabled,
@@ -3045,7 +3048,7 @@ var Select = function (_Component) {
 &nbsp;
     var ctrlNode = this.renderTopControlNode();
     var extraSelectionProps = {};
-    if (!(0, _util.isMultipleOrTagsOrCombobox)(props)) {
+    if (!(0, _utils.isMultipleOrTagsOrCombobox)(props)) {
       extraSelectionProps = {
         onKeyDown: this.onKeyDown,
         tabIndex: 0
@@ -3232,7 +3235,7 @@ var _initialiseProps = function _initialiseProps() {
     }
     var state = _this7.state;
     var keyCode = event.keyCode;
-    if ((0, _util.isMultipleOrTags)(props) &amp;&amp; !event.target.value &amp;&amp; keyCode === _KeyCode2['default'].BACKSPACE) {
+    if ((0, _utils.isMultipleOrTags)(props) &amp;&amp; !event.target.value &amp;&amp; keyCode === _KeyCode2['default'].BACKSPACE) {
       var value = state.value.concat();
       <span class="missing-if-branch" title="else path not taken" >E</span>if (value.length) {
         var popValue = value.pop();
@@ -3276,7 +3279,7 @@ var _initialiseProps = function _initialiseProps() {
     }
     props.onSelect(event, item, info);
     var checkEvt = info.event === 'check';
-    if ((0, _util.isMultipleOrTags)(props)) {
+    if ((0, _utils.isMultipleOrTags)(props)) {
       _this7.clearSearchInput();
       if (checkEvt) {
         value = _this7.getCheckedNodes(info, props).map(function (n) {
@@ -3333,7 +3336,7 @@ var _initialiseProps = function _initialiseProps() {
 &nbsp;
   this.onDeselect = <span class="fstat-no" title="function not covered" >function (info) {</span>
 <span class="cstat-no" title="statement not covered" >    _this7.removeSelected((0, _util.getValuePropValue)(info.node));</span>
-<span class="cstat-no" title="statement not covered" >    if (!(0, _util.isMultipleOrTags)(_this7.props)) {</span>
+<span class="cstat-no" title="statement not covered" >    if (!(0, _utils.isMultipleOrTags)(_this7.props)) {</span>
 <span class="cstat-no" title="statement not covered" >      _this7.setOpenState(false);</span>
     } else {
 <span class="cstat-no" title="statement not covered" >      _this7.clearSearchInput();</span>
@@ -3391,7 +3394,7 @@ var _initialiseProps = function _initialiseProps() {
       }
       return singleValue.value !== selectedVal;
     });
-    var canMultiple = (0, _util.isMultipleOrTags)(props);
+    var canMultiple = (0, _utils.isMultipleOrTags)(props);
 &nbsp;
     if (canMultiple) {
       var event = selectedVal;
@@ -3485,7 +3488,7 @@ var _initialiseProps = function _initialiseProps() {
           });
         }
       }
-      _this7._savedValue = (0, _util.isMultipleOrTags)(props) ? vls : vls[0];
+      _this7._savedValue = (0, _utils.isMultipleOrTags)(props) ? vls : vls[0];
       props.onChange(_this7._savedValue, labs, ex);
       <span class="missing-if-branch" title="else path not taken" >E</span>if (!('value' in props)) {
         _this7._cacheTreeNodesStates = false;
@@ -3514,7 +3517,7 @@ module.exports = exports['default'];
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Fri Jan 12 2018 10:40:52 GMT+0800 (CST)
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Fri May 18 2018 13:57:53 GMT+0800 (CST)
 </div>
 </div>
 <script src="../prettify.js"></script>

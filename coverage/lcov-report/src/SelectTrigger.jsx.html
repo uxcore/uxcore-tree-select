@@ -20,14 +20,14 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">85.11% </span>
+        <span class="strong">85.17% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>223/262</span>
+        <span class='fraction'>224/263</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">73.29% </span>
+        <span class="strong">73.33% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>118/161</span>
+        <span class='fraction'>121/165</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">85.71% </span>
@@ -35,9 +35,9 @@
         <span class='fraction'>42/49</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">90.6% </span>
+        <span class="strong">90.64% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>212/234</span>
+        <span class='fraction'>213/235</span>
       </div>
     </div>
   </div>
@@ -631,7 +631,21 @@
 586
 587
 588
-589</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+589
+590
+591
+592
+593
+594
+595
+596
+597
+598
+599
+600
+601
+602
+603</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -959,6 +973,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-yes">106×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -999,6 +1016,14 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">106×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1170,11 +1195,14 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">106×</span>
 <span class="cline-any cline-yes">106×</span>
 <span class="cline-any cline-yes">106×</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">106×</span>
 <span class="cline-any cline-yes">106×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1542,7 +1570,10 @@ var SelectTrigger = function (_Component) {
 &nbsp;
     return _react2['default'].createElement(
       'div',
-      { className: '' + trProps.prefixCls },
+      {
+        className: '' + trProps.prefixCls,
+        style: { height: (props.dropdownStyle.maxHeight ? <span class="branch-0 cbranch-no" title="branch not covered" >props.dropdownStyle.maxHeight - 62 </span>: 250) + 'px' }
+      },
       recursive(newTreeNodes, 1)
     );
   };
@@ -1597,11 +1628,19 @@ var SelectTrigger = function (_Component) {
           null,
           _react2['default'].createElement(
             'span',
-            { className: resultsPanelPrefixCls + '-fontS' },
-            _i18n2['default'][locale].alreadyChoosed,
-            '\uFF08',
-            num,
-            '\uFF09'
+            { className: resultsPanelPrefixCls + '-selected' },
+            _react2['default'].createElement(
+              'span',
+              { className: resultsPanelPrefixCls + '-selected-title' },
+              _i18n2['default'][locale].alreadyChoosed
+            ),
+            _react2['default'].createElement(
+              'span',
+              { className: resultsPanelPrefixCls + '-selected-number' },
+              '\uFF08',
+              num,
+              '\uFF09'
+            )
           ),
           resultsPanelAllClearBtn &amp;&amp; num ? clear : null
         ),
@@ -1748,7 +1787,9 @@ var SelectTrigger = function (_Component) {
     }
     var popupElement = _react2['default'].createElement(
       'div',
-      { className: props.prefixCls + '-setHight' },
+      {
+        style: { height: (props.dropdownStyle.maxHeight || 312) + 'px' }
+      },
       _react2['default'].createElement(
         'div',
         { className: dropdownPrefixCls + '-left' },
@@ -1758,11 +1799,12 @@ var SelectTrigger = function (_Component) {
       this.renderRightDropdown(rightTreeNodes, keys)
     );
 &nbsp;
-    var popupStyle = _extends({}, props.dropdownStyle);
-    var widthProp = props.dropdownMatchSelectWidth ? <span class="branch-0 cbranch-no" title="branch not covered" >'width' </span>: 'minWidth';
+    var popupStyle = {};
+    var widthProp = props.dropdownMatchSelectWidth ? 'width' : <span class="branch-1 cbranch-no" title="branch not covered" >'minWidth';</span>
     <span class="missing-if-branch" title="if path not taken" >I</span>if (this.state.dropdownWidth) {
-<span class="cstat-no" title="statement not covered" >      popupStyle[widthProp] = this.state.dropdownWidth * 2 + 'px';</span>
+<span class="cstat-no" title="statement not covered" >      popupStyle[widthProp] = this.state.dropdownWidth + 'px';</span>
     }
+    popupStyle = _extends({}, popupStyle, props.dropdownStyle);
     return _react2['default'].createElement(
       _rcTrigger2['default'],
       {
@@ -1813,7 +1855,7 @@ module.exports = exports['default'];
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Fri Jan 12 2018 10:40:52 GMT+0800 (CST)
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Fri May 18 2018 13:57:53 GMT+0800 (CST)
 </div>
 </div>
 <script src="../prettify.js"></script>
