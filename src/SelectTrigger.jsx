@@ -485,11 +485,12 @@ class SelectTrigger extends Component {
       {this.renderRightDropdown(rightTreeNodes, keys)}
     </div>);
 
-    const popupStyle = { ...props.dropdownStyle };
+    let popupStyle = {};
     const widthProp = props.dropdownMatchSelectWidth ? 'width' : 'minWidth';
     if (this.state.dropdownWidth) {
-      popupStyle[widthProp] = `${this.state.dropdownWidth * 2}px`;
+      popupStyle[widthProp] = `${this.state.dropdownWidth}px`;
     }
+    popupStyle = { ...popupStyle, ...props.dropdownStyle };
     return (
       <Trigger
         action={props.disabled ? [] : ['click']}
