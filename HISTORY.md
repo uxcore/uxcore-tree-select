@@ -2,6 +2,10 @@
 
 ---
 
+## 0.4.5
+
+* `FIX`: the dropdown should not shake, when dropdownMatchSelectWidth is false.
+
 ## 0.4.4
 
 * `FIX`: use variable for box-shadow
