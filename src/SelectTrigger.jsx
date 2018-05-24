@@ -486,10 +486,17 @@ class SelectTrigger extends Component {
     </div>);
 
     let popupStyle = {};
-    const widthProp = props.dropdownMatchSelectWidth ? 'width' : 'minWidth';
-    if (this.state.dropdownWidth) {
-      popupStyle[widthProp] = `${this.state.dropdownWidth}px`;
-    }
+    // const widthProp = props.dropdownMatchSelectWidth ? 'width' : 'minWidth';
+
+
+    // if (this.state.dropdownWidth) {
+    //   popupStyle[widthProp] = `${this.state.dropdownWidth}px`;
+    // }
+    popupStyle['width'] = props.dropdownMatchSelectWidth ? `${this.state.dropdownWidth}px` : '350px';
+
+
+
+
     popupStyle = { ...popupStyle, ...props.dropdownStyle };
     return (
       <Trigger

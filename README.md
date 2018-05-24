@@ -33,7 +33,7 @@ uxcore-tree-select ui component for react
 $ git clone https://github.com/uxcore/uxcore-tree-select
 $ cd uxcore-tree-select
 $ npm install
-$ gulp server
+$ npm run server
 ```
 
 ## Usage
@@ -52,7 +52,7 @@ http://uxcore.github.io/
 |animation | dropdown animation name. only support slide-up now | String | '' |
 |transitionName | dropdown css animation name | String | '' |
 |choiceTransitionName | css animation name for selected items at multiple mode | String | '' |
-|dropdownMatchSelectWidth | whether dropdown's with is same with select | bool | true |
+|dropdownMatchSelectWidth | whether dropdown's with is same with select | bool | false |
 |dropdownClassName | additional className applied to dropdown | String | - |
 |dropdownStyle | additional style applied to dropdown | Object | {} |
 |dropdownPopupAlign | specify alignment for dropdown | Object | - |
