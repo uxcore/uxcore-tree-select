@@ -28,7 +28,7 @@ TreeSelect.defaultProps = assign(RcTreeSelect.defaultProps, {
   transitionName: 'slideUp',
   choiceTransitionName: 'uxcore-tree-select-selection__choice-zoom',
   showSearch: false,
-  dropdownMatchSelectWidth: true,
+  dropdownMatchSelectWidth: false ,
   maxTagTextLength: 10,
   locale: 'zh-cn',
 });
