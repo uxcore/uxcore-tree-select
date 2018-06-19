@@ -57,6 +57,17 @@ class SelectTrigger extends Component {
     resultsPanelTitleStyle: PropTypes.object,
   };
 
+  static getDerivedStateFromProps(props, state) {
+    if (props.inputValue !== state.prevInputValue) {
+      return {
+        _expandedKeys: [],
+        fireOnExpand: false,
+        prevInputValue: props.inputValue,
+      };
+    }
+    return null;
+  }
+
   state = {
     _expandedKeys: [],
     fireOnExpand: false,
@@ -65,16 +76,6 @@ class SelectTrigger extends Component {
 
   componentDidMount() {
     this.setDropdownWidth();
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.inputValue && nextProps.inputValue !== this.props.inputValue) {
-      // set autoExpandParent to true
-      this.setState({
-        _expandedKeys: [],
-        fireOnExpand: false,
-      });
-    }
   }
 
   componentDidUpdate() {

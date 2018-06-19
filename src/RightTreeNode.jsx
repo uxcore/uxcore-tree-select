@@ -9,19 +9,21 @@ import classnames from 'classnames';
 import i18n from './i18n';
 
 export default class RightTreeNode extends React.Component {
+  static getDerivedStateFromProps(props, state) {
+    if (props.isAll !== state.prevIsAll) {
+      return {
+        expand: !props.isAll,
+        prevIsAll: props.isAll,
+      };
+    }
+    return null;
+  }
+
   constructor(props) {
     super(props);
     this.state = {
       expand: !(props.isAll || (this.isSelectNode() && props.children)),
     };
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (this.props.isAll !== nextProps.isAll) {
-      this.setState({
-        expand: !nextProps.isAll,
-      });
-    }
   }
 
   getMaxWidth(isSelectNode, paddingLeftStyle) {
