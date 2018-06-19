@@ -3,7 +3,7 @@ import React from 'react';
 import expect from 'expect.js';
 import Enzyme from 'enzyme';
 import TreeSelect from '../src';
-import Adapter from 'enzyme-adapter-react-15';
+import Adapter from 'enzyme-adapter-react-16';
 import options from './const';
 
 const { TreeNode } = TreeSelect;

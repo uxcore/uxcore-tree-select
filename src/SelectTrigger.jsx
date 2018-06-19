@@ -284,7 +284,9 @@ class SelectTrigger extends Component {
     return (
       <div
         className={`${trProps.prefixCls}`}
-        style={{ height: `${props.dropdownStyle.maxHeight ? props.dropdownStyle.maxHeight - 62 : 250}px` }}
+        style={{
+          height: `${props.dropdownStyle.maxHeight ? props.dropdownStyle.maxHeight - 62 : 250}px`,
+        }}
       >
         {recursive(newTreeNodes, 1)}
       </div>
@@ -329,7 +331,11 @@ class SelectTrigger extends Component {
         <div style={{ padding: '16px' }}>
           <div>
             <span className={`${resultsPanelPrefixCls}-selected`}>
-              <span className={`${resultsPanelPrefixCls}-selected-title`}>{i18n[locale].alreadyChoosed}</span>
+              <span
+                className={`${resultsPanelPrefixCls}-selected-title`}
+              >
+                {i18n[locale].alreadyChoosed}
+              </span>
               <span className={`${resultsPanelPrefixCls}-selected-number`}>（{num}）</span>
             </span>
             {resultsPanelAllClearBtn && num ? clear : null}
@@ -492,10 +498,7 @@ class SelectTrigger extends Component {
     // if (this.state.dropdownWidth) {
     //   popupStyle[widthProp] = `${this.state.dropdownWidth}px`;
     // }
-    popupStyle['width'] = props.dropdownMatchSelectWidth ? `${this.state.dropdownWidth}px` : '350px';
-
-
-
+    popupStyle.width = props.dropdownMatchSelectWidth ? `${this.state.dropdownWidth}px` : '350px';
 
     popupStyle = { ...popupStyle, ...props.dropdownStyle };
     return (

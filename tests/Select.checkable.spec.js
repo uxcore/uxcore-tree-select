@@ -2,7 +2,7 @@
 import React from 'react';
 import Enzyme from 'enzyme';
 import TreeSelect, { SHOW_PARENT, SHOW_ALL } from '../src';
-import Adapter from 'enzyme-adapter-react-15';
+import Adapter from 'enzyme-adapter-react-16';
 import options from './const';
 
 const { mount, render } = Enzyme;
