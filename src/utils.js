@@ -1,4 +1,4 @@
-import { isPositionPrefix, isInclude, isMultiple } from 'rc-tree-select/lib/util';
+import { isPositionPrefix, isMultiple } from './util';
 
 // Refactor
 export function flatToHierarchy(arr, flag = false) {
@@ -61,5 +61,3 @@ export function isMultipleOrTagsOrCombobox(props) {
 export function isSingleMode(props) {
   return !(isMultiple(props) || props.tags || props.combobox);
 }
-
-

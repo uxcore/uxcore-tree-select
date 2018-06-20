@@ -16,11 +16,11 @@ import {
   getTreeNodesStates, flatToHierarchy, filterParentPosition,
   isPositionPrefix, labelCompatible, loopAllChildren, filterAllCheckedData,
   processSimpleTreeData, saveRef,
-} from 'rc-tree-select/lib/util';
+} from './util';
 import SelectTrigger from './SelectTrigger';
-import TreeNode2 from 'rc-tree-select/lib/TreeNode';
-import { SHOW_ALL, SHOW_PARENT, SHOW_CHILD } from 'rc-tree-select/lib/strategies';
-import { SelectPropTypes } from 'rc-tree-select/lib//PropTypes';
+import TreeNode2 from './TreeNode';
+import { SHOW_ALL, SHOW_PARENT, SHOW_CHILD } from './strategies';
+import { SelectPropTypes } from './PropTypes';
 import { isMultipleOrTags, isMultipleOrTagsOrCombobox, isSingleMode } from './utils';
 
 function noop() {

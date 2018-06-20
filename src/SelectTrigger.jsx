@@ -5,13 +5,13 @@ import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 import classnames from 'classnames';
 import Trigger from 'rc-trigger';
-import Tree, { TreeNode } from 'rc-tree';
+import Tree, { TreeNode } from 'uxcore-tree';
 import {
   loopAllChildren,
   getValuePropValue,
   labelCompatible,
   saveRef,
-} from 'rc-tree-select/lib/util';
+} from './util';
 import toArray from 'rc-util/lib/Children/toArray';
 import i18n from './i18n';
 import { flatToHierarchy } from './utils';

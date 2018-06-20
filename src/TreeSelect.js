@@ -7,8 +7,8 @@
  */
 import RcTreeSelect from './Select';
 import assign from 'object-assign';
-import TreeNode from 'rc-tree-select/lib/TreeNode';
-import strategies from 'rc-tree-select/lib/strategies';
+import TreeNode from './TreeNode';
+import strategies from './strategies';
 
 
 let supportSVG = false;
