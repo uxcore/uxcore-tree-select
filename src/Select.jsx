@@ -384,7 +384,7 @@ class Select extends Component {
   }
 
   onDeselect = (info) => {
-    this.removeSelected(getValuePropValue(info.node));
+    this.removeSelected(getValuePropValue(info.node), info.node);
     if (!isMultipleOrTags(this.props)) {
       this.setOpenState(false);
     } else {
@@ -681,7 +681,7 @@ class Select extends Component {
     }
   }
 
-  removeSelected = (selectedVal) => {
+  removeSelected = (selectedVal, nodeInfo = {}) => {
     const props = this.props;
     if (props.disabled) {
       return;
@@ -722,7 +722,7 @@ class Select extends Component {
         });
       }
     }
-    this.fireChange(value, { triggerValue: selectedVal, clear: true });
+    this.fireChange(value, { triggerValue: selectedVal, clear: true, triggerNode: nodeInfo });
   }
 
   openIfHasChildren() {
