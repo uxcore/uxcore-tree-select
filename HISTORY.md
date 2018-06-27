@@ -2,6 +2,10 @@
 
 ---
 
+## 0.4.6
+
+* `FIX`: add node info in onChange.
+
 ## 0.4.5
 
 * `FIX`: the dropdown should not shake, when dropdownMatchSelectWidth is false.
