@@ -48,7 +48,6 @@
   },
   "dependencies": {
     "classnames": "^2.1.2",
-    "lodash": "^4.17.10",
     "object-assign": "~4.1.0",
     "prop-types": "15.x",
     "rc-tree": "~1.7.1",
