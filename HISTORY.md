@@ -2,9 +2,13 @@
 
 ---
 
+## 0.4.7
+
+* `UPDATE`: remove lodash
+
 ## 0.4.6
 
-* `FIX`: add node info in onChange.
+* `UPDATE`: add node info in onChange.
 
 ## 0.4.5
 
