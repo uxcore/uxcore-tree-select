@@ -7,7 +7,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import i18n from './i18n';
-import deepcopy from 'lodash/cloneDeep';
 
 export default class RightTreeNode extends React.Component {
   constructor(props) {
@@ -43,8 +42,8 @@ export default class RightTreeNode extends React.Component {
   }
 
   removeSelected = () => {
-    const { removeSelected, value } = this.props;
-    removeSelected(value, deepcopy(this.props));
+    const { removeSelected, value, position } = this.props;
+    removeSelected(value, { position });
   }
 
   isSelectNode() {
@@ -120,6 +119,7 @@ RightTreeNode.defaultProps = {
 };
 
 RightTreeNode.propTypes = {
+  position: PropTypes.string,
   value: PropTypes.oneOfType([PropTypes.array, PropTypes.string, PropTypes.object]),
   treeNodeLabelProp: PropTypes.any,
   children: PropTypes.any,
