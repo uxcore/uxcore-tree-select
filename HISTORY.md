@@ -2,9 +2,13 @@
 
 ---
 
+## 0.4.8
+
+* `UPDATE`: optimized disabled style.
+
 ## 0.4.7
 
-* `UPDATE`: remove lodash
+* `UPDATE`: remove lodash.
 
 ## 0.4.6
 
