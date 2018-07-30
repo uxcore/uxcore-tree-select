@@ -95,19 +95,19 @@ class Demo extends React.Component {
         <h2>single select</h2>
         <TreeSelect
           style={{ width: 300 }}
-          dropdownMatchSelectWidth
-          resultsPanelTitle={<span>测试标题</span>}
-          resultsPanelTitleStyle={{ fontWeight: 'bold' }}
+          dropdownMatchSelectWidth={false}
+          dropdownStyle={{ width: '500px' }}
           placeholder={<i>请下拉选择</i>}
           searchPlaceholder="please search"
           allowClear
-          showSearch
+          // showSearch
           value={this.state.value}
           treeData={gData}
           treeNodeFilterProp="label"
           onSearch={this.onSearch.bind(this)}
           onChange={this.onChange.bind(this)}
           onSelect={this.onSelect.bind(this)}
+          showCheckedStrategy={SHOW_PARENT}
         />
         
 
@@ -201,6 +201,26 @@ class Demo extends React.Component {
           <TreeNode value="same value7" title="same titlsdasdsadasse4" key="0-4" />
           <TreeNode value="same value8" title="same titl6e" key="0-5" />
         </TreeSelect>
+
+        <h2>use async loadData</h2>
+        <TreeSelect
+          style={{ width: 300 }}
+          placeholder={<i>请下拉选择</i>}
+          searchPlaceholder="please search"
+          maxTagTextLength={10}
+          value={this.state.value}
+          treeData={this.state.simpleTreeData}
+          treeNodeFilterProp="title"
+          treeDataSimpleMode={this.state.treeDataSimpleMode}
+          // treeCheckable
+          // showCheckedStrategy={SHOW_PARENT}
+          onChange={this.onChange.bind(this)}
+          onSelect={this.onSelect.bind(this)}
+          loadData={(node) => {
+            console.log(node);
+            return Promise.resolve();
+          }}
+        />
       </div>
     );
   }

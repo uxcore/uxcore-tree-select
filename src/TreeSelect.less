@@ -370,7 +370,7 @@
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
-
+            cursor: default;
         }
         .@{__select-tree-prefix-cls}-not-found {
             display: inline-block;
@@ -797,10 +797,12 @@
     }
   }
   &-treenode-disabled {
+    > span.uxcore-tree-select-tree-title {
+      cursor: not-allowed !important;
+    }
     > span,
     > a {
-      color: gray;
-      font-weight: bold;
+      color: #ccc;
     }
   }
 }

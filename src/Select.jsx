@@ -20,7 +20,7 @@ import {
 import SelectTrigger from './SelectTrigger';
 import TreeNode2 from 'rc-tree-select/lib/TreeNode';
 import { SHOW_ALL, SHOW_PARENT, SHOW_CHILD } from 'rc-tree-select/lib/strategies';
-import { SelectPropTypes } from 'rc-tree-select/lib//PropTypes';
+import { SelectPropTypes } from 'rc-tree-select/lib/PropTypes';
 import { isMultipleOrTags, isMultipleOrTagsOrCombobox, isSingleMode} from './utils';
 
 function noop() {
