@@ -174,7 +174,7 @@ class SelectTrigger extends Component {
     if (treeCheckStrictly) {
       processedPoss = filterPoss;
     } else {
-      filterPoss.forEach(pos => {
+      filterPoss.forEach((pos) => {
         const arr = pos.split('-');
         arr.reduce((pre, cur) => {
           const res = `${pre}-${cur}`;
@@ -203,8 +203,8 @@ class SelectTrigger extends Component {
     });
 
     let hierarchyNodes;
-     // 阶层 讲平层转换为阶级数组. flatToHierarchy会把具有层级关系的节点进行合并,去掉被包含的节点.
-     // 但是在treeCheckStrictly为true的时候就不能去掉被包含的节点啦
+    // 阶层 讲平层转换为阶级数组. flatToHierarchy会把具有层级关系的节点进行合并,去掉被包含的节点.
+    // 但是在treeCheckStrictly为true的时候就不能去掉被包含的节点啦
     if (treeCheckStrictly) {
       hierarchyNodes = filterNodesPositions;
     } else {
@@ -212,7 +212,7 @@ class SelectTrigger extends Component {
     }
 
     const recursive = children =>
-      children.map(child => {
+      children.map((child) => {
         if (child.children) {
           return React.cloneElement(child.node, { isAll: child.isAll }, recursive(child.children));
         }
@@ -235,7 +235,7 @@ class SelectTrigger extends Component {
 
     // Include the filtered nodes's ancestral nodes.
     const processedPoss = [];
-    filterPoss.forEach(pos => {
+    filterPoss.forEach((pos) => {
       const arr = pos.split('-');
       arr.reduce((pre, cur) => {
         const res = `${pre}-${cur}`;
@@ -254,8 +254,8 @@ class SelectTrigger extends Component {
 
     const hierarchyNodes = flatToHierarchy(filterNodesPositions);
 
-    const recursive = children => {
-      return children.map(child => {
+    const recursive = (children) => {
+      return children.map((child) => {
         if (child.children) {
           return React.cloneElement(child.node, {}, recursive(child.children));
         }
@@ -266,7 +266,7 @@ class SelectTrigger extends Component {
   }
 
   renderRightTree(newTreeNodes, keys) {
-    const props = this.props;
+    const { props } = this;
 
     const trProps = {
       prefixCls: `${props.prefixCls}-rightTreeNode`,
@@ -285,17 +285,29 @@ class SelectTrigger extends Component {
       toArray(children).map(function handler(child) { // eslint-disable-line
         if (child && child.props.children && !props.treeCheckStrictly) {
           // null or String has no Prop
-          return (<RightTreeNode
-            {...trProps} {...child.props} pos={child.key}
-            level={level} isLeft={false} key={child.key}
-          >
-            {recursive(child.props.children, (level + 1))}
-          </RightTreeNode>);
+          return (
+            <RightTreeNode
+              {...trProps}
+              {...child.props}
+              pos={child.key}
+              level={level}
+              isLeft={false}
+              key={child.key}
+            >
+              {recursive(child.props.children, (level + 1))}
+            </RightTreeNode>
+          );
         }
-        return (<RightTreeNode
-          {...trProps} {...child.props} pos={child.key}
-          level={level} isLeft key={child.key}
-        />);
+        return (
+          <RightTreeNode
+            {...trProps}
+            {...child.props}
+            pos={child.key}
+            level={level}
+            isLeft
+            key={child.key}
+          />
+        );
       });
 
     return (
@@ -465,8 +477,8 @@ class SelectTrigger extends Component {
     }
 
     const rightTreeNodes = props.filterResultsPanel ?
-    this.processSelectedTreeNode(treeNodes) :
-    this.processSelectedTreeNode(this.treeNodes);
+      this.processSelectedTreeNode(treeNodes) :
+      this.processSelectedTreeNode(this.treeNodes);
 
     const keys = [];
     const halfCheckedKeys = [];
@@ -492,27 +504,20 @@ class SelectTrigger extends Component {
         visible = false;
       }
     }
-    const popupElement = (<div
-      style={{ height: `${props.dropdownStyle.maxHeight || 312}px` }}
-    >
-      <div className={`${dropdownPrefixCls}-left`}>
-        {search}
-        {notFoundContent || this.renderTree(keys, halfCheckedKeys, treeNodes, multiple)}
+    const popupElement = (
+      <div
+        style={{ height: `${props.dropdownStyle.maxHeight || 312}px` }}
+      >
+        <div className={`${dropdownPrefixCls}-left`}>
+          {search}
+          {notFoundContent || this.renderTree(keys, halfCheckedKeys, treeNodes, multiple)}
+        </div>
+        {this.renderRightDropdown(rightTreeNodes, keys)}
       </div>
-      {this.renderRightDropdown(rightTreeNodes, keys)}
-    </div>);
+    );
 
     let popupStyle = {};
-    // const widthProp = props.dropdownMatchSelectWidth ? 'width' : 'minWidth';
-
-
-    // if (this.state.dropdownWidth) {
-    //   popupStyle[widthProp] = `${this.state.dropdownWidth}px`;
-    // }
     popupStyle['width'] = props.dropdownMatchSelectWidth ? `${this.state.dropdownWidth}px` : '350px';
-
-
-
 
     popupStyle = { ...popupStyle, ...props.dropdownStyle };
     return (

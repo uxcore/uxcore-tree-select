@@ -78,13 +78,19 @@ export default class RightTreeNode extends React.Component {
 
     const maxWidth = this.getMaxWidth(isSelectNode, paddingLeft);
 
-    const content = (<span
-      style={{ maxWidth: `${maxWidth}px` }}
-      className={`${prefixCls}-label`}
-      title={this.props[treeNodeLabelProp]}
-    >
-      {this.props[treeNodeLabelProp]}
-    </span>);
+    const content = (
+      <span
+        style={{ maxWidth: `${maxWidth}px` }}
+        className={`${prefixCls}-label`}
+        title={this.props[treeNodeLabelProp]}
+      >
+        {this.props[treeNodeLabelProp]}
+      </span>
+    );
+
+    if (treeCheckStrictly) {
+      paddingLeft = 15;
+    }
 
     return (
       <div>
