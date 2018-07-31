@@ -59,13 +59,13 @@ export default class RightTreeNode extends React.Component {
   }
 
   render() {
-    const { treeNodeLabelProp, children, isAll, prefixCls, level, locale, disabled } = this.props;
+    const { treeNodeLabelProp, children, isAll, prefixCls, level, locale, disabled, treeCheckStrictly } = this.props;
     const { expand } = this.state;
     // padding 无箭头 +36  有箭头+18
     let paddingLeft = 0;
     if (level > 1) {
       paddingLeft = !children ? (16 + (level - 1) * 18) : (16 + (level - 2) * 18);
-    } else if (level === 1 && !children) {
+    } else if (treeCheckStrictly || level === 1 && !children) {
       // fix style for the first level label which has no Children
       paddingLeft = 5;
     }
@@ -90,12 +90,12 @@ export default class RightTreeNode extends React.Component {
       <div>
         <div className={`${prefixCls}-hoverNode`} style={{ paddingLeft: `${paddingLeft}px` }}>
           {
-            children ?
+            !treeCheckStrictly && children ?
               <span onClick={this.expand} className={classnames(arrowCls)} />
             : null
           }
           {content}
-          {isAll || (isSelectNode && children) ?
+          {isAll || (!treeCheckStrictly && isSelectNode && children) ?
             <span className={`${prefixCls}-allSelect`}>{i18n[locale].all}</span> : null}
           {
             (isSelectNode && !disabled) ?
@@ -123,6 +123,7 @@ RightTreeNode.propTypes = {
   value: PropTypes.oneOfType([PropTypes.array, PropTypes.string, PropTypes.object]),
   treeNodeLabelProp: PropTypes.any,
   children: PropTypes.any,
+  treeCheckStrictly: PropTypes.bool,
   isAll: PropTypes.bool,
   prefixCls: PropTypes.string,
   level: PropTypes.number,

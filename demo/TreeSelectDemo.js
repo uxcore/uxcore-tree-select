@@ -108,9 +108,8 @@ class Demo extends React.Component {
           onChange={this.onChange.bind(this)}
           onSelect={this.onSelect.bind(this)}
           showCheckedStrategy={SHOW_PARENT}
-        />
+        /> 
         
-
         <h2>multiple select</h2>
         <TreeSelect
           style={{ width: 300 }}
@@ -132,6 +131,25 @@ class Demo extends React.Component {
             multipleValue: []
           });
         }}>重设value</button>
+
+        <h2>treeCheckStrictly</h2>
+        <TreeSelect
+          style={{ width: 300 }}
+          dropdownMatchSelectWidth={false}
+          dropdownStyle={{ width: '500px' }}
+          placeholder={<i>请下拉选择</i>}
+          searchPlaceholder="please search"
+          allowClear
+          multiple
+          treeCheckStrictly
+          value={this.state.value}
+          treeData={gData}
+          treeNodeFilterProp="label"
+          onSearch={this.onSearch.bind(this)}
+          onChange={this.onChange.bind(this)}
+          onSelect={this.onSelect.bind(this)}
+          showCheckedStrategy={SHOW_PARENT}
+        />
 
         <h2>check select</h2>
         <TreeSelect

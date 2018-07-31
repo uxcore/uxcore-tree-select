@@ -59,6 +59,20 @@ describe('Tree Right', () => {
     expect(trigger.find('.uxcore-tree-select-rightTreeNode-label')).to.have.length(2);
   });
 
+  it('not allow to expend when treeCheckStrictly equal true', () => {
+    const wrapper = mount(
+      <TreeSelect
+        treeCheckStrictly
+        defaultValue={'a'}
+        treeData={treeData2}
+        resultsPanelTitle="haha"
+        open
+      />
+    );
+    const trigger = mount(wrapper.find('Trigger').props().popup);
+    expect(trigger.find('.uxcore-tree-select-rightTreeNode-arrow-close')).to.have.length(0);
+  });
+
   it('allow to remove', () => {
     const wrapper = mount(
       <TreeSelect

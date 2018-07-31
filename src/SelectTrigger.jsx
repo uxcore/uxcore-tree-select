@@ -39,6 +39,7 @@ const BUILT_IN_PLACEMENTS = {
 
 class SelectTrigger extends Component {
   static propTypes = {
+    treeCheckStrictly: PropTypes.bool,
     dropdownMatchSelectWidth: PropTypes.bool,
     dropdownPopupAlign: PropTypes.object,
     visible: PropTypes.bool,
@@ -158,7 +159,7 @@ class SelectTrigger extends Component {
 
   processSelectedTreeNode(treeNodes) { // 筛选已经选中的treeNode并重组
     const filterPoss = [];
-    const { value } = this.props;
+    const { value, treeCheckStrictly } = this.props;
     const valueArr = value.map(item => item.value);
     loopAllChildren(treeNodes, (child, index, pos) => {
       if (this.filterSelectedTreeNode(valueArr, child)) {
@@ -166,19 +167,25 @@ class SelectTrigger extends Component {
       }
     });
 
-    // Include the filtered nodes's ancestral nodes.
-    // 加入processedPoss包括其祖先组件
-    const processedPoss = [];
-    filterPoss.forEach(pos => {
-      const arr = pos.split('-');
-      arr.reduce((pre, cur) => {
-        const res = `${pre}-${cur}`;
-        if (processedPoss.indexOf(res) < 0) {
-          processedPoss.push(res);
-        }
-        return res;
+    let processedPoss = [];
+    // Include the filtered nodes's ancestral nodes when treeCheckStrictly is false
+    // or only use selected nodes when treeCheckStrictly is true
+    // 在treeCheckStrictly为false的时候加入processedPoss包括其祖先节点, 否则只使用选中的节点
+    if (treeCheckStrictly) {
+      processedPoss = filterPoss;
+    } else {
+      filterPoss.forEach(pos => {
+        const arr = pos.split('-');
+        arr.reduce((pre, cur) => {
+          const res = `${pre}-${cur}`;
+          if (processedPoss.indexOf(res) < 0) {
+            processedPoss.push(res);
+          }
+          return res;
+        });
       });
-    });
+    }
+
     // 再筛选一遍将node都push进去
     const filterNodesPositions = [];
     loopAllChildren(treeNodes, (child, index, pos) => {
@@ -186,14 +193,23 @@ class SelectTrigger extends Component {
         const renderNode = { node: child, pos, isAll: false };
         // 如果有children就是全选的
         if (filterPoss.indexOf(pos) > -1 && child.props.children) {
-          renderNode.isAll = true;
+          // 如果 treeCheckStrictly 为true, 就不展示子节点了, 也不需要显示"全选"这个文案了.
+          if (!treeCheckStrictly) {
+            renderNode.isAll = true;
+          }
         }
         filterNodesPositions.push(renderNode);
       }
     });
 
-    // 阶层 讲平层转换为阶级数组
-    const hierarchyNodes = flatToHierarchy(filterNodesPositions, true);
+    let hierarchyNodes;
+     // 阶层 讲平层转换为阶级数组. flatToHierarchy会把具有层级关系的节点进行合并,去掉被包含的节点.
+     // 但是在treeCheckStrictly为true的时候就不能去掉被包含的节点啦
+    if (treeCheckStrictly) {
+      hierarchyNodes = filterNodesPositions;
+    } else {
+      hierarchyNodes = flatToHierarchy(filterNodesPositions, true);
+    }
 
     const recursive = children =>
       children.map(child => {
@@ -260,13 +276,14 @@ class SelectTrigger extends Component {
       locale: props.locale,
       onSelect: this.onSelect,
       keys,
+      treeCheckStrictly: props.treeCheckStrictly,
       dropdownWidth: this.state.dropdownWidth,
     };
 
     const recursive = (children, level) =>
       // Note: if use `React.Children.map`, the node's key will be modified.
       toArray(children).map(function handler(child) { // eslint-disable-line
-        if (child && child.props.children) {
+        if (child && child.props.children && !props.treeCheckStrictly) {
           // null or String has no Prop
           return (<RightTreeNode
             {...trProps} {...child.props} pos={child.key}
