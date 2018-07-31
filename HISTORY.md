@@ -2,6 +2,11 @@
 
 ---
 
+## 0.4.9
+
+* `FIX`: add padding-left:15px to rightPanelNode when treeCheckStrictly is true
+* `FIX`: fix rightPanelNode when treeCheckStrictly is true
+
 ## 0.4.8
 
 * `UPDATE`: optimized disabled style.
