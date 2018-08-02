@@ -2,6 +2,10 @@
 
 ---
 
+## 0.4.10
+
+* `UPDATE`: change default value of treeNodeFilterProp to "title"
+
 ## 0.4.9
 
 * `FIX`: add padding-left:15px to rightPanelNode when treeCheckStrictly is true
