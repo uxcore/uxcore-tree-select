@@ -98,7 +98,7 @@ class Select extends Component {
     treeDataSimpleMode: false,
     treeDefaultExpandAll: false,
     treeCheckable: false,
-    treeNodeFilterProp: 'value',
+    treeNodeFilterProp: 'title',
     treeNodeLabelProp: 'title',
     resultsPanelAllClearBtn: true,
     resultsPanelTitle: '',
