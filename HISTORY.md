@@ -2,6 +2,10 @@
 
 ---
 
+## 0.4.1
+
+* `FIX` clear input value if value is empty
+
 ## 0.4.10
 
 * `UPDATE`: change default value of treeNodeFilterProp to "title"

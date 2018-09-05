@@ -176,9 +176,9 @@ class Select extends Component {
         inputValue: nextProps.inputValue,
       });
     } else if (!nextProps.value || nextProps.value.length === 0) {
-      this.setState({
-        inputValue: '',
-      });
+      // this.setState({
+      //   inputValue: '',
+      // });
     }
     if ('open' in nextProps) {
       this.setState({
