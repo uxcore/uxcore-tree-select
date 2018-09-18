@@ -1,0 +1,1 @@
+import '../src/TreeSelect.less';

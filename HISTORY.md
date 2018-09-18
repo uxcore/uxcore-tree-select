@@ -2,6 +2,10 @@
 
 ---
 
+## 0.4.2
+
+`CHANGED` support js style export
+
 ## 0.4.1
 
 * `FIX` clear input value if value is empty

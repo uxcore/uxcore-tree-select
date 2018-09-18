@@ -6,7 +6,7 @@
  * All rights reserved.
  */
 
-@__select-tree-prefix-cls: uxcore-tree-select;
+@__treeSelectPrefixCls: uxcore-tree-select;
 
 .effect() {
     animation-duration: .3s;
@@ -38,7 +38,7 @@
     border-width: 4px 4px 0 4px;
 }
 
-.@{__select-tree-prefix-cls} {
+.@{__treeSelectPrefixCls} {
     font-family: PingFangSC-Regular;    
     box-sizing: border-box;
     position: relative;
@@ -119,13 +119,13 @@
         cursor: pointer;
         position: relative;
 
-        .@{__select-tree-prefix-cls}-selection__placeholder {
+        .@{__treeSelectPrefixCls}-selection__placeholder {
             position: absolute;
             top: 0;
             color: rgba(31, 56, 88, 0.4);
         }
 
-        .@{__select-tree-prefix-cls}-selection__rendered {
+        .@{__treeSelectPrefixCls}-selection__rendered {
             display: block;
             overflow: hidden;
             white-space: nowrap;
@@ -135,7 +135,7 @@
             line-height: 34px;
         }
 
-        .@{__select-tree-prefix-cls}-selection__clear {
+        .@{__treeSelectPrefixCls}-selection__clear {
             font-weight: bold;
             position: absolute;
             color: @text-thirdary-color;
@@ -151,15 +151,15 @@
         color: @text-disabled-color;
         cursor: not-allowed;
 
-        .@{__select-tree-prefix-cls}-selection {
+        .@{__treeSelectPrefixCls}-selection {
             background-color: @bg-disabled-color;
             &:hover, &:active {
                 border-color: @border-disabled-color;
             }
         }
 
-        .@{__select-tree-prefix-cls}-selection--single,
-        .@{__select-tree-prefix-cls}-selection__choice__remove {
+        .@{__treeSelectPrefixCls}-selection--single,
+        .@{__treeSelectPrefixCls}-selection__choice__remove {
             cursor: not-allowed;
             color: @text-disabled-color;
 
@@ -195,10 +195,10 @@
     &-search--inline {
         width: 100%;
         position: relative;
-        .@{__select-tree-prefix-cls}-search__field__wrap {
+        .@{__treeSelectPrefixCls}-search__field__wrap {
             width: 100%;
         }
-        .@{__select-tree-prefix-cls}-search__field {
+        .@{__treeSelectPrefixCls}-search__field {
             border: none;
             font-size: 100%;
             line-height: 16px;
@@ -206,7 +206,7 @@
             outline: 0;
             width: 100%;
         }
-        .@{__select-tree-prefix-cls}-selection-selected-value {
+        .@{__treeSelectPrefixCls}-selection-selected-value {
             position: absolute;
             left: 0;
             top: 0;
@@ -219,17 +219,17 @@
         }
     }
 
-    &-enabled.@{__select-tree-prefix-cls}-selection--multiple {
+    &-enabled.@{__treeSelectPrefixCls}-selection--multiple {
         cursor: text;
     }
     
     &-selection--multiple {
         min-height: 36px;
 
-        .@{__select-tree-prefix-cls}-search--inline {
+        .@{__treeSelectPrefixCls}-search--inline {
             float: left;
             width: auto;
-            .@{__select-tree-prefix-cls}-search__field {
+            .@{__treeSelectPrefixCls}-search__field {
                 &__wrap {
                     width: auto;
                 }
@@ -237,12 +237,12 @@
             }
         }
 
-        .@{__select-tree-prefix-cls}-search__field__placeholder {
+        .@{__treeSelectPrefixCls}-search__field__placeholder {
             top: 9px;
             left: 8px;
         }
 
-        .@{__select-tree-prefix-cls}-selection__rendered {
+        .@{__treeSelectPrefixCls}-selection__rendered {
             overflow: hidden;
             text-overflow: ellipsis;
             padding-left: 8px;
@@ -257,14 +257,14 @@
     }
     
     &-enabled {
-        .@{__select-tree-prefix-cls}-selection__choice {
+        .@{__treeSelectPrefixCls}-selection__choice {
             cursor: default;
             &:hover {
-                .@{__select-tree-prefix-cls}-selection__choice__remove {
+                .@{__treeSelectPrefixCls}-selection__choice__remove {
                     opacity: 1;
                     transform: scale(1);
                 }
-                .@{__select-tree-prefix-cls}-selection__choice__content {
+                .@{__treeSelectPrefixCls}-selection__choice__content {
                     margin-left: -8px;
                     margin-right: 8px;
                 }
@@ -272,7 +272,7 @@
         }
     }
     
-    & .@{__select-tree-prefix-cls}-selection__choice {
+    & .@{__treeSelectPrefixCls}-selection__choice {
         background-color: #f3f3f3;
         border-radius: 4px;
         float: left;
@@ -300,13 +300,13 @@
             animation-timing-function: cubic-bezier(0.6, -0.28, 0.735, 0.045);
         }
 
-        &-zoom-enter.@{__select-tree-prefix-cls}-selection__choice-zoom-enter-active,
-        &-zoom-appear.@{__select-tree-prefix-cls}-selection__choice-zoom-appear-active {
+        &-zoom-enter.@{__treeSelectPrefixCls}-selection__choice-zoom-enter-active,
+        &-zoom-appear.@{__treeSelectPrefixCls}-selection__choice-zoom-appear-active {
             animation-play-state: running;
             animation-name: rcSelectChoiceZoomIn;
         }
 
-        &-zoom-leave.@{__select-tree-prefix-cls}-selection__choice-zoom-leave-active {
+        &-zoom-leave.@{__treeSelectPrefixCls}-selection__choice-zoom-leave-active {
             animation-play-state: running;
             animation-name: rcSelectChoiceZoomOut;
         }
@@ -363,7 +363,7 @@
         &-hidden {
             display: none;
         }
-        span.@{__select-tree-prefix-cls}-tree-title {
+        span.@{__treeSelectPrefixCls}-tree-title {
             display: inline-block;
             vertical-align: middle;
             width: 92px;
@@ -372,7 +372,7 @@
             white-space: nowrap;
             cursor: default;
         }
-        .@{__select-tree-prefix-cls}-not-found {
+        .@{__treeSelectPrefixCls}-not-found {
             display: inline-block;
             margin: 10px 0 0 20px;
         }
@@ -383,20 +383,20 @@
         display: block;
         padding: 18px 18px 0px;
         position: relative;
-        .@{__select-tree-prefix-cls}-search__field__wrap {
+        .@{__treeSelectPrefixCls}-search__field__wrap {
             width: 100%;
         }
-        .@{__select-tree-prefix-cls}-search_icon {
+        .@{__treeSelectPrefixCls}-search_icon {
             position: absolute;
             right: 4px;
             top: 3px;
             font-size: 13px;
         }
-        .@{__select-tree-prefix-cls}-search__field__placeholder {
+        .@{__treeSelectPrefixCls}-search__field__placeholder {
             top: 4px;
             padding-left: 6px;
         }
-        .@{__select-tree-prefix-cls}-search__field {
+        .@{__treeSelectPrefixCls}-search__field {
             padding: 4px 4px 4px 7px;
             width: 100%;
             box-sizing: border-box;
@@ -404,13 +404,13 @@
             border-radius: @input-border-radius;
             outline: none;
         }
-        &.@{__select-tree-prefix-cls}-search--hide {
+        &.@{__treeSelectPrefixCls}-search--hide {
             display: none;
         }
     }
 
     &-open {
-        .@{__select-tree-prefix-cls}-arrow b {
+        .@{__treeSelectPrefixCls}-arrow b {
             border-color: transparent transparent #888 transparent;
             border-width: 0 4px 4px 4px;
         }
@@ -425,9 +425,9 @@
     }
 }
 
-.@{__select-tree-prefix-cls}-inline {
+.@{__treeSelectPrefixCls}-inline {
     z-index: 2;
-    .@{__select-tree-prefix-cls}-selection {
+    .@{__treeSelectPrefixCls}-selection {
         border: 0 none;
         &__rendered {
             display: inline-block;
@@ -441,19 +441,19 @@
             padding-right: 0;
         }
     }
-    &.@{__select-tree-prefix-cls}-open {
-        .@{__select-tree-prefix-cls}-selection {
+    &.@{__treeSelectPrefixCls}-open {
+        .@{__treeSelectPrefixCls}-selection {
             border: 1px solid @border-color;
             border-bottom-color: #fff;
         }
     }
-    .@{__select-tree-prefix-cls}-arrow {
+    .@{__treeSelectPrefixCls}-arrow {
         position: relative;
         display: inline-block;
         vertical-align: top;
     }
 }
-.@{__select-tree-prefix-cls}-inline-dropdown {
+.@{__treeSelectPrefixCls}-inline-dropdown {
     z-index: 1;
     box-shadow: none;
 }
@@ -514,7 +514,7 @@
     }
 }
 
-.@{__select-tree-prefix-cls}-dropdown-placement-bottomLeft {
+.@{__treeSelectPrefixCls}-dropdown-placement-bottomLeft {
     &.slideUp-enter,
     &.slideUp-appear {
         opacity: 0;
@@ -541,7 +541,7 @@
     }
 }
 
-.@{__select-tree-prefix-cls}-dropdown-placement-topLeft {
+.@{__treeSelectPrefixCls}-dropdown-placement-topLeft {
     &.slideUp-enter,
     &.slideUp-appear {
         opacity: 0;
@@ -568,8 +568,8 @@
     }
 }
 
-.@{__select-tree-prefix-cls}-dropdown-left,
-.@{__select-tree-prefix-cls}-dropdown-right {
+.@{__treeSelectPrefixCls}-dropdown-left,
+.@{__treeSelectPrefixCls}-dropdown-right {
     background-color: white;
     border: 1px solid #dcdcdc;
     border-radius: @input-border-radius 0 0 @input-border-radius;
@@ -582,7 +582,7 @@
     height: 100%;
 }
 
-.@{__select-tree-prefix-cls}-dropdown-right {
+.@{__treeSelectPrefixCls}-dropdown-right {
     border-left-color: transparent;
     overflow-y: hidden;
     padding-bottom: 3px;
@@ -621,7 +621,7 @@
     }
 }
 
-.@{__select-tree-prefix-cls}-rightTreeNode {
+.@{__treeSelectPrefixCls}-rightTreeNode {
     font-size: 12px;
     color: rgba(0, 0, 0, 0.6);
     overflow: auto;
@@ -639,7 +639,7 @@
     &-hoverNode {
         &:hover{
             background: rgba(31,56,88,0.04);
-            .@{__select-tree-prefix-cls}-rightTreeNode-clear {
+            .@{__treeSelectPrefixCls}-rightTreeNode-clear {
                 opacity: 1;
                 transform: scale(1);
                 -ms-transform: scale(1);
@@ -673,12 +673,12 @@
         border: 0 none;
         cursor: pointer;
     }
-    .@{__select-tree-prefix-cls}-rightTreeNode-arrow-close {
+    .@{__treeSelectPrefixCls}-rightTreeNode-arrow-close {
         &:after {
             .arrowClose();
         }
     }
-    .@{__select-tree-prefix-cls}-rightTreeNode-arrow-open {
+    .@{__treeSelectPrefixCls}-rightTreeNode-arrow-open {
         &:after {
             .arrowOpen();
         }
@@ -688,9 +688,9 @@
 
 @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
    /* IE10/11-specific styles go here */
-   .@{__select-tree-prefix-cls}-selection--multiple {
-    .@{__select-tree-prefix-cls}-search--inline {
-      .@{__select-tree-prefix-cls}-search__field {
+   .@{__treeSelectPrefixCls}-selection--multiple {
+    .@{__treeSelectPrefixCls}-search--inline {
+      .@{__treeSelectPrefixCls}-search__field {
         width: 50px!important;
       }
     }
