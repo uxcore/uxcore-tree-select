@@ -2,11 +2,11 @@
 
 ---
 
-## 0.4.2
+## 0.4.12
 
 `CHANGED` support js style export
 
-## 0.4.1
+## 0.4.11
 
 * `FIX` clear input value if value is empty
 
