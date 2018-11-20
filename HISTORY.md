@@ -1,6 +1,8 @@
 # HISTORY
 
 ---
+## 0.4.5
+* `FIX`: if props treeCheckable is tree ,the value that  not in treeData should appear in top control node
 
 ## 0.4.4
 

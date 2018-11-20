@@ -21,7 +21,7 @@ import SelectTrigger from './SelectTrigger';
 import TreeNode2 from 'rc-tree-select/lib/TreeNode';
 import { SHOW_ALL, SHOW_PARENT, SHOW_CHILD } from 'rc-tree-select/lib/strategies';
 import { SelectPropTypes } from 'rc-tree-select/lib//PropTypes';
-import { isMultipleOrTags, isMultipleOrTagsOrCombobox, isSingleMode} from './utils';
+import { isMultipleOrTags, isMultipleOrTagsOrCombobox, isSingleMode } from './utils';
 
 function noop() {
 }
@@ -570,6 +570,10 @@ class Select extends Component {
       ));
     } else {
       checkedValues = mapLabVal(checkedTreeNodes.filter(itemObj => !itemObj.node.props.children));
+    }
+    // if value is not in treeData collection, should return value;
+    if (checkedValues.length === 0) {
+      return value;
     }
     return checkedValues;
   }
