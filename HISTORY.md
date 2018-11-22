@@ -2,6 +2,12 @@
 
 ---
 
+
+`CHANGED` support js style export
+
+## 0.4.13
+* `FIX` if props treeCheckable is true,the value not exist in treeData should appear
+  
 ## 0.4.12
 
 `CHANGED` support js style export
