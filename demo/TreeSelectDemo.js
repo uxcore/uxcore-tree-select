@@ -92,7 +92,7 @@ class Demo extends React.Component {
   render() {
     return (
       <div style={{ margin: 20 }}>
-        <h2>single select</h2>
+        {/*<h2>single select</h2>
         <TreeSelect
           style={{ width: 300 }}
           dropdownMatchSelectWidth={false}
@@ -108,7 +108,7 @@ class Demo extends React.Component {
           onChange={this.onChange.bind(this)}
           onSelect={this.onSelect.bind(this)}
           showCheckedStrategy={SHOW_PARENT}
-        /> 
+        /> */}
         
         <h2>multiple select</h2>
         <TreeSelect
@@ -125,14 +125,26 @@ class Demo extends React.Component {
           filterResultsPanel={false}
           resultsPanelAllClearBtn={false}
           locale="en-us"
+          labelInValue={true}
+          treeCheckable={true}
         />
+        <button onClick={() => {
+          this.setState({
+            multipleValue: [
+              {
+                label: 'Test',
+                value: 'Test'
+              }
+            ]
+          });
+        }}>设置不存在的值</button>
         <button onClick={() => {
           this.setState({
             multipleValue: []
           });
         }}>重设value</button>
 
-        <h2>treeCheckStrictly</h2>
+        {/*<h2>treeCheckStrictly</h2>
         <TreeSelect
           style={{ width: 300 }}
           dropdownMatchSelectWidth={false}
@@ -238,7 +250,7 @@ class Demo extends React.Component {
             console.log(node);
             return Promise.resolve();
           }}
-        />
+        />*/}
       </div>
     );
   }
