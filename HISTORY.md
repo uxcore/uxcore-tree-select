@@ -1,6 +1,8 @@
 # HISTORY
 
 ---
+## 0.4.13
+* `FIX` dependence add `rc-animate`
 
 ## 0.4.13
 

@@ -1,6 +1,6 @@
 {
   "name": "uxcore-tree-select",
-  "version": "0.4.13",
+  "version": "0.4.14",
   "description": "uxcore-tree-select component for uxcore.",
   "repository": "https://github.com/uxcore/uxcore-tree-select.git",
   "author": "biangang.bg",
@@ -50,6 +50,7 @@
     "classnames": "^2.1.2",
     "object-assign": "~4.1.0",
     "prop-types": "15.x",
+    "rc-animate": "^2.6.0",
     "rc-tree": "~1.7.1",
     "rc-tree-select": "~1.12.10",
     "rc-trigger": "^2.2.2",
