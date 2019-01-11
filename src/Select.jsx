@@ -70,6 +70,7 @@ class Select extends Component {
     resultsPanelTitleStyle: PropTypes.object,
     filterResultsPanel: PropTypes.bool,
     locale: PropTypes.oneOf(['zh-cn', 'en-us']),
+    size: PropTypes.oneOf(['large', 'middle', 'small']),
   });
 
   static defaultProps = {
@@ -105,6 +106,7 @@ class Select extends Component {
     resultsPanelTitleStyle: {},
     filterResultsPanel: true,
     locale: 'zh-cn',
+    size: 'large',
   };
 
   constructor(props) {
@@ -948,6 +950,7 @@ class Select extends Component {
       [`${prefixCls}-disabled`]: disabled,
       [`${prefixCls}-enabled`]: !disabled,
       [`${prefixCls}-allow-clear`]: !!props.allowClear,
+      [`${prefixCls}-size-${this.props.size}`]: true,
     };
 
     const clear = (<span

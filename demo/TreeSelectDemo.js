@@ -17,7 +17,12 @@ function generateData(x = 3, y = 2, z = 1, gData = []) {
     const children = [];
     for (let i = 0; i < x; i++) {
       const key = `${preKey}-${i}`;
-      tns.push({ label: `${key}-label`, value: `${key}-value`, key, disabled: key === '0-0-0-1' });
+      tns.push({
+        label: `${key}-label`,
+        value: `${key}-value`,
+        key,
+        disabled: key === '0-0-0-1',
+      });
       if (i < y) {
         children.push(key);
       }
@@ -38,7 +43,6 @@ function generateData(x = 3, y = 2, z = 1, gData = []) {
 let gData = generateData();
 
 class Demo extends React.Component {
-
   constructor(props) {
     super(props);
     this.state = {
@@ -86,13 +90,14 @@ class Demo extends React.Component {
     // use onChange instead
     console.log('onselect', arguments);
   }
-  filterTreeNode(input, child) { // 开头符合过滤
+  filterTreeNode(input, child) {
+    // 开头符合过滤
     return String(child.props.title).indexOf(input) === 0;
   }
   render() {
     return (
       <div style={{ margin: 20 }}>
-        {/*<h2>single select</h2>
+        <h2>single select</h2>
         <TreeSelect
           style={{ width: 300 }}
           dropdownMatchSelectWidth={false}
@@ -108,8 +113,43 @@ class Demo extends React.Component {
           onChange={this.onChange.bind(this)}
           onSelect={this.onSelect.bind(this)}
           showCheckedStrategy={SHOW_PARENT}
-        /> */}
-        
+        />
+        <h2>middle single select size</h2>
+        <TreeSelect
+          style={{ width: 300 }}
+          dropdownMatchSelectWidth={false}
+          dropdownStyle={{ width: '500px' }}
+          placeholder={<i>请下拉选择</i>}
+          searchPlaceholder="please search"
+          allowClear
+          size={'middle'}
+          // showSearch
+          value={this.state.value}
+          treeData={gData}
+          treeNodeFilterProp="label"
+          onSearch={this.onSearch.bind(this)}
+          onChange={this.onChange.bind(this)}
+          onSelect={this.onSelect.bind(this)}
+          showCheckedStrategy={SHOW_PARENT}
+        />
+        <h2>small single select size</h2>
+        <TreeSelect
+          style={{ width: 300 }}
+          dropdownMatchSelectWidth={false}
+          dropdownStyle={{ width: '500px' }}
+          placeholder={<i>请下拉选择</i>}
+          searchPlaceholder="please search"
+          allowClear
+          size={'small'}
+          // showSearch
+          value={this.state.value}
+          treeData={gData}
+          treeNodeFilterProp="label"
+          onSearch={this.onSearch.bind(this)}
+          onChange={this.onChange.bind(this)}
+          onSelect={this.onSelect.bind(this)}
+          showCheckedStrategy={SHOW_PARENT}
+        />
         <h2>multiple select</h2>
         <TreeSelect
           style={{ width: 300 }}
@@ -125,26 +165,72 @@ class Demo extends React.Component {
           filterResultsPanel={false}
           resultsPanelAllClearBtn={false}
           locale="en-us"
-          labelInValue={true}
+          // labelInValue={true}
           treeCheckable={true}
         />
-        <button onClick={() => {
-          this.setState({
-            multipleValue: [
-              {
-                label: 'Test',
-                value: 'Test'
-              }
-            ]
-          });
-        }}>设置不存在的值</button>
-        <button onClick={() => {
-          this.setState({
-            multipleValue: []
-          });
-        }}>重设value</button>
+        <h2>multiple middle select</h2>
+        <TreeSelect
+          style={{ width: 300 }}
+          placeholder={'Please Search'}
+          searchPlaceholder="please search"
+          multiple
+          defaultValue={['0-0-0-label']}
+          value={this.state.multipleValue}
+          treeData={gData}
+          size={'middle'}
+          treeNodeFilterProp="title"
+          onChange={this.onMultipleChange.bind(this)}
+          onSelect={this.onSelect.bind(this)}
+          filterResultsPanel={false}
+          resultsPanelAllClearBtn={false}
+          locale="en-us"
+          // labelInValue={true}
+          treeCheckable={true}
+        />
+                <h2>multiple small select</h2>
+        <TreeSelect
+          style={{ width: 300 }}
+          placeholder={'Please Search'}
+          searchPlaceholder="please search"
+          multiple
+          defaultValue={['0-0-0-label']}
+          value={this.state.multipleValue}
+          treeData={gData}
+          size={'small'}
+          treeNodeFilterProp="title"
+          onChange={this.onMultipleChange.bind(this)}
+          onSelect={this.onSelect.bind(this)}
+          filterResultsPanel={false}
+          resultsPanelAllClearBtn={false}
+          locale="en-us"
+          // labelInValue={true}
+          treeCheckable={true}
+        />
+        <button
+          onClick={() => {
+            this.setState({
+              multipleValue: [
+                {
+                  label: 'Test',
+                  value: 'Test',
+                },
+              ],
+            });
+          }}
+        >
+          设置不存在的值
+        </button>
+        <button
+          onClick={() => {
+            this.setState({
+              multipleValue: [],
+            });
+          }}
+        >
+          重设value
+        </button>
 
-        {/*<h2>treeCheckStrictly</h2>
+        <h2>treeCheckStrictly</h2>
         <TreeSelect
           style={{ width: 300 }}
           dropdownMatchSelectWidth={false}
@@ -190,7 +276,8 @@ class Demo extends React.Component {
           treeData={this.state.simpleTreeData}
           treeNodeFilterProp="title"
           treeDataSimpleMode={this.state.treeDataSimpleMode}
-          treeCheckable showCheckedStrategy={SHOW_PARENT}
+          treeCheckable
+          showCheckedStrategy={SHOW_PARENT}
           onChange={this.onChange.bind(this)}
           onSelect={this.onSelect.bind(this)}
         />
@@ -199,7 +286,8 @@ class Demo extends React.Component {
         <TreeSelect
           style={{ width: 200 }}
           value={this.state.value || 'leaf1'}
-          treeDefaultExpandAll treeCheckable
+          treeDefaultExpandAll
+          treeCheckable
           treeNodeFilterProp="title"
           filterTreeNode={this.filterTreeNode}
           onChange={this.onChange.bind(this)}
@@ -246,11 +334,11 @@ class Demo extends React.Component {
           // showCheckedStrategy={SHOW_PARENT}
           onChange={this.onChange.bind(this)}
           onSelect={this.onSelect.bind(this)}
-          loadData={(node) => {
+          loadData={node => {
             console.log(node);
             return Promise.resolve();
           }}
-        />*/}
+        />
       </div>
     );
   }
