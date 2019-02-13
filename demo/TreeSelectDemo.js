@@ -114,42 +114,7 @@ class Demo extends React.Component {
           onSelect={this.onSelect.bind(this)}
           showCheckedStrategy={SHOW_PARENT}
         />
-        <h2>middle single select size</h2>
-        <TreeSelect
-          style={{ width: 300 }}
-          dropdownMatchSelectWidth={false}
-          dropdownStyle={{ width: '500px' }}
-          placeholder={<i>请下拉选择</i>}
-          searchPlaceholder="please search"
-          allowClear
-          size={'middle'}
-          // showSearch
-          value={this.state.value}
-          treeData={gData}
-          treeNodeFilterProp="label"
-          onSearch={this.onSearch.bind(this)}
-          onChange={this.onChange.bind(this)}
-          onSelect={this.onSelect.bind(this)}
-          showCheckedStrategy={SHOW_PARENT}
-        />
-        <h2>small single select size</h2>
-        <TreeSelect
-          style={{ width: 300 }}
-          dropdownMatchSelectWidth={false}
-          dropdownStyle={{ width: '500px' }}
-          placeholder={<i>请下拉选择</i>}
-          searchPlaceholder="please search"
-          allowClear
-          size={'small'}
-          // showSearch
-          value={this.state.value}
-          treeData={gData}
-          treeNodeFilterProp="label"
-          onSearch={this.onSearch.bind(this)}
-          onChange={this.onChange.bind(this)}
-          onSelect={this.onSelect.bind(this)}
-          showCheckedStrategy={SHOW_PARENT}
-        />
+        
         <h2>multiple select</h2>
         <TreeSelect
           style={{ width: 300 }}
