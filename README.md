@@ -86,6 +86,7 @@ http://uxcore.github.io/
 | resultsPanelTitleStyle | 下拉框右半部分中的标题/说明的样式 | object | {} | 0.2.0 |
 | filterResultsPanel | 下拉框右半部分中的结果是否受inputValue影响，如果为true，则右边树形结果也会根据inputValue过滤 | bool | true | 0.2.0 |
 | locale | 国际化，枚举值 `'en-us'` `'zh-cn'` | string | `'zh-cn'` | 0.2.2 |
+| size | 尺寸 `'large'` `'middle'` `'small'` | string | `'large'` | 0.4.15 |
 
 ### TreeNode props
 > note: you'd better to use `treeData` instead of using TreeNode.
