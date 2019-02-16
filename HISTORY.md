@@ -1,6 +1,12 @@
 # HISTORY
 
 ---
+## 0.4.17
+* `UPDATE` rc-tree update to support customize treeNode icon && add size props
+
+## 0.4.16
+* `FIX` theeSelectNode remove style overflow
+
 ## 0.4.14
 * `FIX` dependence add `rc-animate`
 
