@@ -504,20 +504,21 @@ class SelectTrigger extends Component {
         visible = false;
       }
     }
+    // when prop multiple is true,show right dropdown
     const popupElement = (
       <div
         style={{ height: `${props.dropdownStyle.maxHeight || 312}px` }}
       >
-        <div className={`${dropdownPrefixCls}-left`}>
+        <div className={multiple ? `${dropdownPrefixCls}-left` : `${dropdownPrefixCls}-all`}>
           {search}
           {notFoundContent || this.renderTree(keys, halfCheckedKeys, treeNodes, multiple)}
         </div>
-        {this.renderRightDropdown(rightTreeNodes, keys)}
+        {multiple && this.renderRightDropdown(rightTreeNodes, keys)}
       </div>
     );
 
     let popupStyle = {};
-    popupStyle['width'] = props.dropdownMatchSelectWidth ? `${this.state.dropdownWidth}px` : '350px';
+    popupStyle['width'] = (props.dropdownMatchSelectWidth || !multiple) ? `${this.state.dropdownWidth}px` : '350px';
 
     popupStyle = { ...popupStyle, ...props.dropdownStyle };
     return (
