@@ -19,10 +19,22 @@ describe('Tree Right', () => {
       { key: 'b', value: 'b', label: 'labelb' },
     ] },
   ];
+  it('single select have no right tree', () => {
+    const wrapper = mount(
+      <TreeSelect
+        treeData={treeData}
+        resultsPanelTitle="haha"
+        open
+      />
+    );
+    const trigger = mount(wrapper.find('Trigger').props().popup);
+    expect(trigger.find('.uxcore-tree-select-dropdown-right-title').length).to.equal(0);
+  });
 
   it('render  title', () => {
     const wrapper = mount(
       <TreeSelect
+        multiple
         treeData={treeData}
         resultsPanelTitle="haha"
         open
@@ -35,6 +47,7 @@ describe('Tree Right', () => {
   it('render chooseable number', () => {
     const wrapper = mount(
       <TreeSelect
+        multiple
         defaultValue={['a', 'b']}
         treeData={treeData}
         resultsPanelTitle="haha"
@@ -50,6 +63,7 @@ describe('Tree Right', () => {
       <TreeSelect
         defaultValue={'a'}
         treeData={treeData2}
+        multiple
         resultsPanelTitle="haha"
         open
       />
@@ -78,6 +92,7 @@ describe('Tree Right', () => {
       <TreeSelect
         defaultValue={'a'}
         treeData={treeData}
+        multiple
         resultsPanelTitle="haha"
         open
       />
@@ -90,6 +105,7 @@ describe('Tree Right', () => {
   it('allow to removeAll', () => {
     const wrapper = mount(
       <TreeSelect
+        multiple
         defaultValue={['a', 'b']}
         treeData={treeData}
         resultsPanelTitle="haha"
