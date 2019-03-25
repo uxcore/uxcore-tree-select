@@ -1,6 +1,12 @@
 # HISTORY
 
 ---
+## 0.4.19
+* `FEATURE`  do not show rightDropdown when prop multiple is false
+
+## 0.4.18
+* `FEATURE`  theeSelectNode remove style overflow
+
 ## 0.4.17
 * `UPDATE` rc-tree update to support customize treeNode icon && add size props
 

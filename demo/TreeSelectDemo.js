@@ -100,8 +100,7 @@ class Demo extends React.Component {
         <h2>single select</h2>
         <TreeSelect
           style={{ width: 300 }}
-          dropdownMatchSelectWidth={false}
-          dropdownStyle={{ width: '500px' }}
+          // dropdownStyle={{ width: '500px' }}
           placeholder={<i>请下拉选择</i>}
           searchPlaceholder="please search"
           allowClear
@@ -168,7 +167,7 @@ class Demo extends React.Component {
           filterResultsPanel={false}
           resultsPanelAllClearBtn={false}
           locale="en-us"
-          // labelInValue={true}
+          labelInValue={true}
           treeCheckable={true}
         />
         <button
