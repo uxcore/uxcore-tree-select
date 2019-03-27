@@ -509,7 +509,12 @@ class SelectTrigger extends Component {
       <div
         style={{ height: `${props.dropdownStyle.maxHeight || 312}px` }}
       >
-        <div className={multiple ? `${dropdownPrefixCls}-left` : `${dropdownPrefixCls}-all`}>
+        <div
+          className={`${dropdownPrefixCls}-left`}
+          style={multiple ? {} : {
+            width: '100%',
+          }}
+        >
           {search}
           {notFoundContent || this.renderTree(keys, halfCheckedKeys, treeNodes, multiple)}
         </div>
