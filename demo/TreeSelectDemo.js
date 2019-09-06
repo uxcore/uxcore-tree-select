@@ -42,6 +42,17 @@ function generateData(x = 3, y = 2, z = 1, gData = []) {
 
 let gData = generateData();
 
+const setArrayChildren = (arr, children, value) => {
+  arr.forEach((item) => {
+    if (item.value === value) {
+      item.children = children;
+    } else if (item.children && item.children.length) {
+      item.children = setArrayChildren(item.children, children, value);
+    }
+  });
+  return arr;
+};
+
 class Demo extends React.Component {
   constructor(props) {
     super(props);
@@ -50,6 +61,7 @@ class Demo extends React.Component {
       inputValue: '0-0-0-label',
       value: '0-0-0-value',
       multipleValue: [],
+      treeCheckStrictlyValue: ['0-0-0-value'],
       simpleTreeData: [
         { key: 1, pId: 0, label: 'test1', value: '1' },
         { key: 2, pId: 0, label: 'test2', value: '2' },
@@ -61,6 +73,24 @@ class Demo extends React.Component {
         id: 'key',
         rootPId: 0,
       },
+      asyncTreeData: [
+        {
+          label: 'label-1',
+          value: 'asdc1'
+        },
+        {
+          label: 'label-2',
+          value: 'asdc2'
+        },
+        {
+          label: 'label-3',
+          value: 'asdc3'
+        }
+      ],
+      asyncTreeValue: [
+        { label: 'label-1', value: 'asdc1' },
+        { label: 'label-4', value: 'asdc4' },
+      ]
     };
   }
 
@@ -79,20 +109,37 @@ class Demo extends React.Component {
     console.log(value, arguments);
   }
   onChange(value) {
-    console.log('onChange', arguments);
-    this.setState({ value });
+    console.log('onChange', value);
+    // this.setState({ value });
   }
   onMultipleChange(value) {
     console.log('onMultipleChange', arguments);
     this.setState({ multipleValue: value });
   }
-  onSelect() {
-    // use onChange instead
-    console.log('onselect', arguments);
+  onSelect(value) {
+    console.log('onselect', value);
   }
   filterTreeNode(input, child) {
     // 开头符合过滤
     return String(child.props.title).indexOf(input) === 0;
+  }
+  loadData = (node) => {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        const asyncTreeData = setArrayChildren(
+          [...this.state.asyncTreeData],
+          [
+            {
+              label: 'label-x-1',
+              value: 'asdc4'
+            }
+          ],
+          node.props.value
+        );
+        this.setState({ asyncTreeData });
+        resolve();
+      }, 2000);
+    });
   }
   render() {
     return (
@@ -130,7 +177,7 @@ class Demo extends React.Component {
           resultsPanelAllClearBtn={false}
           locale="en-us"
           // labelInValue={true}
-          treeCheckable={true}
+          // treeCheckable={true}
         />
         <h2>multiple middle select</h2>
         <TreeSelect
@@ -167,7 +214,7 @@ class Demo extends React.Component {
           filterResultsPanel={false}
           resultsPanelAllClearBtn={false}
           locale="en-us"
-          labelInValue={true}
+          // labelInValue={true}
           treeCheckable={true}
         />
         <button
@@ -204,7 +251,7 @@ class Demo extends React.Component {
           allowClear
           multiple
           treeCheckStrictly
-          value={this.state.value}
+          value={this.state.treeCheckStrictlyValue}
           treeData={gData}
           treeNodeFilterProp="label"
           onSearch={this.onSearch.bind(this)}
@@ -289,19 +336,15 @@ class Demo extends React.Component {
           style={{ width: 300 }}
           placeholder={<i>请下拉选择</i>}
           searchPlaceholder="please search"
-          maxTagTextLength={10}
-          value={this.state.value}
-          treeData={this.state.simpleTreeData}
-          treeNodeFilterProp="title"
-          treeDataSimpleMode={this.state.treeDataSimpleMode}
-          // treeCheckable
-          // showCheckedStrategy={SHOW_PARENT}
-          onChange={this.onChange.bind(this)}
-          onSelect={this.onSelect.bind(this)}
-          loadData={node => {
-            console.log(node);
-            return Promise.resolve();
+          value={this.state.asyncTreeValue}
+          treeData={this.state.asyncTreeData}
+          onChange={(value) => {
+            this.setState({ asyncTreeValue: value })
           }}
+          onSelect={this.onSelect.bind(this)}
+          loadData={this.loadData}
+          multiple
+          labelInValue
         />
       </div>
     );
