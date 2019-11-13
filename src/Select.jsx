@@ -86,6 +86,7 @@ class Select extends Component {
     onSelect: noop,
     onDeselect: noop,
     onSearch: noop,
+    onAllClear: noop,
     showArrow: true,
     dropdownMatchSelectWidth: true,
     dropdownStyle: {},
@@ -236,6 +237,7 @@ class Select extends Component {
     this._cacheTreeNodesStates = false; // eslint-disable-line
 
     this.fireChange([]);
+    props.onAllClear();
   }
 
   onInputChange = (event) => {
