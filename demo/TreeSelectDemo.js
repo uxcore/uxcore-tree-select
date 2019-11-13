@@ -108,6 +108,9 @@ class Demo extends React.Component {
   onSearch(value) {
     console.log(value, arguments);
   }
+  onAllClear() {
+    console.log('onAllClear');
+  }
   onChange(value) {
     console.log('onChange', value);
     // this.setState({ value });
@@ -343,6 +346,7 @@ class Demo extends React.Component {
           }}
           onSelect={this.onSelect.bind(this)}
           loadData={this.loadData}
+          onAllClear={this.onAllClear}
           multiple
           labelInValue
         />
