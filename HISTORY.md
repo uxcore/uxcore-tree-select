@@ -1,6 +1,9 @@
 # HISTORY
 
 ---
+## 0.4.23
+* `FIXED` a popup will show when remove a selected item
+
 ## 0.4.19
 * `FEATURE`  do not show rightDropdown when prop multiple is false
 
@@ -19,7 +22,7 @@
 ## 0.4.13
 
 * `FIX` if props treeCheckable is true, the value not existed in props.treeData could be set from outside.
-  
+
 ## 0.4.12
 
 `CHANGED` support js style export
@@ -104,7 +107,7 @@
 
 ## 0.2.0
 
-`CHANGED` add new prop `resultsPanelAllClearBtn` , `resultsPanelTitle`, `resultsPanelTitleStyle` & `filterResultsPanel` 
+`CHANGED` add new prop `resultsPanelAllClearBtn` , `resultsPanelTitle`, `resultsPanelTitleStyle` & `filterResultsPanel`
 
 ## 0.1.4
 
