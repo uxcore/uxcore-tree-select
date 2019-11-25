@@ -877,7 +877,10 @@ class Select extends Component {
           >
             <span
               className={`${prefixCls}-selection__choice__remove`}
-              onClick={this.removeSelected.bind(this, singleValue.value)}
+              onClick={(e)=>{
+                e.stopPropagation();
+                this.removeSelected.call(this, singleValue.value);
+              }}
             />
             <span className={`${prefixCls}-selection__choice__content`}>{content}</span>
           </li>
