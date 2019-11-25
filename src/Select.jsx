@@ -63,12 +63,57 @@ function loopTreeData(data, level = 0) {
   });
 }
 
+let outputArray = [];
+let findFlag = false;
+/**
+ *
+ * @param item  待遍历数组结构
+ * @param target  待查找目标节点
+ */
+function getPath(item, target) {
+  outputArray.push(item);
+  if (item.value === target.value) {
+    //  找到节点后设置标识
+    findFlag = true;
+    return;
+  }
+  if (item.children && item.children.length > 0) {
+    for (let i = 0; i < item.children.length; i++) {
+      getPath(item.children[i], target);
+      if (findFlag) {
+        //  如果有标识则不进行多余操作，直接返回
+        return;
+      }
+    }
+    //  子节点遍历后没有找到便弹出其父节点
+    outputArray.pop();
+  } else if (!item.children || item.children.length === 0) {
+    //  遍历到最下层后弹出子节点
+    outputArray.pop();
+  }
+}
+
+function findLine(target, treeData, splitText = '-') {
+  outputArray = [];
+  findFlag = false;
+  if (target && Array.isArray(treeData) && treeData.length > 0) {
+    for (let i = 0; i < treeData.length; i++) {
+      if (findFlag) break;
+      getPath(treeData[i], target);
+    }
+  }
+  const labels = outputArray.map((cur) => cur.label);
+  return labels.join(splitText);
+}
+
 class Select extends Component {
   static propTypes = assign({}, SelectPropTypes, {
     resultsPanelAllClearBtn: PropTypes.bool,
     resultsPanelTitle: PropTypes.any,
     resultsPanelTitleStyle: PropTypes.object,
     filterResultsPanel: PropTypes.bool,
+    showPathLine: PropTypes.bool,
+    splitText: PropTypes.string,
     locale: PropTypes.oneOf(['zh-cn', 'en-us']),
     size: PropTypes.oneOf(['large', 'middle', 'small']),
   });
@@ -106,6 +151,8 @@ class Select extends Component {
     resultsPanelTitle: '',
     resultsPanelTitleStyle: {},
     filterResultsPanel: true,
+    showPathLine: false,
+    splitText: '-',
     locale: 'zh-cn',
     size: 'large',
   };
@@ -850,7 +897,7 @@ class Select extends Component {
           title={value[0].label}
           className={`${prefixCls}-selection-selected-value`}
         >
-          {value[0].label}
+          {this.props.showPathLine ? findLine(value[0], this.props.treeData, this.props.splitText) : value[0].label}
         </span>);
       }
       return (<span className={`${prefixCls}-selection__rendered`}>
@@ -861,7 +908,7 @@ class Select extends Component {
     let selectedValueNodes = [];
     if (isMultipleOrTags(props)) {
       selectedValueNodes = value.map((singleValue) => {
-        let content = singleValue.label;
+        let content = this.props.showPathLine ? findLine(singleValue, this.props.treeData, this.props.splitText) : singleValue.label;
         const title = content;
         if (maxTagTextLength && typeof content === 'string' && content.length > maxTagTextLength) {
           content = `${content.slice(0, maxTagTextLength)}...`;
@@ -877,7 +924,7 @@ class Select extends Component {
           >
             <span
               className={`${prefixCls}-selection__choice__remove`}
-              onClick={(e)=>{
+              onClick={(e) => {
                 e.stopPropagation();
                 this.removeSelected.call(this, singleValue.value);
               }}
