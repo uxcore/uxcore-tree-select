@@ -909,7 +909,7 @@ class Select extends Component {
     if (isMultipleOrTags(props)) {
       selectedValueNodes = value.map((singleValue) => {
         let content = this.props.showPathLine ? findLine(singleValue, this.props.treeData, this.props.splitText) : singleValue.label;
-        const title = content;
+        const title = typeof content === 'string' ? content : '';
         if (maxTagTextLength && typeof content === 'string' && content.length > maxTagTextLength) {
           content = `${content.slice(0, maxTagTextLength)}...`;
         }
