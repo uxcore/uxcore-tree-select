@@ -163,7 +163,7 @@ class Demo extends React.Component {
           onSelect={this.onSelect.bind(this)}
           showCheckedStrategy={SHOW_PARENT}
         />
-        
+
         <h2>multiple select</h2>
         <TreeSelect
           style={{ width: 300 }}
