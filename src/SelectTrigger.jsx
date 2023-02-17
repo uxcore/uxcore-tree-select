@@ -52,6 +52,7 @@ class SelectTrigger extends Component {
     removeSelected: PropTypes.func,
     value: PropTypes.array,
     locale: PropTypes.string,
+    localePack: PropTypes.object,
     onAllClear: PropTypes.func,
     resultsPanelAllClearBtn: PropTypes.bool,
     resultsPanelTitle: PropTypes.any,
@@ -274,6 +275,7 @@ class SelectTrigger extends Component {
       isMultiple: props.multiple || props.tags || props.treeCheckable,
       removeSelected: props.removeSelected,
       locale: props.locale,
+      localePack: props.localePack,
       onSelect: this.onSelect,
       keys,
       treeCheckStrictly: props.treeCheckStrictly,
@@ -326,7 +328,7 @@ class SelectTrigger extends Component {
       resultsPanelTitle,
       resultsPanelTitleStyle,
       value,
-      locale,
+      localePack,
     } = this.props;
 
     const resultsPanelPrefixCls = `${this.getDropdownPrefixCls()}-right`;
@@ -345,20 +347,20 @@ class SelectTrigger extends Component {
     const noContent = (<div
       className={`${resultsPanelPrefixCls}-noContent`}
     >
-      {i18n[locale].pleaseSelectFromLeft}
+      {localePack.pleaseSelectFromLeft}
     </div>);
     const clear = (<span
       key="rightDropdownAllclear"
       className={`${resultsPanelPrefixCls}-allClear`}
       onClick={this.onResultsPanelAllClear}
-    >{i18n[locale].clear}</span>);
+    >{localePack.clear}</span>);
 
     return (
       <div className={`${resultsPanelPrefixCls}`}>
         <div style={{ padding: '16px' }}>
           <div>
             <span className={`${resultsPanelPrefixCls}-selected`}>
-              <span className={`${resultsPanelPrefixCls}-selected-title`}>{i18n[locale].alreadyChoosed}</span>
+              <span className={`${resultsPanelPrefixCls}-selected-title`}>{localePack.alreadyChoosed}</span>
               <span className={`${resultsPanelPrefixCls}-selected-number`}>（{num}）</span>
             </span>
             {resultsPanelAllClearBtn && num ? clear : null}

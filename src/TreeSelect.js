@@ -7,6 +7,7 @@
  */
 import RcTreeSelect from './Select';
 import assign from 'object-assign';
+import PropTypes from 'prop-types';
 import TreeNode from 'rc-tree-select/lib/TreeNode';
 import strategies from 'rc-tree-select/lib/strategies';
 
@@ -31,9 +32,13 @@ TreeSelect.defaultProps = assign(RcTreeSelect.defaultProps, {
   dropdownMatchSelectWidth: false,
   maxTagTextLength: 10,
   locale: 'zh-cn',
+  localePack: {},
 });
 
 TreeSelect.propTypes = RcTreeSelect.propTypes;
 
+TreeSelect.contextTypes = {
+  localePack: PropTypes.object
+}
 
 module.exports = TreeSelect;

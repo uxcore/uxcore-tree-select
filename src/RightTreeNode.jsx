@@ -59,7 +59,7 @@ export default class RightTreeNode extends React.Component {
   }
 
   render() {
-    const { treeNodeLabelProp, children, isAll, prefixCls, level, locale, disabled, treeCheckStrictly } = this.props;
+    const { treeNodeLabelProp, children, isAll, prefixCls, level, locale, disabled, treeCheckStrictly, localePack } = this.props;
     const { expand } = this.state;
     // padding 无箭头 +36  有箭头+18
     let paddingLeft = 0;
@@ -102,11 +102,11 @@ export default class RightTreeNode extends React.Component {
           }
           {content}
           {isAll || (!treeCheckStrictly && isSelectNode && children) ?
-            <span className={`${prefixCls}-allSelect`}>{i18n[locale].all}</span> : null}
+            <span className={`${prefixCls}-allSelect`}>{localePack.all}</span> : null}
           {
             (isSelectNode && !disabled) ?
               <span className={`${prefixCls}-clear`} onClick={this.removeSelected}>
-                {i18n[locale].delete}
+                {localePack.delete}
               </span>
               : null
           }
@@ -121,6 +121,7 @@ export default class RightTreeNode extends React.Component {
 
 RightTreeNode.defaultProps = {
   locale: 'zh-cn',
+  localePack: {},
   keys: [],
 };
 
@@ -136,6 +137,7 @@ RightTreeNode.propTypes = {
   removeSelected: PropTypes.func,
   pos: PropTypes.string,
   locale: PropTypes.oneOf(['zh-cn', 'en-us']),
+  localePack: PropTypes.object,
   dropdownWidth: PropTypes.number,
   keys: PropTypes.array,
   disabled: PropTypes.bool,

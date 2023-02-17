@@ -18,6 +18,7 @@ import {
   processSimpleTreeData, saveRef,
 } from 'rc-tree-select/lib/util';
 import SelectTrigger from './SelectTrigger';
+import i18n from './i18n';
 import TreeNode2 from 'rc-tree-select/lib/TreeNode';
 import { SHOW_ALL, SHOW_PARENT, SHOW_CHILD } from 'rc-tree-select/lib/strategies';
 import { SelectPropTypes } from 'rc-tree-select/lib/PropTypes';
@@ -115,6 +116,7 @@ class Select extends Component {
     showPathLine: PropTypes.bool,
     splitText: PropTypes.string,
     locale: PropTypes.oneOf(['zh-cn', 'en-us']),
+    localePack: PropTypes.object,
     size: PropTypes.oneOf(['large', 'middle', 'small']),
   });
 
@@ -154,6 +156,7 @@ class Select extends Component {
     showPathLine: false,
     splitText: '-',
     locale: 'zh-cn',
+    localePack: {},
     size: 'large',
   };
 
@@ -982,6 +985,9 @@ class Select extends Component {
 
   render() {
     const props = this.props;
+    const { context = {} } = this;
+    const { localePack = {} } = context;
+    const mergedLang = { ...i18n[props.locale], ...localePack.TreeSelect, ...props.localePack };
     const multiple = isMultipleOrTags(props);
     const state = this.state;
     const { className, disabled, allowClear, prefixCls } = props;
@@ -1013,6 +1019,7 @@ class Select extends Component {
     return (
       <SelectTrigger
         {...props}
+        localePack = {mergedLang}
         treeNodes={props.children}
         treeData={this.renderedTreeData}
         _cachetreeData={this._cachetreeData}
@@ -1074,5 +1081,9 @@ class Select extends Component {
 Select.SHOW_ALL = SHOW_ALL;
 Select.SHOW_PARENT = SHOW_PARENT;
 Select.SHOW_CHILD = SHOW_CHILD;
+
+Select.contextTypes = {
+  localePack: PropTypes.object
+}
 
 export default Select;
