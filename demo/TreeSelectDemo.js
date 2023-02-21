@@ -156,211 +156,211 @@ class Demo extends React.Component {
           }
         }
       }>
-      <div style={{ margin: 20 }}>
-        <h2>single select</h2>
-        <TreeSelect
-          style={{ width: 300 }}
-          // dropdownStyle={{ width: '500px' }}
-          placeholder={<i>请下拉选择</i>}
-          searchPlaceholder="please search"
-          allowClear
-          // showSearch
-          value={this.state.value}
-          treeData={gData}
-          treeNodeFilterProp="label"
-          onSearch={this.onSearch.bind(this)}
-          onChange={this.onChange.bind(this)}
-          onSelect={this.onSelect.bind(this)}
-          showCheckedStrategy={SHOW_PARENT}
-        />
+        <div style={{ margin: 20 }}>
+          <h2>single select</h2>
+          <TreeSelect
+            style={{ width: 300 }}
+            // dropdownStyle={{ width: '500px' }}
+            placeholder={<i>请下拉选择</i>}
+            searchPlaceholder="please search"
+            allowClear
+            // showSearch
+            value={this.state.value}
+            treeData={gData}
+            treeNodeFilterProp="label"
+            onSearch={this.onSearch.bind(this)}
+            onChange={this.onChange.bind(this)}
+            onSelect={this.onSelect.bind(this)}
+            showCheckedStrategy={SHOW_PARENT}
+          />
 
-        <h2>multiple select</h2>
-        <TreeSelect
-          style={{ width: 300 }}
-          placeholder={'Please Search'}
-          searchPlaceholder="please search"
-          multiple
-          defaultValue={['0-0-0-label']}
-          value={this.state.multipleValue}
-          treeData={gData}
-          treeNodeFilterProp="title"
-          onChange={this.onMultipleChange.bind(this)}
-          onSelect={this.onSelect.bind(this)}
-          filterResultsPanel={false}
-          resultsPanelAllClearBtn={false}
-          locale="en-us"
+          <h2>multiple select</h2>
+          <TreeSelect
+            style={{ width: 300 }}
+            placeholder={'Please Search'}
+            searchPlaceholder="please search"
+            multiple
+            defaultValue={['0-0-0-label']}
+            value={this.state.multipleValue}
+            treeData={gData}
+            treeNodeFilterProp="title"
+            onChange={this.onMultipleChange.bind(this)}
+            onSelect={this.onSelect.bind(this)}
+            filterResultsPanel={false}
+            resultsPanelAllClearBtn={false}
+            locale="en-us"
           // labelInValue={true}
           // treeCheckable={true}
-        />
-        <h2>multiple middle select</h2>
-        <TreeSelect
-          style={{ width: 300 }}
-          placeholder={'Please Search'}
-          searchPlaceholder="please search"
-          multiple
-          defaultValue={['0-0-0-label']}
-          value={this.state.multipleValue}
-          treeData={gData}
-          size={'middle'}
-          treeNodeFilterProp="title"
-          onChange={this.onMultipleChange.bind(this)}
-          onSelect={this.onSelect.bind(this)}
-          filterResultsPanel={false}
-          resultsPanelAllClearBtn={false}
-          locale="en-us"
-          // labelInValue={true}
-          treeCheckable={true}
-        />
-                <h2>multiple small select</h2>
-        <TreeSelect
-          style={{ width: 300 }}
-          placeholder={'Please Search'}
-          searchPlaceholder="please search"
-          multiple
-          defaultValue={['0-0-0-label']}
-          value={this.state.multipleValue}
-          treeData={gData}
-          size={'small'}
-          treeNodeFilterProp="title"
-          onChange={this.onMultipleChange.bind(this)}
-          onSelect={this.onSelect.bind(this)}
-          filterResultsPanel={false}
-          resultsPanelAllClearBtn={false}
-          locale="en-us"
-          // labelInValue={true}
-          treeCheckable={true}
-        />
-        <button
-          onClick={() => {
-            this.setState({
-              multipleValue: [
-                {
-                  label: 'Test',
-                  value: 'Test',
-                },
-              ],
-            });
-          }}
-        >
-          设置不存在的值
-        </button>
-        <button
-          onClick={() => {
-            this.setState({
-              multipleValue: [],
-            });
-          }}
-        >
-          重设value
-        </button>
+          />
+          <h2>multiple middle select</h2>
+          <TreeSelect
+            style={{ width: 300 }}
+            placeholder={'Please Search'}
+            searchPlaceholder="please search"
+            multiple
+            defaultValue={['0-0-0-label']}
+            value={this.state.multipleValue}
+            treeData={gData}
+            size={'middle'}
+            treeNodeFilterProp="title"
+            onChange={this.onMultipleChange.bind(this)}
+            onSelect={this.onSelect.bind(this)}
+            filterResultsPanel={false}
+            resultsPanelAllClearBtn={false}
+            locale="en-us"
+            // labelInValue={true}
+            treeCheckable={true}
+          />
+          <h2>multiple small select</h2>
+          <TreeSelect
+            style={{ width: 300 }}
+            placeholder={'Please Search'}
+            searchPlaceholder="please search"
+            multiple
+            defaultValue={['0-0-0-label']}
+            value={this.state.multipleValue}
+            treeData={gData}
+            size={'small'}
+            treeNodeFilterProp="title"
+            onChange={this.onMultipleChange.bind(this)}
+            onSelect={this.onSelect.bind(this)}
+            filterResultsPanel={false}
+            resultsPanelAllClearBtn={false}
+            locale="en-us"
+            // labelInValue={true}
+            treeCheckable={true}
+          />
+          <button
+            onClick={() => {
+              this.setState({
+                multipleValue: [
+                  {
+                    label: 'Test',
+                    value: 'Test',
+                  },
+                ],
+              });
+            }}
+          >
+            设置不存在的值
+          </button>
+          <button
+            onClick={() => {
+              this.setState({
+                multipleValue: [],
+              });
+            }}
+          >
+            重设value
+          </button>
 
-        <h2>treeCheckStrictly</h2>
-        <TreeSelect
-          style={{ width: 300 }}
-          dropdownMatchSelectWidth={false}
-          dropdownStyle={{ width: '500px' }}
-          placeholder={<i>请下拉选择</i>}
-          searchPlaceholder="please search"
-          allowClear
-          multiple
-          treeCheckStrictly
-          value={this.state.treeCheckStrictlyValue}
-          treeData={gData}
-          treeNodeFilterProp="label"
-          onSearch={this.onSearch.bind(this)}
-          onChange={this.onChange.bind(this)}
-          onSelect={this.onSelect.bind(this)}
-          showCheckedStrategy={SHOW_PARENT}
-        />
+          <h2>treeCheckStrictly</h2>
+          <TreeSelect
+            style={{ width: 300 }}
+            dropdownMatchSelectWidth={false}
+            dropdownStyle={{ width: '500px' }}
+            placeholder={<i>请下拉选择</i>}
+            searchPlaceholder="please search"
+            allowClear
+            multiple
+            treeCheckStrictly
+            value={this.state.treeCheckStrictlyValue}
+            treeData={gData}
+            treeNodeFilterProp="label"
+            onSearch={this.onSearch.bind(this)}
+            onChange={this.onChange.bind(this)}
+            onSelect={this.onSelect.bind(this)}
+            showCheckedStrategy={SHOW_PARENT}
+          />
 
-        <h2>check select</h2>
-        <TreeSelect
-          style={{ width: 300 }}
-          dropdownPopupAlign={{ overflow: { adjustY: 0, adjustX: 0 } }}
-          searchPlaceholder="please search"
-          maxTagTextLength={10}
-          showSearch
-          inputValue={null}
-          value={this.state.value}
-          treeData={gData}
-          treeNodeFilterProp="title"
-          treeCheckable
-          showCheckedStrategy={'SHOW_ALL'}
-          onChange={this.onChange.bind(this)}
-          onSelect={this.onSelect.bind(this)}
-        />
+          <h2>check select</h2>
+          <TreeSelect
+            style={{ width: 300 }}
+            dropdownPopupAlign={{ overflow: { adjustY: 0, adjustX: 0 } }}
+            searchPlaceholder="please search"
+            maxTagTextLength={10}
+            showSearch
+            inputValue={null}
+            value={this.state.value}
+            treeData={gData}
+            treeNodeFilterProp="title"
+            treeCheckable
+            showCheckedStrategy={'SHOW_ALL'}
+            onChange={this.onChange.bind(this)}
+            onSelect={this.onSelect.bind(this)}
+          />
 
-        <h2>use treeDataSimpleMode</h2>
-        <TreeSelect
-          style={{ width: 300 }}
-          placeholder={<i>请下拉选择</i>}
-          searchPlaceholder="please search"
-          maxTagTextLength={10}
-          value={this.state.value}
-          treeData={this.state.simpleTreeData}
-          treeNodeFilterProp="title"
-          treeDataSimpleMode={this.state.treeDataSimpleMode}
-          treeCheckable
-          showCheckedStrategy={SHOW_PARENT}
-          onChange={this.onChange.bind(this)}
-          onSelect={this.onSelect.bind(this)}
-        />
+          <h2>use treeDataSimpleMode</h2>
+          <TreeSelect
+            style={{ width: 300 }}
+            placeholder={<i>请下拉选择</i>}
+            searchPlaceholder="please search"
+            maxTagTextLength={10}
+            value={this.state.value}
+            treeData={this.state.simpleTreeData}
+            treeNodeFilterProp="title"
+            treeDataSimpleMode={this.state.treeDataSimpleMode}
+            treeCheckable
+            showCheckedStrategy={SHOW_PARENT}
+            onChange={this.onChange.bind(this)}
+            onSelect={this.onSelect.bind(this)}
+          />
 
-        <h2>use TreeNode Component (not recommend)</h2>
-        <TreeSelect
-          style={{ width: 200 }}
-          value={this.state.value || 'leaf1'}
-          treeDefaultExpandAll
-          treeCheckable
-          treeNodeFilterProp="title"
-          filterTreeNode={this.filterTreeNode}
-          onChange={this.onChange.bind(this)}
-        >
-          <TreeNode value="parent 1" title="parent 1" key="0-1">
-            <TreeNode value="parent 1-0" title="parent 1-0" key="0-1-0">
-              <TreeNode value="leaf1" title="my leaf" key="0-1-0-0" />
-              <TreeNode value="leaf2" title="your leasdsassf" key="0-1-0-1" disabled />
-            </TreeNode>
-            <TreeNode value="parent 1-1" title="parent 1-sadsadsasdasa1" key="0-1-1">
-              <TreeNode
-                value="sss"
-                title={<span style={{ color: 'red' }}>sss</span>}
-                key="0-1-1-0"
-              />
-              <TreeNode value="same value3" title="same txtle" key="0-1-1-1">
+          <h2>use TreeNode Component (not recommend)</h2>
+          <TreeSelect
+            style={{ width: 200 }}
+            value={this.state.value || 'leaf1'}
+            treeDefaultExpandAll
+            treeCheckable
+            treeNodeFilterProp="title"
+            filterTreeNode={this.filterTreeNode}
+            onChange={this.onChange.bind(this)}
+          >
+            <TreeNode value="parent 1" title="parent 1" key="0-1">
+              <TreeNode value="parent 1-0" title="parent 1-0" key="0-1-0">
+                <TreeNode value="leaf1" title="my leaf" key="0-1-0-0" />
+                <TreeNode value="leaf2" title="your leasdsassf" key="0-1-0-1" disabled />
+              </TreeNode>
+              <TreeNode value="parent 1-1" title="parent 1-sadsadsasdasa1" key="0-1-1">
                 <TreeNode
-                  value="same value4"
-                  title="2sisdsadsadsadsadasdasdastle"
-                  key="0-1-1-1-0"
+                  value="sss"
+                  title={<span style={{ color: 'red' }}>sss</span>}
+                  key="0-1-1-0"
                 />
+                <TreeNode value="same value3" title="same txtle" key="0-1-1-1">
+                  <TreeNode
+                    value="same value4"
+                    title="2sisdsadsadsadsadasdasdastle"
+                    key="0-1-1-1-0"
+                  />
+                </TreeNode>
               </TreeNode>
             </TreeNode>
-          </TreeNode>
-          <TreeNode value="same value5" title="same titasdasdasdsdasdasdsadale" key="0-2">
-            <TreeNode value="2same value" title="2sametisdsadsadsadsadsadasdasdastle" key="0-2-0" />
-          </TreeNode>
-          <TreeNode value="same value6" title="same titleasdsadsdsa3" key="0-3" />
-          <TreeNode value="same value7" title="same titlsdasdsadasse4" key="0-4" />
-          <TreeNode value="same value8" title="same titl6e" key="0-5" />
-        </TreeSelect>
+            <TreeNode value="same value5" title="same titasdasdasdsdasdasdsadale" key="0-2">
+              <TreeNode value="2same value" title="2sametisdsadsadsadsadsadasdasdastle" key="0-2-0" />
+            </TreeNode>
+            <TreeNode value="same value6" title="same titleasdsadsdsa3" key="0-3" />
+            <TreeNode value="same value7" title="same titlsdasdsadasse4" key="0-4" />
+            <TreeNode value="same value8" title="same titl6e" key="0-5" />
+          </TreeSelect>
 
-        <h2>use async loadData</h2>
-        <TreeSelect
-          style={{ width: 300 }}
-          placeholder={<i>请下拉选择</i>}
-          searchPlaceholder="please search"
-          value={this.state.asyncTreeValue}
-          treeData={this.state.asyncTreeData}
-          onChange={(value) => {
-            this.setState({ asyncTreeValue: value })
-          }}
-          onSelect={this.onSelect.bind(this)}
-          loadData={this.loadData}
-          onAllClear={this.onAllClear}
-          multiple
-          labelInValue
-        />
-      </div>
+          <h2>use async loadData</h2>
+          <TreeSelect
+            style={{ width: 300 }}
+            placeholder={<i>请下拉选择</i>}
+            searchPlaceholder="please search"
+            value={this.state.asyncTreeValue}
+            treeData={this.state.asyncTreeData}
+            onChange={(value) => {
+              this.setState({ asyncTreeValue: value })
+            }}
+            onSelect={this.onSelect.bind(this)}
+            loadData={this.loadData}
+            onAllClear={this.onAllClear}
+            multiple
+            labelInValue
+          />
+        </div>
       </UxcoreConfigProvider>
     );
   }

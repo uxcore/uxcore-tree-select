@@ -6,7 +6,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import i18n from './i18n';
 
 export default class RightTreeNode extends React.Component {
   constructor(props) {

@@ -13,7 +13,6 @@ import {
   saveRef,
 } from 'rc-tree-select/lib/util';
 import toArray from 'rc-util/lib/Children/toArray';
-import i18n from './i18n';
 import { flatToHierarchy } from './utils';
 import RightTreeNode from './RightTreeNode';
 
