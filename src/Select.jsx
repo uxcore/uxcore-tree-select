@@ -115,7 +115,7 @@ class Select extends Component {
     filterResultsPanel: PropTypes.bool,
     showPathLine: PropTypes.bool,
     splitText: PropTypes.string,
-    locale: PropTypes.oneOf(['zh-cn', 'en-us']),
+    locale: PropTypes.string,
     localePack: PropTypes.object,
     size: PropTypes.oneOf(['large', 'middle', 'small']),
   });

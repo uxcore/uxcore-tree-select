@@ -135,7 +135,7 @@ RightTreeNode.propTypes = {
   level: PropTypes.number,
   removeSelected: PropTypes.func,
   pos: PropTypes.string,
-  locale: PropTypes.oneOf(['zh-cn', 'en-us']),
+  locale: PropTypes.string,
   localePack: PropTypes.object,
   dropdownWidth: PropTypes.number,
   keys: PropTypes.array,
