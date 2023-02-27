@@ -6,6 +6,7 @@
  * All rights reserved.
  */
 import React from 'react';
+import UxcoreConfigProvider from 'uxcore-config-provider';
 import TreeSelect, { TreeNode, SHOW_PARENT } from '../src';
 
 function generateData(x = 3, y = 2, z = 1, gData = []) {
@@ -146,7 +147,16 @@ class Demo extends React.Component {
   }
   render() {
     return (
-      <div style={{ margin: 20 }}>
+      <UxcoreConfigProvider localePack={
+        {
+          TreeSelect: {
+            // alreadyChoosed: '已选择（自定义文案）',
+            // delete: '删掉',
+            // clear: '清完',
+          }
+        }
+      }>
+        <div style={{ margin: 20 }}>
         <h2>single select</h2>
         <TreeSelect
           style={{ width: 300 }}
@@ -350,7 +360,8 @@ class Demo extends React.Component {
           multiple
           labelInValue
         />
-      </div>
+        </div>
+      </UxcoreConfigProvider>
     );
   }
 }
