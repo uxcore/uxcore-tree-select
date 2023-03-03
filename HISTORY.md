@@ -1,6 +1,9 @@
 # HISTORY
 
----
+--- 
+## 0.4.27
+* `FEATURE` 新增 locale key en_US zh_CN  (#45))
+
 ## 0.4.26
 * `FEATURE` support localePack
 
