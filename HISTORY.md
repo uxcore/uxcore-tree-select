@@ -1,6 +1,9 @@
 # HISTORY
 
 ---
+## 0.4.26
+* `FEATURE` support localePack
+
 ## 0.4.23
 * `FIXED` a popup will show when remove a selected item
 
